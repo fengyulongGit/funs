@@ -1,2 +1,2 @@
-# funs
-funs 
+# projects
+projects 
