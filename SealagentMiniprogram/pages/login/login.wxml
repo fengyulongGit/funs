@@ -1,0 +1,34 @@
+<view class="page">
+  <view>
+    <view class='title_text'>手机号码登录/注册</view>
+    <image class='title_icon' src='../../static/images/img_login_welcome.png' />
+  </view>
+
+  <input type='text' class='input_mobile' placeholder='请输入手机号码' placeholder-class='input_placeholder' bindinput='inputMobile' />
+  <view class='splite_line'></view>
+
+  <view class='flex_box'>
+    <input type='text' class='input_captcha' placeholder='请输入验证码' placeholder-class='input_placeholder' bindinput='inputCaptcha' />
+    <view wx:if='{{countDown}}' class='send_captcha_disable'>{{countDown}}S 后重发</view>
+    <view wx:else class='send_captcha' bindtap='sendCaptcha'>获取验证码</view>
+  </view>
+  <view class='splite_line'></view>
+
+  <view wx:if='{{mobile && captcha}}' class='btn_login' bindtap='login'>登录</view>
+  <view wx:else class='btn_login_disable'>登录</view>
+
+  <view class='flex_box'>
+    <view class='protocol' bindtap='protocol'>登录代表同意《海豹特工用户协议》</view>
+  </view>
+
+  <view class='flex_box' style='margin-top:60px;'>
+    <view class='three_login_line'></view>
+    <view class='three_login_text'>第三方账号登录</view>
+    <view class='three_login_line'></view>
+  </view>
+
+  <view class='flex_box' style='margin-top:12px;'>
+    <button wx:if="{{!hasWechatInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btn_wechat_login' style='background-image: url(../../static/images/ic_wechat.png);'/>
+    <image wx:else bindtap="wechatlogin" class="btn_wechat_login_avatar" src="{{wechatInfo.userInfo.avatarUrl}}" mode="cover"></image>
+  </view>
+</view>

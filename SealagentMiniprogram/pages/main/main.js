@@ -1,5 +1,3 @@
-// Page/main/main.js
-
 const network = require("../../static/utils/network.js")
 
 var col1H = 0;

@@ -2,7 +2,9 @@
   "pages": [
     "pages/main/main",
     "pages/mine/mine",
-    "pages/phoster/phoster"
+    "pages/phoster/phoster",
+    "pages/login/login",
+    "pages/protocol/protocol"
   ],
   "window": {
     "navigationStyle": "default",

@@ -1,0 +1,141 @@
+.title_text {
+  margin-left: 30px;
+  margin-top: 60px;
+  font-size: 22px;
+  color: #333;
+  letter-spacing: 0.07px;
+}
+
+.title_icon {
+  width: 78px;
+  height: 78px;
+  position: absolute;
+  top: 0px;
+  right: 30px;
+}
+
+.input_mobile {
+  width: calc(100vw - 60px);
+  height: 46px;
+  margin: 30px 30px 0 30px;
+  line-height: 46px;
+  font-size: 18px;
+  color: #333;
+  letter-spacing: 0.05px;
+}
+
+.input_placeholder {
+  font-size: 15px;
+  color: #ccc;
+  letter-spacing: 0.05px;
+}
+
+.input_captcha {
+  width: calc(100vw - 60px - 112px - 10px);
+  height: 46px;
+  margin-left: 30px;
+  line-height: 46px;
+  font-size: 18px;
+  color: #333;
+  letter-spacing: 0.05px;
+}
+
+.send_captcha {
+  width: 112px;
+  height: 32px;
+  border: 1px solid #ff9a08;
+  border-radius: 18px;
+  text-align: center;
+  line-height: 32px;
+  font-size: 14px;
+  color: #ff9a08;
+  letter-spacing: 0.05px;
+  margin-left: 10px;
+  margin-right: 30px;
+}
+
+.send_captcha_disable {
+  width: 112px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  text-align: center;
+  line-height: 32px;
+  font-size: 14px;
+  color: #ccc;
+  letter-spacing: 0.05px;
+  margin-left: 10px;
+  margin-right: 30px;
+}
+
+.splite_line {
+  width: calc(100% - 60px);
+  margin: 0 30px;
+}
+
+.btn_login {
+  background: #ff9a08;
+  border-radius: 24px;
+  height: 48px;
+  width: calc(100vw - 60px);
+  margin: 70px 30px 0 30px;
+  line-height: 48px;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.07px;
+  text-align: center;
+}
+
+.btn_login_disable {
+  background: #e5e5e5;
+  border-radius: 24px;
+  height: 48px;
+  width: calc(100vw - 60px);
+  margin: 70px 30px 0 30px;
+  line-height: 48px;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.07px;
+  text-align: center;
+}
+
+.protocol {
+  width: auto;
+  font-size: 12px;
+  color: #989898;
+  letter-spacing: 0.04px;
+  margin-top: 12px;
+}
+
+.three_login_line {
+  width: calc(50vw - 50px - 16px - 30px);
+  height: 1px;
+  background-color: #d8d8d8;
+}
+
+.three_login_text {
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #666;
+  margin: 0 16px;
+}
+
+.btn_wechat_login {
+  width: 44px;
+  height: 44px;
+  background-size: 44px 44px;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 0;
+  border-radius: 0px;
+  background-color: transparent;
+  outline: none;
+}
+
+.btn_wechat_login_avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
