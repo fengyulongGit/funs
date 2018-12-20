@@ -1,4 +1,4 @@
-const network = require("../../utils/network.js")
+const network = require("../../static/utils/network.js")
 
 const app = getApp()
 Page({

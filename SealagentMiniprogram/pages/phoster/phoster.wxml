@@ -1,5 +1,5 @@
-<wxs module="color_filter" src="../../utils/ColorUtils.wxs" />
-<wxs module="schema_filter" src="../../utils/SchemaUtils.wxs" />
+<wxs module="color_filter" src="../../static/utils/ColorUtils.wxs" />
+<wxs module="schema_filter" src="../../static/utils/SchemaUtils.wxs" />
 
 <view class="page">
   <view style='height:20px;'></view>
@@ -57,15 +57,15 @@
   <!-- 替换文字 -->
   <view class='flex_box'>
     <view class='btn_item' bindtap='replaceTemplate'>
-      <image src='../../images/ic_replace_template.png' />
+      <image src='../../static/images/ic_replace_template.png' />
       <view>更换模板</view>
     </view>
     <view class='btn_item' style='margin-left:35px;margin-right:35px;' bindtap='replacePicture'>
-      <image src='../../images/ic_replace_picture.png' />
+      <image src='../../static/images/ic_replace_picture.png' />
       <view>更换图片</view>
     </view>
     <view class='btn_item' bindtap='replaceText'>
-      <image src='../../images/ic_replace_text.png' />
+      <image src='../../static/images/ic_replace_text.png' />
       <view>更换文案</view>
     </view>
   </view>
@@ -121,7 +121,7 @@
 <view class='dialog_center' wx:if='{{isShowInputDialog}}'>
 
   <view class='dialog_center_title'>
-    <image class='dialog_center_title_icon' src='../../images/ic_keyboard_cur.png'></image>
+    <image class='dialog_center_title_icon' src='../../static/images/ic_keyboard_cur.png'></image>
     <view class='dialog_center_title_text'>编辑内容</view>
     <view class='dialog_center_title_right_btn' bindtap='hideTextInput'>完成</view>
   </view>
