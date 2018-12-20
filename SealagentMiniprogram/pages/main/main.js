@@ -131,9 +131,9 @@ Page({
       }
     )
   },
-  phoster: function(event) {
-    const id = event.currentTarget.id
-    const schema = event.currentTarget.dataset.schema
+  phoster: function(e) {
+    const id = e.currentTarget.id
+    const schema = e.currentTarget.dataset.schema
 
     wx.navigateTo({
       url: '../phoster/phoster?template_id=' + id + '&schema=' + schema,

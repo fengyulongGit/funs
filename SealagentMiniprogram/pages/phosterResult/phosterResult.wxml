@@ -1,0 +1,28 @@
+<view class="page">
+  <view style='height:20px;'></view>
+  <!-- schema布局 -->
+  <view class='content'>
+    <image wx:if='{{work.thumbnail}}' mode='aspectFit' src="{{host_static}}{{work.thumbnail}}"></image>
+  </view>
+
+  <!-- 替换文字 -->
+  <view class='flex_box paddingLR40'>
+    <view class='flex_box' bindtap='changeProtocol'>
+      <image class='checkbox' src='../../static/images/{{protocol ? "ckb_checked" : "ckb_default"}}.png'></image>
+      <view class='tongyi'>同意</view>
+    </view>
+    <view class='protocol' bindtap='protocol'>《创意物料服务协议》</view>
+    <view class='flex_item_auto'></view>
+    <view class='flex_box' bindtap='preview'>
+      <image class='ic_preview' src='../../static/images/ic_preview.png'></image>
+      <view class='yulan'>预览</view>
+    </view>
+  </view>
+
+  <view class='flex_box padding16'>
+    <!-- 底部按钮 -->
+    <view wx:if='{{editable}}' class='btn_edit flex_item_auto' bindtap='edit'>编辑</view>
+    <view wx:if='{{protocol}}' class='btn_download flex_item_auto' style='margin-left:{{editable?8:0}}px;' bindtap='download'>下载</view>
+    <view wx:else class='btn_download_disable flex_item_auto' style='margin-left:{{editable?8:0}}px;'>下载</view>
+  </view>
+</view>

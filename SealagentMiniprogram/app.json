@@ -4,7 +4,8 @@
     "pages/mine/mine",
     "pages/phoster/phoster",
     "pages/login/login",
-    "pages/protocol/protocol"
+    "pages/protocol/protocol",
+    "pages/phosterResult/phosterResult"
   ],
   "window": {
     "navigationStyle": "default",

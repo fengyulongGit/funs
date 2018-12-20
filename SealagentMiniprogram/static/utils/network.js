@@ -68,7 +68,7 @@ var request = {
             })
           } else {
             wx.showToast({
-              title: res.data.message,
+              title: res.data.desc,
               icon: 'none'
             })
             fail(res.data)

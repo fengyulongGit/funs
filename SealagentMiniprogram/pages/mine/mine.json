@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#FF9A08",
+  "disableScroll": true
+}

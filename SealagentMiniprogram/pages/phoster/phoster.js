@@ -8,6 +8,7 @@ Page({
   data: {
     host_static: app.globalData.host_static,
     template_id: 0,
+    work_id: 0,
     content: {
       width: 0,
       height: 0,
@@ -38,6 +39,7 @@ Page({
     console.log(options)
 
     this.setData({
+      work_id: options.work_id,
       template_id: options.template_id,
       schema: JSON.parse(options.schema)
     })
@@ -302,8 +304,8 @@ Page({
     text.schema.text = str
 
     let textlist = this.data.textlist
-    for(let i in textlist){
-      if (type == textlist[i].type && index == textlist[i].index){
+    for (let i in textlist) {
+      if (type == textlist[i].type && index == textlist[i].index) {
         textlist[i].schema.text = str
       }
     }
@@ -353,8 +355,14 @@ Page({
     )
   },
   done: function(e) {
-    network.savework(this.data.template_id, this.data.schema, function(e) {
+    const template_id = this.data.template_id
+    const schema = JSON.stringify(this.data.schema)
+    console.log(schema)
+    network.savework(template_id, schema, function(e) {
       console.log(e)
+      wx.navigateTo({
+        url: '../phosterResult/phosterResult?work=' + JSON.stringify(e),
+      })
     })
   }
 })

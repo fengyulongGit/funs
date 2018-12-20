@@ -32,6 +32,10 @@
   align-content: center;
 }
 
+.flex_item_auto{
+  flex: 1;
+}
+
 .dialog_bg{
   position: fixed;
   width: 100vw;
