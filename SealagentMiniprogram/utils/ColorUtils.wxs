@@ -1,0 +1,9 @@
+var color_filter = {
+  rgbToHex:function(rgb){
+    return rgb.toString(16)
+  }
+}
+
+module.exports = {
+  rgbToHex: color_filter.rgbToHex
+}

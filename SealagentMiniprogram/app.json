@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/mine/mine",
+    "pages/phoster/phoster"
+  ],
+  "window": {
+    "navigationStyle": "default",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "海豹特工",
+    "navigationBarBackgroundColor": "#F5F5F5",
+    "backgroundColor": "#F5F5F5",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#B5B5B5",
+    "selectedColor": "#FF9A08",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页",
+        "iconPath": "images/tab_home_nor.png",
+        "selectedIconPath": "images/tab_home_checked.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tab_mine_nor.png",
+        "selectedIconPath": "images/tab_mine_checked.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 30000,
+    "connectSocket": 30000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "debug": true
+}

@@ -1,0 +1,45 @@
+/* @import "./style/FangZheng-LanTingCuHei.wxss";
+@import "./style/FangZheng-ZhongYaSong.wxss";
+@import "./style/PingFang-Regular.wxss";
+@import "./style/PingFangSC-Medium.wxss"; */
+
+.page{
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  font-size: 16px;
+  /* font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif; */
+  font-family: PingFang-Regular;
+}
+
+.btn{
+  background: #FF9A08;
+  border-radius: 6px;
+  height: 48px;
+  width: calc(100vw - 32px);
+  margin: 16px;
+  line-height: 48px;
+  font-size: 18px;
+  color: #FFFFFF;
+  letter-spacing: 0.06px;
+  text-align: center;
+}
+
+.flex_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.dialog_bg{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0.2;
+  z-index: 9000;
+  overflow: hidden;
+}

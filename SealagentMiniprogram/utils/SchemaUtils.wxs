@@ -1,0 +1,53 @@
+var color_filter = require("./ColorUtils.wxs")
+
+var schema_filter = {
+  image: function(image) {
+    return 'width:' + image.size.width + 'px; ' +
+      'height:' + image.size.height + 'px; ' +
+      'left:' + image.position.x + 'px; ' +
+      'top:' + image.position.y + 'px;'
+  },
+  text: function(text) {
+    return 'width:' + (text.size.width + 10) + 'px;' +
+      'height:' + text.size.height + 'px;' +
+      'line-height:' + text.size.height + 'px;' +
+      'left:' + text.position.x + 'px;' +
+      'top:' + text.position.y + 'px;' +
+      'font-size:' + text.font.size + 'px;' +
+      'display: flex;' +
+      schema_filter.getAlign(text.alignment) +
+      // 'font-family:' + text.font.family + ";" +
+      'white-space: nowrap;' +
+      'color:#' + color_filter.rgbToHex(text.color.rgb) + ';' +
+      'opacity:' + text.color.alpha / 255 + ';' +
+      'overflow: hidden;'
+  },
+  border: function(border) {
+    return 'width:' + (border.size.width - border.weight * 2) + 'px;' +
+      'height:' + (border.size.height - border.weight * 2) + 'px;' +
+      'left:' + border.position.x + 'px;' +
+      'top:' + border.position.y + 'px;' +
+      'border:' + border.weight + 'px solid #' + color_filter.rgbToHex(border.color.rgb) + ';' +
+      'border-radius:' + border.radius + 'px;' +
+      'opacity:' + border.color.alpha / 255 + ';'
+  },
+  getAlign: function(alignment) {
+    var type = ''
+    if (alignment == 0 || alignment == 3 || alignment == 6) {
+      type = "left"
+    } else if (alignment == 1 || alignment == 4 || alignment == 7) {
+      type = "center"
+    } else if (alignment == 2 || alignment == 5 || alignment == 8) {
+      type = "right"
+    }
+
+    return 'text-align:' + type + ';' +
+      'justify-content: ' + type + ';'
+  }
+}
+
+module.exports = {
+  image: schema_filter.image,
+  text: schema_filter.text,
+  border: schema_filter.border,
+}

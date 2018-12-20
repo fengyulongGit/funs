@@ -1,0 +1,29 @@
+.title{
+  width: 100%;
+  text-align: left;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: 0.07px;
+  padding-left: 16px;
+  position: fixed;
+  top: 0px;
+  background: white;
+  /* font-family: FangZheng-ZhongYaSong; */
+}
+
+.content{
+  width:100%;
+  padding-left:8px;
+  margin-top:30px;
+}
+
+.item {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(50vw - 8px);
+}
+
+.item_image{
+  margin:4px 8px;
+  box-shadow: 0 0 4px rgba(181,181,181,0.5);
+}
