@@ -129,8 +129,8 @@ Page({
       return
     }
 
-    const key = CryptoJS.enc.Utf8.parse("tiihtNczf5v6AKRyjwEUhQ==")//十六位十六进制数作为秘钥
-    var iv = CryptoJS.enc.Utf8.parse('r7BXXKkLb8qrSNn05n0qiA==');//十六位十六进制数作为秘钥偏移量
+    // const key = CryptoJS.enc.Utf8.parse("tiihtNczf5v6AKRyjwEUhQ==")//十六位十六进制数作为秘钥
+    // var iv = CryptoJS.enc.Utf8.parse('r7BXXKkLb8qrSNn05n0qiA==');//十六位十六进制数作为秘钥偏移量
     // wechatInfo.encryptedData
   }
 })

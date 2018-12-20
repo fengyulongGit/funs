@@ -9,6 +9,7 @@ Page({
     work: {},
     editable: false,
     protocol: true,
+    writePhotosAlbum:false,
   },
 
   /**
@@ -21,6 +22,8 @@ Page({
       work: JSON.parse(options.work),
       editable: options.editable || false
     })
+
+    this.authorizePhotosAlbum()
   },
   changeProtocol: function(e) {
     const protocol = this.data.protocol
@@ -56,11 +59,9 @@ Page({
           console.log(tapIndex)
 
           if (tapIndex == 0) {
-            // that.authorizePhotosAlbum(host_static+work.thumbnail)
-            that.downloadImage(host_static+work.thumbnail)
+            that.downloadImage(host_static+work.thumbnail,res)
           } else if (tapIndex == 1) {
-            // that.authorizePhotosAlbum(host_static+work.src)
-            that.downloadImage(host_static +work.src)
+            that.downloadImage(host_static + work.src, res)
           } else if (tapIndex == 2) {
 
           } else if (tapIndex == 3) {
@@ -78,50 +79,43 @@ Page({
       }
     })
   },
-  authorizePhotosAlbum(url) {
+  authorizePhotosAlbum() {
+    const that = this
     //获取相册授权
     wx.getSetting({
       success(res) {
+        console.log(res)
         if (!res.authSetting['scope.writePhotosAlbum']) {
           wx.authorize({
             scope: 'scope.writePhotosAlbum',
             success() {
               console.log('授权成功')
-              this.downloadImage(url)
+              
+              that.setData({
+                writePhotosAlbum:true
+              })
             },
             fail(err) {
               console.log(err)
-              if (err.errMsg === "authorize:fail auth deny") {
-                console.log("当初用户拒绝，再次发起授权")
-                wx.openSetting({
-                  success(settingdata) {
-                    console.log(settingdata)
-                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                      console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-                      wx.showToast({
-                        title: '再次下载可保存到相册',
-                        icon: 'none'
-                      })
-                    } else {
-                      console.log('获取权限失败，给出不给权限就无法正常使用的提示')
-                      wx.showToast({
-                        title: '无权限无法保存到相册',
-                        icon: 'none'
-                      })
-                    }
-                  },
-                  fail(err) {
-                    console.log(err);
-                  }
-                })
-              }
+              that.setData({
+                writePhotosAlbum: false
+              })
             },
+          })
+        }else{
+          that.setData({
+            writePhotosAlbum: true
           })
         }
       }
     })
   },
-  downloadImage(url) {
+  downloadImage(url,e) {
+    if (!this.data.writePhotosAlbum){
+      this.openSetting(e)
+      return
+    }
+
     wx.downloadFile({
       url: url,
       success(res) {
@@ -139,31 +133,45 @@ Page({
             console.log(err);
             if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
               console.log("当初用户拒绝，再次发起授权")
-              wx.openSetting({
-                success(settingdata) {
-                  console.log(settingdata)
-                  if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                    console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-                    wx.showToast({
-                      title: '再次下载可保存到相册',
-                      icon: 'none'
-                    })
-                  } else {
-                    console.log('获取权限失败，给出不给权限就无法正常使用的提示')
-                    wx.showToast({
-                      title: '无权限无法保存到相册',
-                      icon: 'none'
-                    })
-                  }
-                },
-                fail(err) {
-                  console.log(err);
-                }
-              })
+              
             }
           }
         })
       }
     })
   },
+  openSetting(e){
+    const that = this
+    
+    wx.openSetting({
+      success(settingdata) {
+        console.log(settingdata)
+        if (settingdata.authSetting['scope.writePhotosAlbum']) {
+          console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+          wx.showToast({
+            title: '再次下载可保存到相册',
+            icon: 'none'
+          })
+          that.setData({
+            writePhotosAlbum: true
+          })
+        } else {
+          console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+          wx.showToast({
+            title: '无权限无法保存到相册',
+            icon: 'none'
+          })
+          that.setData({
+            writePhotosAlbum: false
+          })
+        }
+      },
+      fail(err) {
+        console.log(err);
+        that.setData({
+          writePhotosAlbum: false
+        })
+      }
+    })
+  }
 })
