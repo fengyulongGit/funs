@@ -176,6 +176,21 @@ var request = {
       }
     )
   },
+  getuserbusinesscard: function (success){
+    this.requestLoading(
+      "v1/user/getuserbusinesscard", {
+        "user_id": app.getUser_id(),
+        "token": app.getToken()
+      },
+      "加载中",
+      success,
+      function (e) {
+        console.log(e)
+      }
+    )
+  }
+
+  
 }
 
 module.exports = request

@@ -7,14 +7,14 @@
   <view class='content'>
     <view class='scale_origin_left_top' style='width:{{schema.size.width}}px;height:{{schema.size.height}}px;transform: scale({{content.scale}},{{content.scale}});margin-left:{{content.left}}px;'>
       <!-- 背景 -->
-      <image wx:if="{{schema.background.src}}" src='{{host_static}}{{schema.background.src}}' style='{{schema_filter.image(schema.background)}}' bindtap='{{schema.background.editable ? "replacePicture" : ""}}' data-type='background'/>
+      <image wx:if="{{schema.background.src}}" src='{{host_static}}{{schema.background.src}}' style='{{schema_filter.image(schema.background)}}' bindtap='{{schema.background.editable ? "replacePicture" : ""}}' data-type='background' />
       <view class='schema_item_absolute' wx:if="{{schema.background.border}}" style='{{schema_filter.border(schema.background.border)}}' bindtap='{{schema.background.editable ? "replacePicture" : ""}}' data-type='background'></view>
 
       <!-- childs -->
       <block wx:for="{{schema.childs}}" wx:key="index">
         <!-- 图片类型 -->
         <block wx:if="{{item.class === 'Image'}}">
-          <image class='schema_item_absolute' wx:if="{{item.src}}" src='{{host_static}}{{item.src}}' style='{{schema_filter.image(item)}}' bindtap='{{item.editable ? "replacePicture" : ""}}' data-type='childs' data-index='{{index}}'/>
+          <image class='schema_item_absolute' wx:if="{{item.src}}" src='{{host_static}}{{item.src}}' style='{{schema_filter.image(item)}}' bindtap='{{item.editable ? "replacePicture" : ""}}' data-type='childs' data-index='{{index}}' />
           <view class='schema_item_absolute' wx:if="{{item.border}}" style='{{schema_filter.border(item.border)}}' bindtap='{{item.editable ? "replacePicture" : ""}}' data-type='childs' data-index='{{index}}'></view>
 
         </block>
@@ -22,7 +22,8 @@
         <block wx:elif="{{item.class === 'Text'}}">
 
           <!-- 文字类型--背景 -->
-          <image class='schema_item_absolute' wx:if="{{item.background.src}}" src='{{host_static}}{{item.background.src}}' style='{{schema_filter.image(item.background)}}' bindtap='{{item.background.editable ? "replacePicture" : ""}}' data-type='childs_background' data-index='{{index}}'/>
+          <image class='schema_item_absolute' wx:if="{{item.background.src}}" src='{{host_static}}{{item.background.src}}' style='{{schema_filter.image(item.background)}}' bindtap='{{item.background.editable ? "replacePicture" : ""}}' data-type='childs_background'
+            data-index='{{index}}' />
           <view class='schema_item_absolute' wx:if="{{item.background.border}}" style='{{schema_filter.border(item.background.border)}}' bindtap='{{item.background.editable ? "replacePicture" : ""}}' data-type='childs_background' data-index='{{index}}'></view>
 
           <!-- 文字类型--文字 -->
@@ -35,19 +36,73 @@
       </block>
 
       <!-- desc -->
-      <image class='schema_item_absolute' wx:if="{{schema.desc.background.src}}" src='{{host_static}}{{schema.desc.background.src}}' style='{{schema_filter.image(schema.desc.background)}}' bindtap='{{schema.desc.background.editable ? "replacePicture" : ""}}' data-type='desc_background'/>
+      <image class='schema_item_absolute' wx:if="{{schema.desc.background.src}}" src='{{host_static}}{{schema.desc.background.src}}' style='{{schema_filter.image(schema.desc.background)}}' bindtap='{{schema.desc.background.editable ? "replacePicture" : ""}}'
+        data-type='desc_background' />
       <view class='schema_item_absolute' wx:if="{{schema.desc.background.border}}" style='{{schema_filter.border(schema.desc.background.border)}}' bindtap='{{schema.desc.background.editable ? "replacePicture" : ""}}' data-type='desc_background'></view>
 
       <view wx:if="{{schema.desc.text}}" class='schema_item_absolute' style='{{schema_filter.text(schema.desc)}}' bindtap='{{schema.desc.editable ? "selectText" : ""}}' data-type='desc'>
         {{schema.desc.text}}
       </view>
       <!-- title -->
-      <image class='schema_item_absolute' wx:if="{{schema.title.background.src}}" src='{{host_static}}{{schema.title.background.src}}' style='{{schema_filter.image(schema.title.background)}}' bindtap='{{schema.title.background.editable ? "replacePicture" : ""}}' data-type='title_background' />
-      <view class='schema_item_absolute' wx:if="{{schema.title.background.border}}" style='{{schema_filter.border(schema.title.background.border)}}'  bindtap='{{schema.title.background.editable ? "replacePicture" : ""}}' data-type='title_background'></view>
+      <image class='schema_item_absolute' wx:if="{{schema.title.background.src}}" src='{{host_static}}{{schema.title.background.src}}' style='{{schema_filter.image(schema.title.background)}}' bindtap='{{schema.title.background.editable ? "replacePicture" : ""}}'
+        data-type='title_background' />
+      <view class='schema_item_absolute' wx:if="{{schema.title.background.border}}" style='{{schema_filter.border(schema.title.background.border)}}' bindtap='{{schema.title.background.editable ? "replacePicture" : ""}}' data-type='title_background'></view>
 
-        <view wx:if="{{schema.title.text}}" class='schema_item_absolute' style='{{schema_filter.text(schema.title)}}' bindtap='{{schema.title.editable ? "selectText" : ""}}' data-type='title'>
-          {{schema.title.text}}
-        </view>
+      <view wx:if="{{schema.title.text}}" class='schema_item_absolute' style='{{schema_filter.text(schema.title)}}' bindtap='{{schema.title.editable ? "selectText" : ""}}' data-type='title'>
+        {{schema.title.text}}
+      </view>
+
+      <!-- 企业名片 -->
+      <block wx:if='{{userBusinessCard.display == "1"}}'>
+        <!-- 背景 -->
+        <image class='schema_item_absolute' wx:if="{{schema.card.background.src}}" src='{{host_static}}{{schema.card.background.src}}' style='{{schema_filter.image(schema.card.background)}}' bindtap='{{schema.card.background.editable ? "replacePicture" : ""}}'
+          data-type='card_background' />
+        <view class='schema_item_absolute' wx:if="{{schema.card.background.border}}" style='{{schema_filter.border(schema.card.background.border)}}' bindtap='{{schema.card.background.editable ? "replacePicture" : ""}}' data-type='card_background' />
+
+        <!-- 地址 -->
+        <block wx:if="{{schema.card.address.text}}">
+          <image class='schema_item_absolute' wx:if="{{schema.card.address.background.src}}" src='{{host_static}}{{schema.card.address.background.src}}' style='{{schema_filter.image(schema.card.address.background)}}' bindtap='{{schema.card.address.background.editable ? "replacePicture" : ""}}'
+            data-type='card_address_background' />
+          <view class='schema_item_absolute' wx:if="{{schema.card.address.background.border}}" style='{{schema_filter.border(schema.card.address.background.border)}}' bindtap='{{schema.card.address.background.editable ? "replacePicture" : ""}}' data-type='card_address_background'
+          />
+
+          <view class='schema_item_absolute' style='{{schema_filter.text(schema.card.address)}}' bindtap='{{schema.card.address.editable ? "selectText" : ""}}' data-type='card_address'>
+            {{schema.card.address.text}}
+          </view>
+        </block>
+
+        <!-- 电话 -->
+        <block wx:if="{{schema.card.tel.text}}">
+          <image class='schema_item_absolute' wx:if="{{schema.card.tel.background.src}}" src='{{host_static}}{{schema.card.tel.background.src}}' style='{{schema_filter.image(schema.card.tel.background)}}' bindtap='{{schema.card.tel.background.editable ? "replacePicture" : ""}}'
+            data-type='card_tel_background' />
+          <view class='schema_item_absolute' wx:if="{{schema.card.tel.background.border}}" style='{{schema_filter.border(schema.card.tel.background.border)}}' bindtap='{{schema.card.tel.background.editable ? "replacePicture" : ""}}' data-type='card_tel_background'
+          />
+
+          <view class='schema_item_absolute' style='{{schema_filter.text(schema.card.tel)}}' bindtap='{{schema.card.tel.editable ? "selectText" : ""}}' data-type='card_tel'>
+            {{schema.card.tel.text}}
+          </view>
+        </block>
+
+        <!-- 店名 -->
+        <block wx:if="{{schema.card.name.text}}">
+          <image class='schema_item_absolute' wx:if="{{schema.card.name.background.src}}" src='{{host_static}}{{schema.card.name.background.src}}' style='{{schema_filter.image(schema.card.name.background)}}' bindtap='{{schema.card.name.background.editable ? "replacePicture" : ""}}'
+            data-type='card_name_background' />
+          <view class='schema_item_absolute' wx:if="{{schema.card.name.background.border}}" style='{{schema_filter.border(schema.card.name.background.border)}}' bindtap='{{schema.card.name.background.editable ? "replacePicture" : ""}}' data-type='card_name_background'
+          />
+
+          <view class='schema_item_absolute' style='{{schema_filter.text(schema.card.name)}}' bindtap='{{schema.card.name.editable ? "selectText" : ""}}' data-type='card_name'>
+            {{schema.card.name.text}}
+          </view>
+        </block>
+
+        <!-- 品牌 -->
+        <image class='schema_item_absolute' wx:if="{{schema.card.logo.src}}" src='{{host_static}}{{schema.card.logo.src}}' style='{{schema_filter.image(schema.card.logo)}}' bindtap='{{schema.card.logo.editable ? "replacePicture" : ""}}'
+          data-type='card_logo' />
+        <view class='schema_item_absolute' wx:if="{{schema.card.logo.border}}" style='{{schema_filter.border(schema.card.logo.border)}}' bindtap='{{schema.card.logo.editable ? "replacePicture" : ""}}' data-type='card_logo'
+        />
+
+      </block>
+
     </view>
 
   </view>
@@ -83,13 +138,13 @@
     <view class='dialog_bottom_title_right_btn' bindtap='hideTemplateinfolist'>完成</view>
   </view>
   <scroll-view scroll-x class='dialog_bottom_scroll'>
-    <block wx:for="{{templateinfolist}}" wx:key="id" >
+    <block wx:for="{{templateinfolist}}" wx:key="id">
       <view class='dialog_bottom_scroll_item' bindtap='selectTemplate' data-template_id='{{item.id}}' data-schema='{{item.schema}}' style='margin-left:{{index == 0 ? "0" : "4"}}px;'>
 
         <image mode='aspectFit' src="{{host_static}}{{item.thumbnail}}" />
 
         <view wx:if='{{item.id == template_id}}' class='dialog_bottom_scroll_item_shade'></view>
-        
+
       </view>
     </block>
   </scroll-view>
@@ -104,13 +159,13 @@
     <view class='dialog_bottom_title_right_btn' bindtap='hidePicturelist'>完成</view>
   </view>
   <scroll-view scroll-x class='dialog_bottom_scroll'>
-    <block wx:for="{{picturelist}}" wx:key="id" >
+    <block wx:for="{{picturelist}}" wx:key="id">
       <view class='dialog_bottom_scroll_item' bindtap='selectPicture' data-src='{{item.src}}' style='margin-left:{{index == 0 ? "0" : "4"}}px;'>
 
         <image mode='aspectFit' src="{{host_static}}{{item.thumbnail}}" />
 
         <view wx:if='{{item.src == image.schema.src}}' class='dialog_bottom_scroll_item_shade'></view>
-        
+
       </view>
     </block>
   </scroll-view>
@@ -138,13 +193,13 @@
     <view class='dialog_bottom_title_right_btn' bindtap='hideTextlist'>完成</view>
   </view>
   <scroll-view scroll-x class='dialog_bottom_scroll'>
-    <block wx:for="{{textlist}}" wx:key="id" >
+    <block wx:for="{{textlist}}" wx:key="id">
       <view class='dialog_bottom_scroll_item' bindtap='selectText' data-type='{{item.type}}' data-index='{{item.index}}' style='margin-left:{{index == 0 ? "0" : "4"}}px;'>
 
         <view class='dialog_bottom_scroll_item_text'>{{item.schema.text}}</view>
 
         <view wx:if='{{item.type == text.type && item.index == text.index}}' class='dialog_bottom_scroll_item_shade'></view>
-        
+
       </view>
     </block>
   </scroll-view>

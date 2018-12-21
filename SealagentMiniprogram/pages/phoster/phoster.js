@@ -7,6 +7,7 @@ Page({
    */
   data: {
     host_static: app.globalData.host_static,
+    userBusinessCard: {},
     template_id: 0,
     work_id: 0,
     content: {
@@ -39,10 +40,12 @@ Page({
     console.log(options)
 
     this.setData({
-      work_id: options.work_id,
-      template_id: options.template_id,
-      schema: JSON.parse(options.schema)
+      work_id: options.work_id || 0,
+      template_id: options.template_id || 0,
+      schema: JSON.parse(options.schema || "{}")
     })
+
+    this.initSchema()
   },
 
   /**
@@ -61,6 +64,82 @@ Page({
       })
       that.initScale()
     }).exec()
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    const that = this
+    if (app.isLogined()) {
+      //获取名片信息
+      network.getuserbusinesscard(function(userBusinessCard) {
+        that.setData({
+          userBusinessCard: userBusinessCard
+        })
+
+        that.initSchema()
+      })
+    } else {
+      that.setData({
+        userBusinessCard: {}
+      })
+      that.initSchema()
+    }
+  },
+  onShareAppMessage:function(){
+
+  },
+  initSchema() {
+    const userBusinessCard = this.data.userBusinessCard
+    if (!userBusinessCard) {
+      return
+    }
+
+    let schema = this.data.schema
+    if (!schema || !schema.card) {
+      return
+    }
+
+    const display = userBusinessCard.display || 0
+    let logo = userBusinessCard.logo || ''
+    let name = userBusinessCard.name || ''
+    let tel = userBusinessCard.tel || ''
+    let address = userBusinessCard.address || ''
+
+    if (display == 1) {
+      if (tel) {
+        tel = "电话：" + tel
+      }
+      if (address) {
+        address = "地址：" + address
+      }
+      if(logo){
+        name = ''
+      }
+    } else {
+      logo = ''
+      name = ''
+      tel = ''
+      address = ''
+    }
+
+    if (schema.card.logo) {
+      schema.card.logo.src = logo
+    }
+    if (schema.card.name) {
+      schema.card.name.text = name
+    }
+    if (schema.card.tel) {
+      schema.card.tel.text = tel
+    }
+    if (schema.card.address) {
+      schema.card.address.text = address
+    }
+
+    this.setData({
+      schema: schema
+    })
+
   },
   replaceTemplate: function(e) {
     this.loadTemplate(function() {
@@ -171,6 +250,8 @@ Page({
     })
 
     this.initScale()
+
+    this.initSchema()
   },
   hidePicturelist: function(e) {
     this.setData({
