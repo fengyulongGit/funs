@@ -451,6 +451,7 @@ Page({
   done: function(e) {
     const template_id = this.data.template_id
     const schema = JSON.stringify(this.data.schema)
+    const work_id = this.data.work_id
     console.log(schema)
 
     network.savework({
@@ -460,6 +461,11 @@ Page({
       },
       success(e) {
         console.log(e)
+        if (work_id){
+          wx.navigateBack({
+            delta: 2
+          })
+        }
         wx.navigateTo({
           url: '../phosterresult/phosterresult?work=' + JSON.stringify(e),
         })

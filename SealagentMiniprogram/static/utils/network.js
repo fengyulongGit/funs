@@ -193,7 +193,7 @@ var request = {
 
     this.request(options)
   },
-  getworklist: function (options) {
+  getworklist: function(options) {
     options = options || {}
     options.url = "v1/work/getworklist"
 
@@ -204,7 +204,7 @@ var request = {
 
     this.request(options)
   },
-  updateuserdetail: function (options) {
+  updateuserdetail: function(options) {
     options = options || {}
     options.url = "v1/user/updateuserdetail"
 
@@ -214,8 +214,29 @@ var request = {
     options.params = params
 
     this.request(options)
+  },
+  getuserbusinesscard: function(options) {
+    options = options || {}
+    options.url = "v1/user/getuserbusinesscard"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  },
+  updateuserbusinesscard: function(options) {
+    options = options || {}
+    options.url = "v1/user/updateuserbusinesscard"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
   }
-  
 
 }
 

@@ -52,7 +52,7 @@ Page({
   edit: function(e) {
     const template_id = this.data.work.template_id
     const schema = this.data.work.schema
-    const work_id = tihs.data.work.id
+    const work_id = this.data.work.id
     wx.navigateTo({
       url: '../phoster/phoster?work_id=' + work_id + '&template_id=' + template_id + '&schema=' + schema,
     })
