@@ -21,22 +21,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.getSystemInfo({
-      success: (res) => {
-        var ww = res.windowWidth;
-        var wh = res.windowHeight;
-        var imgWidth = ww * 0.5 - 24;
+    const systemInfo = app.globalData.systemInfo
 
-        this.setData({
-          imgWidth: imgWidth
-        });
+    var ww = systemInfo.windowWidth;
+    var wh = systemInfo.windowHeight;
+    var imgWidth = ww * 0.5 - 24;
 
-        col1H = 0
-        col2H = 0
+    this.setData({
+      imgWidth: imgWidth
+    });
 
-        this.getlist(0)
-      }
-    })
+    col1H = 0
+    col2H = 0
+
+    this.getlist(0)
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

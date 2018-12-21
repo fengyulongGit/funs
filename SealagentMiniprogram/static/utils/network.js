@@ -90,6 +90,16 @@ var request = {
       },
     })
   },
+  isNotLoginAndJump2: function() {
+    if (!app.isLogined()) {
+      wx.navigateTo({
+        url: '../../pages/login/login',
+      })
+      return true
+    }
+
+    return false
+  },
   getImageInfo: function(options) {
     const src = options.src || ''
     const success = options.success || function(res) {}
@@ -171,8 +181,29 @@ var request = {
     options.params = params
 
     this.request(options)
-  }
+  },
+  getuserdetail: function(options) {
+    options = options || {}
+    options.url = "v1/user/getuserdetail"
 
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  },
+  getworklist: function (options) {
+    options = options || {}
+    options.url = "v1/work/getworklist"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  }
 
 }
 

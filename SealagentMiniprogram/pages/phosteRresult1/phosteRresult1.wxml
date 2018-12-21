@@ -1,4 +1,8 @@
 <view class="page">
+  <view class='tips flex_box'>
+    <image src='../../static/images/ic_tips.png'></image>
+    <view>仔细检查文字信息、图片是否有错误或遗漏？</view>
+  </view>
   <view style='height:20px;'></view>
   <!-- schema布局 -->
   <view class='content'>

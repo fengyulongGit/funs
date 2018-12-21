@@ -461,7 +461,7 @@ Page({
       success(e) {
         console.log(e)
         wx.navigateTo({
-          url: '../phosterResult/phosterResult?work=' + JSON.stringify(e),
+          url: '../phosterresult/phosterresult?work=' + JSON.stringify(e),
         })
       }
     })

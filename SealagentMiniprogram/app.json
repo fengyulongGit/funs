@@ -5,7 +5,7 @@
     "pages/phoster/phoster",
     "pages/login/login",
     "pages/protocol/protocol",
-    "pages/phosterResult/phosterResult"
+    "pages/phosterresult/phosterresult"
   ],
   "window": {
     "navigationStyle": "default",

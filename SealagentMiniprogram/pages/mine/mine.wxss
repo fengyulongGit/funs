@@ -1,1 +1,104 @@
-/* Page/mine/mine.wxss */
+.top_bg {
+  width: 100vw;
+  height: 72px;
+  background-color: #ff9a08;
+}
+
+.top_bg_empty {
+  width: 100vw;
+  height: 50px;
+}
+
+.splite_line {
+  width: calc(100% - 20px);
+  margin-left: 20px;
+}
+
+.item {
+  width: calc(100vw - 40px);
+  height: 55px;
+  padding: 0 20px;
+}
+
+.item_title {
+  margin-left: 9px;
+  font-size: 15px;
+  color: #333;
+  letter-spacing: 0.05px;
+}
+
+.gengduo{
+  color: #868686;
+  font-size: 13px;
+  letter-spacing: 0.04px;
+}
+
+.userdetail_layout {
+  width: 100vw;
+  position: fixed;
+  z-index: 1;
+  left: 20px;
+  top: 0px;
+  padding: 0 20px;
+}
+
+.userdetail_margin {
+  width: 20px;
+  height: 1px;
+}
+
+.userdetail {
+  width: calc(100vw - 72px);
+  height: 112px;
+  position: fixed;
+  z-index: 1;
+  left: 20px;
+  top: 0px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(204, 204, 204, 0.6);
+  padding: 0 16px;
+}
+
+.userdetail_avatar {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.userdetail_nickname {
+  height: auto;
+  font-size: 16px;
+  color: #333;
+  letter-spacing: 0.05px;
+}
+
+.works_layout{
+  width: 100vw;
+  height: 106px;
+  padding: 0px 16px;
+}
+.works_scroll_view{
+  width: calc(100vw - 32px);
+  height: 94px;
+  /* display: flex; */
+  white-space: nowrap;
+}
+
+.works_scroll_view_item{
+  width: 70px;
+  height: 94px;
+  position: relative;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  background-color: #D8D8D8;
+  vertical-align: top;
+}
+
+.works_scroll_view_item image{
+  width: 100%;
+  height: 100%;
+}

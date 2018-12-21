@@ -7,7 +7,7 @@ App({
     wx.getSystemInfo({
       success: function(res) {
         console.log(res)
-        that.globalData.statusBarHeight = res.statusBarHeight;
+        that.globalData.systemInfo = res;
       },
     })
 
@@ -64,7 +64,7 @@ App({
     console.log('App PageNotFound')
   },
   globalData: {
-    statusBarHeight:0,
+    systemInfo:{},
     host: "http://api.sealagent.com:8080/",
     host_static:"http://api.sealagent.com:8080/static/",
     wechatInfo:null,

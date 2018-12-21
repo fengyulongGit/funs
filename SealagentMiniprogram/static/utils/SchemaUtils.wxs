@@ -46,8 +46,4 @@ var schema_filter = {
   }
 }
 
-module.exports = {
-  image: schema_filter.image,
-  text: schema_filter.text,
-  border: schema_filter.border,
-}
+module.exports = schema_filter

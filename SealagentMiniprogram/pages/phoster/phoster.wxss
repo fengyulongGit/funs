@@ -84,11 +84,8 @@
   position: relative;
   left: 0;
   top: 0;
-  /* float: left; */
   display: inline-block;
-  /* display: block; */
   background-color: #D8D8D8;
-
   vertical-align: top;
 }
 

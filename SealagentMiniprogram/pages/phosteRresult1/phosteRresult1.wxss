@@ -2,6 +2,23 @@
   background-color: #f5f5f5;
 }
 
+.tips {
+  width: 100vw;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.05px;
+  background-color: rgba(152, 152, 152, 0.4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.tips image {
+  width: 22px;
+  height: 22px;
+}
+
 .content {
   width: calc(100vw - 80px);
   height: calc(100vh - 160px);
@@ -13,9 +30,10 @@
   height: 100%;
 }
 
-.paddingLR40{
+.paddingLR40 {
   padding: 0px 40px;
 }
+
 .check {
   width: 12px;
   height: 12px;
@@ -28,64 +46,64 @@
   height: 12px;
 }
 
-.tongyi{
+.tongyi {
   font-size: 12px;
-  color: #333333;
+  color: #333;
   margin-left: 3px;
   letter-spacing: 0.04px;
 }
 
-.protocol{
-  color: #4A90E2;
+.protocol {
+  color: #4a90e2;
   font-size: 12px;
   letter-spacing: 0.04px;
 }
 
-.ic_preview{
+.ic_preview {
   width: 21px;
   height: 21px;
 }
 
-.yulan{
+.yulan {
   font-size: 14px;
-  color: #333333;
+  color: #333;
   letter-spacing: 0.05;
   margin-left: 4px;
 }
 
-.btn_edit{
-  background: #4A90E2;
+.btn_edit {
+  background: #4a90e2;
   border-radius: 6px;
   height: 48px;
   line-height: 48px;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #fff;
   letter-spacing: 0.03px;
   text-align: center;
 }
 
-.btn_download{
-  background: #FF9A08;
+.btn_download {
+  background: #ff9a08;
   border-radius: 6px;
   height: 48px;
   line-height: 48px;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #fff;
   letter-spacing: 0.03px;
   text-align: center;
 }
 
-.btn_download_disable{
-  background: #E5E5E5;
+.btn_download_disable {
+  background: #e5e5e5;
   border-radius: 6px;
   height: 48px;
   line-height: 48px;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #fff;
   letter-spacing: 0.03px;
   text-align: center;
 }
 
-.padding16{
+.padding16 {
   padding: 16px;
 }
