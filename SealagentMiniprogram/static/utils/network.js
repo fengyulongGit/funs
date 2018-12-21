@@ -56,9 +56,10 @@ var request = {
       success: function(res) {
         console.log(res.data)
         // wx.hideNavigationBarLoading()
-        if (message != "") {
-          wx.hideLoading()
-        }
+        // wx.stopPullDownRefresh()
+        // if (message != "") {
+        //   wx.hideLoading()
+        // }
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
@@ -83,10 +84,12 @@ var request = {
 
       },
       fail: function(res) {
-        wx.hideNavigationBarLoading()
-        if (message != "") {
-          wx.hideLoading()
-        }
+        console.log(res)
+        // wx.hideNavigationBarLoading()
+        // wx.stopPullDownRefresh()
+        // if (message != "") {
+        //   wx.hideLoading()
+        // }
         wx.showToast({
           title: res,
           icon: 'none'
@@ -94,7 +97,12 @@ var request = {
         fail(res)
       },
       complete: function(res) {
-
+        console.log(res)
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh()
+        if (message != "") {
+          wx.hideLoading()
+        }
       },
     })
   },
