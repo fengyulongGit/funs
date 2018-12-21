@@ -13,8 +13,8 @@ Page({
     mobile: '',
     captcha: '',
     countDown: 0,
-    timer: null,//定时器名字
-    countDownNum: '60',//倒计时初始值
+    timer: null, //定时器名字
+    countDownNum: '60', //倒计时初始值
   },
 
   /*
@@ -73,23 +73,29 @@ Page({
   },
   sendCaptcha: function(e) {
     const mobile = this.data.mobile
-    if (!mobile){
+    if (!mobile) {
       wx.showToast({
         title: '手机号不能为空',
-        icon:'none'
+        icon: 'none'
       })
       return
     }
-    network.sendcaptcha(mobile, "login",res=>{
-      this.countDown()
+    network.sendcaptcha({
+      params: {
+        "mobile": mobile,
+        "template": "login"
+      },
+      success(res) {
+        this.countDown()
+      }
     })
   },
-  countDown(){
+  countDown() {
     let that = this
-    let countDown = that.data.countDownNum//获取倒计时初始值
+    let countDown = that.data.countDownNum //获取倒计时初始值
     //如果将定时器设置在外面，那么用户就看不到countDown的数值动态变化，所以要把定时器存进data里面
     that.setData({
-      timer: setInterval(function () {//这里把setInterval赋值给变量名为timer的变量
+      timer: setInterval(function() { //这里把setInterval赋值给变量名为timer的变量
         //每隔一秒countDown就减一，实现同步
         countDown--;
         //然后把countDown存进data，好让用户知道时间在倒计着
@@ -109,11 +115,18 @@ Page({
   login: function(e) {
     const mobile = this.data.mobile
     const captcha = this.data.captcha
-    network.userlogin(mobile, captcha, res => {
-      app.setMobileUser(res)
-      wx.navigateBack({
-        delta:1
-      })
+
+    network.userlogin({
+      params: {
+        "mobile": mobile,
+        "code": captcha,
+      },
+      success(res){
+        app.setMobileUser(res)
+        wx.navigateBack({
+          delta: 1
+        })
+      }
     })
   },
   protocol: function(e) {
@@ -125,7 +138,7 @@ Page({
     const wechatInfo = this.data.wechatInfo
     console.log(wechatInfo)
 
-    if (!wechatInfo || wechatInfo.length){
+    if (!wechatInfo || wechatInfo.length) {
       return
     }
 

@@ -3,16 +3,14 @@ var md5 = require("/md5.js")
 const app = getApp()
 
 var request = {
-  request: function(url, params, success, fail) {
-    this.requestLoading(url, params, "", success, fail)
-  },
-  // 展示进度条的网络请求
-  // url:网络请求的url
-  // params:请求参数
-  // message:进度条的提示信息
-  // success:成功的回调函数
-  // fail：失败的回调
-  requestLoading: function(url, params, message, success, fail) {
+  request: function(options) {
+    const url = options.url || ''
+    const params = options.params || {}
+    const message = options.message || ''
+    const success = options.success || function(res) {}
+    const fail = options.fail || function(res) {
+      console.log(res)
+    }
 
     params.ts = Date.parse(new Date()) / 1000
 
@@ -40,11 +38,9 @@ var request = {
     console.log(params)
 
     // wx.showNavigationBarLoading()
-    if (message != "") {
-      wx.showLoading({
-        title: message,
-      })
-    }
+    wx.showLoading({
+      title: message,
+    })
     wx.request({
       url: getApp().globalData.host + url,
       data: params,
@@ -55,11 +51,6 @@ var request = {
       method: 'post',
       success: function(res) {
         console.log(res.data)
-        // wx.hideNavigationBarLoading()
-        // wx.stopPullDownRefresh()
-        // if (message != "") {
-        //   wx.hideLoading()
-        // }
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
@@ -85,11 +76,6 @@ var request = {
       },
       fail: function(res) {
         console.log(res)
-        // wx.hideNavigationBarLoading()
-        // wx.stopPullDownRefresh()
-        // if (message != "") {
-        //   wx.hideLoading()
-        // }
         wx.showToast({
           title: res,
           icon: 'none'
@@ -100,112 +86,94 @@ var request = {
         console.log(res)
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
-        if (message != "") {
-          wx.hideLoading()
-        }
+        wx.hideLoading()
       },
     })
   },
-  gettemplateinfolist: function(offset, count, success) {
-    this.requestLoading(
-      "v1/template/gettemplateinfolist", {
-        "version": 1,
-        "type": 1,
-        "offset": offset,
-        "count": count
+  getImageInfo: function(options) {
+    const src = options.src || ''
+    const success = options.success || function(res) {}
+    const fail = options.fail || function(res) {
+      console.log(res)
+    }
+    if (!src) {
+      fail({
+        'errMsg': 'src is empty'
+      })
+      return
+    }
+    wx.showLoading({
+      title: '',
+    })
+    wx.getImageInfo({
+      src: src,
+      success(res) {
+        console.log(res)
+
+        success(res)
       },
-      "加载中",
-      success,
-      function(e) {
-        console.log(e)
+      fail(res) {
+        fail(res)
+      },
+      complete(res) {
+        console.log(res)
+        wx.hideLoading()
       }
-    )
+    })
   },
-  gettemplatepicturelist: function(template_id, width, height, offset, count, success) {
-    this.requestLoading(
-      "v1/template/gettemplatepicturelist", {
-        "template_id": template_id,
-        "width": width,
-        "height": height,
-        "version": 1,
-        "type": 1,
-        "offset": offset,
-        "count": count
-      },
-      "加载中",
-      success,
-      function(e) {
-        console.log(e)
-      }
-    )
+  gettemplateinfolist: function(options) {
+    options = options || {}
+    options.url = "v1/template/gettemplateinfolist"
+    this.request(options)
   },
-  savework: function(template_id, schema, success) {
-    this.requestLoading(
-      "v1/work/savework", {
-        "user_id": app.getUser_id(),
-        "token": app.getToken(),
-        "template_id": template_id,
-        "schema": schema
-      },
-      "加载中",
-      success,
-      function(e) {
-        console.log(e)
-      }
-    )
+  gettemplatepicturelist: function(options) {
+    options = options || {}
+    options.url = "v1/template/gettemplatepicturelist"
+    this.request(options)
   },
-  sendcaptcha: function(mobile, template, success) {
-    this.requestLoading(
-      "v1/user/sendcaptcha", {
-        "mobile": mobile,
-        "template": template
-      },
-      "加载中",
-      success,
-      e => {
-        console.log(e)
-      }
-    )
+  savework: function(options) {
+    options = options || {}
+
+    options.url = "v1/work/savework"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
   },
-  userlogin: function (mobile,code,success){
-    this.requestLoading(
-      "v1/user/userlogin", {
-        "mobile": mobile,
-        "code": code,
-        "device": 'wechat',
-        "partner": 'sealagent',
-        "channel": 'sealagent',
-        "spm": '',
-      },
-      "加载中",
-      success,
-      e => {
-        console.log(e)
-      }
-    )
+  sendcaptcha: function(options) {
+    options = options || {}
+    options.url = "v1/user/sendcaptcha"
+    this.request(options)
   },
-  getuserbusinesscard: function (success){
-    this.requestLoading(
-      "v1/user/getuserbusinesscard", {
-        "user_id": app.getUser_id(),
-        "token": app.getToken()
-      },
-      "加载中",
-      success,
-      function (e) {
-        console.log(e)
-      }
-    )
+  userlogin: function(options) {
+    options = options || {}
+    options.url = "v1/user/userlogin"
+
+    let params = options.params || {}
+    params.device = 'wechat'
+    params.partner = 'sealagent'
+    params.channel = 'sealagent'
+    params.spm = ''
+    options.params = params
+
+    this.request(options)
+  },
+  getuserbusinesscard: function(options) {
+    options = options || {}
+    options.url = "v1/user/getuserbusinesscard"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
   }
 
-  
+
 }
 
 module.exports = request
-// {
-//   request: request,
-//   requestLoading: requestLoading,
-//   gettemplateinfolist: gettemplateinfolist,
-//   gettemplatepicturelist: gettemplatepicturelist,
-//   savework: savework
-// }

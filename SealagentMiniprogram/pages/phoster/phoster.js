@@ -73,12 +73,14 @@ Page({
     const that = this
     if (app.isLogined()) {
       //获取名片信息
-      network.getuserbusinesscard(function(userBusinessCard) {
-        that.setData({
-          userBusinessCard: userBusinessCard
-        })
+      network.getuserbusinesscard({
+        success(userBusinessCard) {
+          that.setData({
+            userBusinessCard: userBusinessCard
+          })
 
-        that.initSchema()
+          that.initSchema()
+        }
       })
     } else {
       that.setData({
@@ -87,7 +89,7 @@ Page({
       that.initSchema()
     }
   },
-  onShareAppMessage:function(){
+  onShareAppMessage: function() {
 
   },
   initSchema() {
@@ -114,7 +116,7 @@ Page({
       if (address) {
         address = "地址：" + address
       }
-      if(logo){
+      if (logo) {
         name = ''
       }
     } else {
@@ -402,10 +404,14 @@ Page({
   },
   loadTemplate(success) {
     var that = this
-    network.gettemplateinfolist(
-      0,
-      50,
-      function(data) {
+    network.gettemplateinfolist({
+      params: {
+        "version": 1,
+        "type": 1,
+        "offset": 0,
+        "count": 50
+      },
+      success(data) {
         console.log(data)
 
         that.setData({
@@ -414,20 +420,24 @@ Page({
 
         success()
       }
-    )
+    })
   },
   loadPicture(success) {
     var that = this
 
     console.log(that.data.image)
 
-    network.gettemplatepicturelist(
-      that.data.template_id,
-      that.data.image.schema.size.width,
-      that.data.image.schema.size.height,
-      0,
-      50,
-      function(data) {
+    network.gettemplatepicturelist({
+      params: {
+        "template_id": that.data.template_id,
+        "width": that.data.image.schema.size.width,
+        "height": that.data.image.schema.size.height,
+        "version": 1,
+        "type": 1,
+        "offset": 0,
+        "count": 50
+      },
+      success(data) {
         console.log(data)
 
         that.setData({
@@ -436,17 +446,24 @@ Page({
 
         success()
       }
-    )
+    })
   },
   done: function(e) {
     const template_id = this.data.template_id
     const schema = JSON.stringify(this.data.schema)
     console.log(schema)
-    network.savework(template_id, schema, function(e) {
-      console.log(e)
-      wx.navigateTo({
-        url: '../phosterResult/phosterResult?work=' + JSON.stringify(e),
-      })
+
+    network.savework({
+      params: {
+        "template_id": template_id,
+        "schema": schema
+      },
+      success(e) {
+        console.log(e)
+        wx.navigateTo({
+          url: '../phosterResult/phosterResult?work=' + JSON.stringify(e),
+        })
+      }
     })
   }
 })

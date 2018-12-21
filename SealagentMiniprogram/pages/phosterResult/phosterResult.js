@@ -1,3 +1,5 @@
+const network = require("../../static/utils/network.js")
+
 const app = getApp()
 Page({
 
@@ -9,7 +11,7 @@ Page({
     work: {},
     editable: false,
     protocol: true,
-    writePhotosAlbum:false,
+    writePhotosAlbum: false,
   },
 
   /**
@@ -17,15 +19,15 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
-    // options.work = '{\"id\":42,\"user_id\":5,\"template_id\":2,\"thumbnail\":\"user/772a12a3721c69f0abc363824e6cf1b6/work/thumbnail/5c778e6d-e8c8-4cf2-8230-6a26fd29e6e9.png\",\"src\":\"user/772a12a3721c69f0abc363824e6cf1b6/work/src/5c778e6d-e8c8-4cf2-8230-6a26fd29e6e9.png\",\"schema\":\"{\\"class\\":\\"Template\\",\\"position\\":{\\"x\\":0,\\"y\\":0},\\"size\\":{\\"width\\":1701,\\"height\\":2550},\\"editable\\":true,\\"moveable\\":false,\\"version\\":1,\\"background\\":{\\"class\\":\\"Image\\",\\"position\\":{\\"x\\":0,\\"y\\":0},\\"size\\":{\\"width\\":1701,\\"height\\":2550},\\"editable\\":true,\\"moveable\\":false,\\"border\\":{\\"class\\":\\"Border\\",\\"position\\":{\\"x\\":0,\\"y\\":0},\\"size\\":{\\"width\\":1701,\\"height\\":2550},\\"editable\\":false,\\"moveable\\":false,\\"style\\":0,\\"weight\\":50,\\"color\\":{\\"rgb\\":8760576,\\"alpha\\":255},\\"radius\\":0},\\"src\\":\\"template/image/b2a0a353-802f-4f88-88f6-b926c3648883.png\\"},\\"title\\":{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":213,\\"y\\":323},\\"size\\":{\\"width\\":1275,\\"height\\":467},\\"editable\\":true,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"FangZheng-LanTingCuHei\\",\\"style\\":0,\\"size\\":425},\\"color\\":{\\"rgb\\":10228994,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"私房菜\\"},\\"desc\\":{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":0,\\"y\\":843},\\"size\\":{\\"width\\":1701,\\"height\\":112},\\"editable\\":true,\\"moveable\\":false,\\"background\\":{\\"class\\":\\"Image\\",\\"position\\":{\\"x\\":161,\\"y\\":780},\\"size\\":{\\"width\\":1380,\\"height\\":222},\\"editable\\":false,\\"moveable\\":false,\\"border\\":null,\\"src\\":\\"template/image/9c2c778d-8b74-4099-9a48-ff491f1ec039.png\\"},\\"font\\":{\\"family\\":\\"PingFangSC-Medium\\",\\"style\\":0,\\"size\\":102},\\"color\\":{\\"rgb\\":0,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"你应该享受更好的美食体验\\"},\\"childs\\":[{\\"class\\":\\"Image\\",\\"position\\":{\\"x\\":859,\\"y\\":1434},\\"size\\":{\\"width\\":715,\\"height\\":715},\\"editable\\":false,\\"moveable\\":false,\\"border\\":null,\\"src\\":\\"template/image/63e7e948-7960-490b-9088-57e0ef1af68a.png\\"},{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":919,\\"y\\":1666},\\"size\\":{\\"width\\":596,\\"height\\":132},\\"editable\\":true,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"FangZheng-LanTingCuHei\\",\\"style\\":0,\\"size\\":120},\\"color\\":{\\"rgb\\":16777215,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"消费满200\\"},{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":916,\\"y\\":1800},\\"size\\":{\\"width\\":600,\\"height\\":132},\\"editable\\":true,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"FangZheng-LanTingCuHei\\",\\"style\\":0,\\"size\\":120},\\"color\\":{\\"rgb\\":16777215,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"送饮品一杯\\"}],\\"card\\":{\\"class\\":\\"BusinessCard\\",\\"position\\":null,\\"size\\":null,\\"editable\\":false,\\"moveable\\":false,\\"background\\":{\\"class\\":\\"Image\\",\\"position\\":{\\"x\\":0,\\"y\\":2300},\\"size\\":{\\"width\\":1700,\\"height\\":204},\\"editable\\":false,\\"moveable\\":false,\\"border\\":null,\\"src\\":\\"template/image/4179fea3-e982-4f0c-bae7-4c4ee253306f.png\\"},\\"logo\\":{\\"class\\":\\"Image\\",\\"position\\":{\\"x\\":550,\\"y\\":149},\\"size\\":{\\"width\\":600,\\"height\\":150},\\"editable\\":false,\\"moveable\\":false,\\"border\\":null,\\"src\\":\\"\\"},\\"name\\":{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":0,\\"y\\":180},\\"size\\":{\\"width\\":1701,\\"height\\":121},\\"editable\\":false,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"PingFangSC-Medium\\",\\"style\\":0,\\"size\\":110},\\"color\\":{\\"rgb\\":10228994,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"\\"},\\"tel\\":{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":0,\\"y\\":2340},\\"size\\":{\\"width\\":1701,\\"height\\":52},\\"editable\\":false,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"PingFangSC-Medium\\",\\"style\\":0,\\"size\\":48},\\"color\\":{\\"rgb\\":0,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"\\"},\\"address\\":{\\"class\\":\\"Text\\",\\"position\\":{\\"x\\":0,\\"y\\":2408},\\"size\\":{\\"width\\":1701,\\"height\\":52},\\"editable\\":false,\\"moveable\\":false,\\"background\\":null,\\"font\\":{\\"family\\":\\"PingFangSC-Medium\\",\\"style\\":0,\\"size\\":48},\\"color\\":{\\"rgb\\":0,\\"alpha\\":255},\\"alignment\\":4,\\"text\\":\\"\\"}}}\",\"count\":0,\"width\":1701,\"height\":2550,\"quality\":72,\"version\":1,\"category\":1,\"type\":1,\"create_time\":null,\"update_time\":null}'
     this.setData({
       work: JSON.parse(options.work),
       editable: options.editable || false
     })
-
+  },
+  onShow:function(){
     this.authorizePhotosAlbum()
   },
-  onShareAppMessage:function(){
+  onShareAppMessage: function() {
 
   },
   changeProtocol: function(e) {
@@ -40,7 +42,12 @@ Page({
     })
   },
   preview: function(e) {
+    const work = this.data.work
+    const host_static = this.data.host_static
 
+    wx.previewImage({
+      urls: [host_static + work.src],
+    })
   },
   edit: function(e) {
     const template_id = this.data.work.template_id
@@ -62,15 +69,15 @@ Page({
           console.log(tapIndex)
 
           if (tapIndex == 0) {
-            that.downloadImage(host_static+work.thumbnail,res)
+            that.downloadImage(host_static + work.thumbnail, res)
           } else if (tapIndex == 1) {
             that.downloadImage(host_static + work.src, res)
           } else if (tapIndex == 2) {
-
+            that.shareImage(host_static + work.src)
           } else if (tapIndex == 3) {
             wx.setClipboardData({
               data: host_static + work.src,
-              success(res){
+              success(res) {
                 wx.showToast({
                   title: '已经复制到剪切板.',
                   icon: 'none'
@@ -93,9 +100,9 @@ Page({
             scope: 'scope.writePhotosAlbum',
             success() {
               console.log('授权成功')
-              
+
               that.setData({
-                writePhotosAlbum:true
+                writePhotosAlbum: true
               })
             },
             fail(err) {
@@ -105,7 +112,7 @@ Page({
               })
             },
           })
-        }else{
+        } else {
           that.setData({
             writePhotosAlbum: true
           })
@@ -113,19 +120,18 @@ Page({
       }
     })
   },
-  downloadImage(url,e) {
-    if (!this.data.writePhotosAlbum){
+  downloadImage(url, e) {
+    if (!this.data.writePhotosAlbum) {
       this.openSetting(e)
       return
     }
 
-    wx.downloadFile({
-      url: url,
+    network.getImageInfo({
+      src: url,
       success(res) {
-        console.log(res)
         //图片保存到本地
         wx.saveImageToPhotosAlbum({
-          filePath: res.tempFilePath,
+          filePath: res.path,
           success(data) {
             wx.showToast({
               title: '保存成功',
@@ -136,16 +142,15 @@ Page({
             console.log(err);
             if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
               console.log("当初用户拒绝，再次发起授权")
-              
             }
           }
         })
       }
     })
   },
-  openSetting(e){
+  openSetting(e) {
     const that = this
-    
+
     wx.openSetting({
       success(settingdata) {
         console.log(settingdata)
@@ -174,6 +179,14 @@ Page({
         that.setData({
           writePhotosAlbum: false
         })
+      }
+    })
+  },
+  shareImage(url) {
+    network.getImageInfo({
+      src: url,
+      success(res) {
+        // res.path
       }
     })
   }

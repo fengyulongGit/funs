@@ -99,10 +99,14 @@ Page({
   },
   getlist(offset) {
     var that = this
-    network.gettemplateinfolist(
-      offset,
-      20,
-      function(data) {
+    network.gettemplateinfolist({
+      params: {
+        "version": 1,
+        "type": 1,
+        "offset": offset,
+        "count": 20
+      },
+      success(data) {
         console.log(data)
         if (offset == 0) {
           that.setData({
@@ -125,11 +129,8 @@ Page({
           })
         }
         that.waterFall(data)
-
-        // console.log(that.data.col1)
-        // console.log(that.data.col2)
       }
-    )
+    })
   },
   phoster: function(e) {
     const id = e.currentTarget.id
