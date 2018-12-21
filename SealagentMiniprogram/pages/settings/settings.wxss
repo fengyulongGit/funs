@@ -1,0 +1,11 @@
+.banbenhao{
+  color: #ccc;
+  font-size: 15px;
+  letter-spacing: 0.05px;
+}
+
+.btn{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}

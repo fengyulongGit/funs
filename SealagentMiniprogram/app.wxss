@@ -53,9 +53,30 @@
   height: 1px;
   background-color: #D8D8D8;
 }
-
+.splite_line_l20 {
+  width: calc(100% - 20px);
+  height: 1px;
+  margin-left: 20px;
+  background-color: #D8D8D8;
+}
 .forward_arrow {
   width: 8px;
   height: 14px;
   margin-left: 8px;
+}
+
+.deault_item {
+  width: calc(100vw - 40px);
+  height: 55px;
+  padding: 0 20px;
+}
+
+.deault_item_icon{
+  margin-right: 9px;
+}
+
+.deault_item_title {
+  font-size: 15px;
+  color: #333;
+  letter-spacing: 0.05px;
 }

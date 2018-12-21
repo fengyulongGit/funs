@@ -1,0 +1,21 @@
+<view class='page'>
+  <view class='deault_item flex_box'>
+    <view class='deault_item_title flex_item_auto'>版本信息</view>
+    <view class='banbenhao'>1.0.0</view>
+  </view>
+  <view class='splite_line_l20'></view>
+
+  <view class='deault_item flex_box' bindtap='service'>
+    <view class='deault_item_title flex_item_auto'>协议条款</view>
+    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+  </view>
+  <view class='splite_line_l20'></view>
+
+  <view class='deault_item flex_box' bindtap='privacy'>
+    <view class='deault_item_title flex_item_auto'>隐私政策</view>
+    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view wx:if='{{isLogined}}' class='btn' bindtap='logout'>安全退出</view>
+</view>

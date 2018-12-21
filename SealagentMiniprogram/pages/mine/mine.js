@@ -69,7 +69,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/userdetail/userdetail',
+      url: '../userdetail/userdetail',
     })
   },
   businesscard: function(e) {
@@ -78,7 +78,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/businesscard/businesscard',
+      url: '../businesscard/businesscard',
     })
   },
   phosterresult:function(e){
@@ -94,7 +94,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/work/work',
+      url: '../work/work',
     })
   },
   feedback: function(e) {
@@ -119,7 +119,7 @@ Page({
   },
   settings: function(e) {
     wx.navigateTo({
-      url: '/settings/settings',
+      url: '../settings/settings',
     })
   }
 })
