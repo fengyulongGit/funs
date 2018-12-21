@@ -12,7 +12,8 @@
     "pages/businesscard/businesscard",
     "pages/businesscard_name/businesscard_name",
     "pages/businesscard_tel/businesscard_tel",
-    "pages/businesscard_address/businesscard_address"
+    "pages/businesscard_address/businesscard_address",
+    "pages/work/work"
   ],
   "window": {
     "navigationStyle": "default",

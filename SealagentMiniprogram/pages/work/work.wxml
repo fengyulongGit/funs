@@ -1,0 +1,35 @@
+<view style='page'>
+  <block wx:if='{{worklist.length}}'>
+    <view class='content'>
+      <view class="item">
+        <block wx:for="{{col1}}" wx:key="id">
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <view class='item_credit_time'>{{item.create_time}}</view>
+        </block>
+      </view>
+      <view class="item">
+        <block wx:for="{{col2}}" wx:key="id">
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <view class='item_credit_time'>{{item.create_time}}</view>
+        </block>
+      </view>
+      <view class="item">
+        <block wx:for="{{col3}}" wx:key="id">
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <view class='item_credit_time'>{{item.create_time}}</view>
+        </block>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <!-- 空白页面 -->
+    <view class='empty'>
+      <image class='empty_image' src='../../static/images/img_empty.png' />
+      <view class='empty_title'>还没有任何作品哦</view>
+      <view class='empty_desc'>快去创作自己的美食海报吧</view>
+      <view class='flex_box'>
+        <view class='empty_btn' bindtap='start'>立即创作</view>
+      </view>
+    </view>
+  </block>
+</view>
