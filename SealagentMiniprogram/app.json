@@ -6,7 +6,9 @@
     "pages/login/login",
     "pages/protocol/protocol",
     "pages/phosterresult/phosterresult",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/userdetail/userdetail",
+    "pages/userdetail_nickname/userdetail_nickname"
   ],
   "window": {
     "navigationStyle": "default",

@@ -73,6 +73,7 @@ Page({
   },
   sendCaptcha: function(e) {
     const mobile = this.data.mobile
+    const that = this
     if (!mobile) {
       wx.showToast({
         title: '手机号不能为空',
@@ -86,7 +87,7 @@ Page({
         "template": "login"
       },
       success(res) {
-        this.countDown()
+        that.countDown()
       }
     })
   },

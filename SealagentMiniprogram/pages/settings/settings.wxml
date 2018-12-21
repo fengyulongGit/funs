@@ -17,5 +17,5 @@
   </view>
 
   <!-- 底部按钮 -->
-  <view wx:if='{{isLogined}}' class='btn' bindtap='logout'>安全退出</view>
+  <view wx:if='{{isLogined}}' class='btn fixed_bottom' bindtap='logout'>安全退出</view>
 </view>

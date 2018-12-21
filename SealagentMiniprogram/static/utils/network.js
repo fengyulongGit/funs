@@ -203,7 +203,19 @@ var request = {
     options.params = params
 
     this.request(options)
+  },
+  updateuserdetail: function (options) {
+    options = options || {}
+    options.url = "v1/user/updateuserdetail"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
   }
+  
 
 }
 
