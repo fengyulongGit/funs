@@ -5,7 +5,7 @@
   <view style='height:20px;'></view>
   <!-- schema布局 -->
   <view class='content'>
-    <view class='scale_origin_left_top' style='width:{{schema.size.width}}px;height:{{schema.size.height}}px;transform: scale({{content.scale}},{{content.scale}});margin-left:{{content.left}}px;'>
+    <view class='scale_origin_left_top' style='width:{{schema.size.width}}px;height:{{schema.size.height}}px;transform: scale({{content.scale}},{{content.scale}});margin-left:{{content.left}}px;margin-top:{{content.top}}px;'>
       <!-- 背景 -->
       <image wx:if="{{schema.background.src}}" src='{{host_static}}{{schema.background.src}}' style='{{schema_filter.image(schema.background)}}' bindtap='{{schema.background.editable ? "replacePicture" : ""}}' data-type='background' />
       <view class='schema_item_absolute' wx:if="{{schema.background.border}}" style='{{schema_filter.border(schema.background.border)}}' bindtap='{{schema.background.editable ? "replacePicture" : ""}}' data-type='background'></view>

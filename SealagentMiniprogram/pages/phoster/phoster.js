@@ -14,6 +14,7 @@ Page({
       width: 0,
       height: 0,
       left: 0,
+      top: 0,
       scale: 0.2
     },
     schema: {},
@@ -302,10 +303,12 @@ Page({
       const scale = scaleWidth > scaleHeight ? scaleHeight : scaleWidth;
 
       const left = (this.data.content.width - this.data.schema.size.width * scale) / 2
+      const top = (this.data.content.height - this.data.schema.size.height * scale) / 2
 
       let content = this.data.content
       content.scale = scale
       content.left = left
+      content.top = top
 
       this.setData({
         content: content
