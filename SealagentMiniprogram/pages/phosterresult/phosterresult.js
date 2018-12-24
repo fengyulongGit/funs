@@ -12,6 +12,7 @@ Page({
     editable: false,
     protocol: true,
     writePhotosAlbum: false,
+    shareImageUrl:'',
   },
 
   /**
@@ -29,6 +30,9 @@ Page({
   },
   onShareAppMessage: function() {
 
+    return {
+      imageUrl: this.data.shareImageUrl
+    }
   },
   changeProtocol: function(e) {
     const protocol = this.data.protocol
@@ -183,10 +187,17 @@ Page({
     })
   },
   shareImage(url) {
+    const that = this
     network.getImageInfo({
       src: url,
       success(res) {
         // res.path
+        that.setData({
+          shareImageUrl:res.path
+        })
+        wx.showShareMenu({
+
+        })
       }
     })
   }

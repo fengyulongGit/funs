@@ -3,19 +3,19 @@
     <view class='content'>
       <view class="item">
         <block wx:for="{{col1}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>
       <view class="item">
         <block wx:for="{{col2}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>
       <view class="item">
         <block wx:for="{{col3}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='changeChecked' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>
