@@ -42,8 +42,8 @@
         </block>
       </scroll-view>
     </view>
-    <view class='splite_line_l20' style='height:8px;'></view>
-
+    <view style='width:100vw;height:8px;background-color: #F5F5F5;'></view>
+ 
     <view class='deault_item flex_box' bindtap='feedback'>
       <image class='deault_item_icon' src='../../static/images/ic_feedback.png' style='width:20px;height:21px;' />
       <view class='deault_item_title flex_item_auto'>意见反馈</view>
