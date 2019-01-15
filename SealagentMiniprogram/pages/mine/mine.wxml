@@ -1,65 +1,67 @@
 <view class='page'>
-  <view class='top_bg'></view>
-  <view class='top_bg_empty'></view>
+  <scroll-view scroll-y class='page_srcollview'>
+    <view class='top_bg'></view>
+    <view class='top_bg_empty'></view>
 
-  <view class='userdetail flex_box' bindtap='userdetail'>
-    <image wx:if='{{avatar}}' class='userdetail_avatar' src='{{host_static}}{{avatar}}' mode='cover'></image>
-    <image wx:else class='userdetail_avatar' src='../../static/images/ic_avatar_default.png' mode='cover'></image>
-    <view class='userdetail_nickname flex_item_auto'>
-      <block wx:if='{{nickname}}'>
-        <text>Hi，\n</text>{{nickname}}
-      </block>
-      <block wx:elif='{{mobile}}'>
-        <text>Hi，\n</text>{{mobile}}
-      </block>
-      <block wx:else>
-        未登录
-      </block>
-    </view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
-
-  <view class='deault_item flex_box' bindtap='businesscard'>
-    <image class='deault_item_icon' src='../../static/images/ic_business_card.png' style='width:20px;height:14px;' />
-    <view class='deault_item_title flex_item_auto'>餐厅名片</view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
-  <view class='splite_line_l20'></view>
-
-  <view class='deault_item flex_box' bindtap='work'>
-    <image class='deault_item_icon' src='../../static/images/ic_work.png' style='width:18px;height:21px;' />
-    <view class='deault_item_title flex_item_auto'>我的作品</view>
-    <view wx:if='{{works.length}}' class='gengduo'>更多</view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
-  <view wx:if='{{works.length}}' class='works_layout'>
-    <scroll-view scroll-x class='works_scroll_view'>
-      <block wx:for="{{works}}" wx:key="id">
-        <view class='works_scroll_view_item' bindtap='phosterresult' data-work='{{item}}' style='margin-left:{{index == 0 ? "0" : "8"}}px;'>
-        <image mode='aspectFit' src="{{host_static}}{{item.thumbnail}}" />
+    <view class='userdetail flex_box' bindtap='userdetail'>
+      <image wx:if='{{avatar}}' class='userdetail_avatar' src='{{host_static}}{{avatar}}' mode='cover'></image>
+      <image wx:else class='userdetail_avatar' src='../../static/images/ic_avatar_default.png' mode='cover'></image>
+      <view class='userdetail_nickname flex_item_auto'>
+        <block wx:if='{{nickname}}'>
+          <text>Hi，\n</text>{{nickname}}
+        </block>
+        <block wx:elif='{{mobile}}'>
+          <text>Hi，\n</text>{{mobile}}
+        </block>
+        <block wx:else>
+          未登录
+        </block>
       </view>
-      </block>
-    </scroll-view>
-  </view>
-  <view class='splite_line_l20' style='height:8px;'></view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
 
-  <view class='deault_item flex_box' bindtap='feedback'>
-    <image class='deault_item_icon' src='../../static/images/ic_feedback.png' style='width:20px;height:21px;' />
-    <view class='deault_item_title flex_item_auto'>意见反馈</view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
-  <view class='splite_line_l20'></view>
+    <view class='deault_item flex_box' bindtap='businesscard'>
+      <image class='deault_item_icon' src='../../static/images/ic_business_card.png' style='width:20px;height:14px;' />
+      <view class='deault_item_title flex_item_auto'>餐厅名片</view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
+    <view class='splite_line_l20'></view>
 
-  <view class='deault_item flex_box' bindtap='callus'>
-    <image class='deault_item_icon' src='../../static/images/ic_call_us.png' style='width:20px;height:20px;' />
-    <view class='deault_item_title flex_item_auto'>联系我们</view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
-  <view class='splite_line_l20'></view>
+    <view class='deault_item flex_box' bindtap='work'>
+      <image class='deault_item_icon' src='../../static/images/ic_work.png' style='width:18px;height:21px;' />
+      <view class='deault_item_title flex_item_auto'>我的作品</view>
+      <view wx:if='{{works.length}}' class='gengduo'>更多</view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
+    <view wx:if='{{works.length}}' class='works_layout'>
+      <scroll-view scroll-x class='works_scroll_view'>
+        <block wx:for="{{works}}" wx:key="id">
+          <view class='works_scroll_view_item' bindtap='phosterresult' data-work='{{item}}' style='margin-left:{{index == 0 ? "0" : "8"}}px;'>
+          <image mode='aspectFit' src="{{host_static}}{{item.thumbnail}}" />
+        </view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class='splite_line_l20' style='height:8px;'></view>
 
-  <view class='deault_item flex_box' bindtap='settings'>
-    <image class='deault_item_icon' src='../../static/images/ic_settings.png' style='width:20px;height:20px;' />
-    <view class='deault_item_title flex_item_auto'>设置</view>
-    <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
-  </view>
+    <view class='deault_item flex_box' bindtap='feedback'>
+      <image class='deault_item_icon' src='../../static/images/ic_feedback.png' style='width:20px;height:21px;' />
+      <view class='deault_item_title flex_item_auto'>意见反馈</view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
+    <view class='splite_line_l20'></view>
+
+    <view class='deault_item flex_box' bindtap='callus'>
+      <image class='deault_item_icon' src='../../static/images/ic_call_us.png' style='width:20px;height:20px;' />
+      <view class='deault_item_title flex_item_auto'>联系我们</view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
+    <view class='splite_line_l20'></view>
+
+    <view class='deault_item flex_box' bindtap='settings'>
+      <image class='deault_item_icon' src='../../static/images/ic_settings.png' style='width:20px;height:20px;' />
+      <view class='deault_item_title flex_item_auto'>设置</view>
+      <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
+    </view>
+  </scroll-view>
 </view>

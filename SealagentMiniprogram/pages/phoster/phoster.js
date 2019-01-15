@@ -31,7 +31,8 @@ Page({
     templateinfolist: [],
     picturelist: [],
     textlist: [],
-    isShowInputDialog: false
+    isShowInputDialog: false,
+    isDisplay: false,
   },
 
   /**
@@ -61,7 +62,8 @@ Page({
       content.width = rect.width
       content.height = rect.height
       that.setData({
-        content: content
+        content: content,
+        isDisplay:true
       })
       that.initScale()
     }).exec()
@@ -88,9 +90,6 @@ Page({
       })
       that.initSchema()
     }
-  },
-  onShareAppMessage: function() {
-
   },
   initSchema() {
     const userBusinessCard = this.data.userBusinessCard
@@ -142,7 +141,6 @@ Page({
     this.setData({
       schema: schema
     })
-
   },
   replaceTemplate: function(e) {
     this.loadTemplate(function() {
