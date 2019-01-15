@@ -1,3 +1,8 @@
+.ic_delete{
+  width: 22px;
+  height: 25px;
+  margin-top: 10px;
+}
 .content{
   width:calc(100% - 16px);
   padding:0 8px;
@@ -11,14 +16,15 @@
 }
 
 .item_image{
-  /* margin:8px; */
-  margin-top: 16px;
+  margin-top: 12px;
   background: #e5e5e5;
+  border: 2px solid transparent;
 }
 
 .item_image_checked{
-  margin:4px 8px;
-  border: 1px solid #ff9a08;
+  margin-top: 12px;
+  background: #e5e5e5;
+  border: 2px solid #ff9a08;
 }
 
 .item_credit_time{

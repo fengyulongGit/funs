@@ -54,7 +54,7 @@ var request = {
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
-          } else if (-2 == res.data.code || -4 == res.data.code || -13 == res.data.code || -1000 == res.data.code || -3 == res.data.code) {
+          } else if (-1000 == res.data.code) {
             wx.navigateTo({
               url: '../../pages/login/login',
             })
@@ -196,6 +196,17 @@ var request = {
   getworklist: function(options) {
     options = options || {}
     options.url = "v1/work/getworklist"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  },
+  deletework: function (options) {
+    options = options || {}
+    options.url = "v1/work/deletework"
 
     let params = options.params || {}
     params.user_id = app.getUser_id()

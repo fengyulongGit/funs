@@ -28,12 +28,6 @@ Page({
   onShow:function(){
     this.authorizePhotosAlbum()
   },
-  onShareAppMessage: function() {
-
-    return {
-      imageUrl: this.data.shareImageUrl
-    }
-  },
   changeProtocol: function(e) {
     const protocol = this.data.protocol
     this.setData({

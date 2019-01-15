@@ -1,21 +1,24 @@
 <view style='page'>
+  <view wx:if='{{isDelete}}' class='flex_box'>
+    <image class='ic_delete' src='../../static/images/ic_delete.png' bindtap='deleteWorks'></image>
+  </view>
   <block wx:if='{{worklist.length}}'>
     <view class='content'>
       <view class="item">
         <block wx:for="{{col1}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
+          <image class='{{item.checked ? "item_image_checked" : "item_image"}}' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' bindlongpress='openDelete' data-work='{{item}}' data-id='{{item.id}}' data-index='{{index}}' data-col='1'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>
       <view class="item">
         <block wx:for="{{col2}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
+          <image class='{{item.checked ? "item_image_checked" : "item_image"}}' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' bindlongpress='openDelete' data-work='{{item}}' data-id='{{item.id}}' data-index='{{index}}' data-col='2'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>
       <view class="item">
         <block wx:for="{{col3}}" wx:key="id">
-          <image class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' data-work='{{item}}' data-id='{{item.id}}'></image>
+          <image class='{{item.checked ? "item_image_checked" : "item_image"}}' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='checked' bindlongpress='openDelete' data-work='{{item}}' data-id='{{item.id}}' data-index='{{index}}' data-col='3'></image>
           <view class='item_credit_time'>{{item.create_time}}</view>
         </block>
       </view>

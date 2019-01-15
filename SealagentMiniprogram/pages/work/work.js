@@ -6,7 +6,8 @@ var col3H = 0;
 
 const app = getApp()
 Page({
-
+  startTime: 0,
+  endTime: 0,
   /**
    * 页面的初始数据
    */
@@ -17,7 +18,8 @@ Page({
     imgWidth: 0,
     col1: [],
     col2: [],
-    col3: []
+    col3: [],
+    isDelete:false,
   },
 
   /**
@@ -33,6 +35,9 @@ Page({
     this.setData({
       imgWidth: imgWidth
     });
+
+  },
+  onShow:function(){
 
     col1H = 0
     col2H = 0
@@ -58,13 +63,6 @@ Page({
       return
     }
     this.getlist(this.data.worklist.length)
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   },
   waterFall(list) {
     for (var i = 0; i < list.length; i++) {
@@ -169,10 +167,89 @@ Page({
     })
   },
   checked:function(e){
-    console.log(e)
+    if(this.data.isDelete){
+      this.setCheckStatus(e)
+      return
+    }
     const work = e.currentTarget.dataset.work
     wx.navigateTo({
       url: '../phosterresult/phosterresult?editable=true&work=' + JSON.stringify(work),
+    })
+  },
+  openDelete:function(e){
+    this.setData({
+      isDelete:true
+    })
+    this.setCheckStatus(e)
+  },
+  setCheckStatus(e){
+    let col = e.currentTarget.dataset.col
+    let index = e.currentTarget.dataset.index || 0
+    let work
+    if(col == 1){
+      work = this.data.col1[index]
+    } else if (col == 2) {
+      work = this.data.col2[index]
+    } else if (col == 3) {
+      work = this.data.col3[index]
+    }
+    
+    let isChecked = work.checked || false
+
+    work.checked = !isChecked
+
+    let itemlist = 'col' + col+'[' + index + ']'
+    this.setData({
+      [itemlist]: work
+    })
+  },
+  deleteWorks:function(e){
+    let ids = []
+    const col1 = this.data.col1
+    const col2 = this.data.col2
+    const col3 = this.data.col3
+    for (let i in col1){
+      const work = col1[i]
+      let isChecked = work.checked || false
+      if (isChecked){
+        ids.push(String(work.id))
+      }
+    }
+    for (let i in col2) {
+      const work = col2[i]
+      let isChecked = work.checked || false
+      if (isChecked) {
+        ids.push(String(work.id))
+      }
+    }
+    for (let i in col3) {
+      const work = col3[i]
+      let isChecked = work.checked || false
+      if (isChecked) {
+        ids.push(String(work.id))
+      }
+    }
+    console.log(ids)
+
+    var that = this
+    wx.showModal({
+      content: '是否删除选择的作品?',
+      success(res) {
+        if (res.confirm) {
+          network.deletework({
+            params:{
+              work_id_list: JSON.stringify(ids)
+            },
+            success(data){
+              that.setData({
+                isDelete:false
+              })
+              
+              that.onShow()
+            }
+          })
+        }
+      }
     })
   }
 })

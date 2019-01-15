@@ -55,13 +55,6 @@ Page({
     }
     this.getlist(this.data.templateinfolist.length)
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
   waterFall(list) {
     for (var i = 0; i < list.length; i++) {
       var templateinfo = list[i]
