@@ -1,0 +1,23 @@
+/*==全局样式==*/
+*{padding:0;margin:0;}
+div,dl,dt,dd,form,h1,h2,h3,h4,h5,h6,img,ol,ul,li,p,span,a{border:0;}
+img,input{border:none;vertical-align:middle;}
+body{font-family:Tahoma,Arial,Helvetica,"宋体";font-size:14px;text-align:center;background:#FFF;color:#333;}
+html{overflow-y:scroll;}
+ul,ol{list-style-type:none;}
+
+input[type=text]{border: 1px solid #FF9A08; width: 50px;height: 20px;line-height: 20px;padding:0 10px; }
+input[type=button],button{border:none;border-radius:5px;cursor:pointer;width:40px;height:30px;background-color:#FF9A08;color: #FFF;}
+
+a:link,a:visited{text-decoration:underline;color:#FF9A08;}
+a:hover,a:active{text-decoration:underline;color:#f60;}
+
+table{border-collapse:collapse;width: 100%;margin: auto;}
+table,th,td{border: 1px solid #FF9A08; }
+td{vertical-align: top;text-align: left;padding: 10px;}
+
+#table_scheam{width: 90%;}
+
+.td_width{width: 50px;}
+
+p{margin-top: 5px;}
