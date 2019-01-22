@@ -106,22 +106,29 @@ let schema_filter = {
             'opacity:' + border.color.alpha / 255 + ';'
     },
     getAlign: function (alignment) {
-        var type = ''
+        let type = ''
+        let justify = ''
         if (alignment == 0 || alignment == 3 || alignment == 6) {
             type = "left"
+            justify = 'flex-start'
         } else if (alignment == 1 || alignment == 4 || alignment == 7) {
             type = "center"
+            justify = "center"
         } else if (alignment == 2 || alignment == 5 || alignment == 8) {
             type = "right"
+            justify = 'flex-end'
         }
 
         return 'text-align:' + type + ';' +
-            'justify-content: ' + type + ';'
+            'justify-content: ' + justify + ';'
     }
 }
 
 let color_filter = {
     rgbToHex: function (rgb) {
+        if (rgb == 0) {
+            return "000000"
+        }
         return rgb.toString(16)
     }
 }

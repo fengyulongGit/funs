@@ -33,16 +33,20 @@ var schema_filter = {
   },
   getAlign: function(alignment) {
     var type = ''
+    var justify = ''
     if (alignment == 0 || alignment == 3 || alignment == 6) {
       type = "left"
+      justify = 'flex-start'
     } else if (alignment == 1 || alignment == 4 || alignment == 7) {
       type = "center"
+      justify = "center"
     } else if (alignment == 2 || alignment == 5 || alignment == 8) {
       type = "right"
+      justify = 'flex-end'
     }
 
     return 'text-align:' + type + ';' +
-      'justify-content: ' + type + ';'
+      'justify-content: ' + justify + ';'
   }
 }
 
