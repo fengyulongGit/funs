@@ -1333,7 +1333,11 @@ function changeFamily(e) {
 }
 
 function gen() {
-    $("#template_result").val(JSON.stringify(template, null, "\t"))
+    let template_str = JSON.stringify(template)
+    template_str = template_str.replace(/{}/g, 'null')
+    template_str = template_str.replace(/\[\]/g, 'null')
+
+    $("#template_result").val(JSON.stringify(JSON.parse(template_str), null, "\t"))
 
     initSchemaView()
     // $("#template_result").val(arr)
