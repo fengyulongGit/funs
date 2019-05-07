@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <!--<style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+    </style>
+
+    <!--字体相关-->
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">fonts/PingFang-Regular.ttf</item>
+    </style>
+
+    <style name="PingFangSC.Medium" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/PingFangSC-Medium.ttf</item>
+    </style>
+
+    <style name="SDKActivityTheme" parent="AppTheme" />
+
+    <style name="AppTheme.Progress">
+        <item name="colorAccent">@color/red</item> <!-- Whatever color you want-->
+    </style>
+
+    <style name="CommitButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MIS_NO_ACTIONBAR" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="split_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/split_line</item>
+    </style>
+
+    <style name="split_line_dotted">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1.5dp</item>
+        <item name="android:background">@drawable/split_line_dotted</item>
+        <item name="android:layerType">software</item>
+    </style>
+
+    <style name="split_line_dotted_vertical">
+        <item name="android:layout_width">1.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/split_line_dotted_vertical</item>
+        <item name="android:layerType">software</item>
+    </style>
+
+    <style name="listview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:divider">@color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:listSelector">@drawable/list_selector_empty</item>
+        <item name="android:cacheColorHint">@color/transparent</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+</resources>

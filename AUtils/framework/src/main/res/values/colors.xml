@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FCFCFC</color>
+    <color name="colorPrimaryDark">@color/colorPrimary</color>
+    <color name="colorAccent">@color/red</color>
+
+    <color name="background">@color/white</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white_transparent">#88ffffff</color>
+    <color name="text_333">#333333</color>
+    <color name="text_444">#444444</color>
+    <color name="text_666">#666666</color>
+    <color name="text_888">#888888</color>
+    <color name="text_ccc">#CCCCCC</color>
+
+    <color name="red">#FF3F4C</color>
+
+    <color name="split_line">@color/D8D8D8</color>
+
+    <color name="edit_delete">@color/text_ccc</color>
+
+    <color name="pressed_grey">#FAFAFA</color>
+
+    <color name="F5F5F5">#F5F5F5</color>
+    <color name="D8D8D8">#D8D8D8</color>
+    <color name="B5B5B5">#B5B5B5</color>
+</resources>

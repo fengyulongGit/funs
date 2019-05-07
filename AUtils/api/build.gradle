@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //RxJava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
+
+    //Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+
+    //OKHttp3
+//    final OKHTTP_VERSION = '3.6.0'
+//    compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+//    compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+
+    implementation 'cn.hutool:hutool-core:4.1.20'
+}
+
+task makeJar(type: proguard.gradle.ProGuardTask, dependsOn: "build") {
+    // 未混淆的jar
+    injars 'build/libs/JisujieAndroidAPI.jar'
+    // 混淆后的jar路径
+    outjars 'build/Jisujie_Android_API.jar'
+    // 具体需要keep住的类
+    configuration 'proguard-rules.pro'
+}
+
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

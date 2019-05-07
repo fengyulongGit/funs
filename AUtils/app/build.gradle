@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+// 多渠道使用walle示例（注：多渠道使用）
+apply from: 'multiple-channel.gradle'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.autils"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
+
+        multiDexEnabled true
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    // recommend
+    dexOptions {
+        jumboMode = true
+    }
+
+    signingConfigs {
+        debug {
+//            storeFile file("keystore/debug.keystore")
+            keyAlias 'JisujieDebug'
+            keyPassword 'jisujie2017'
+            storeFile file('../keystore/Jisujie_debug_keystore.jks')
+            storePassword 'jisujie2017'
+        }
+        release {
+            keyAlias 'Jisujie'
+            keyPassword 'Jisujie2017'
+            storeFile file('../keystore/Jisujie_release_keystore.jks')
+            storePassword 'Jisujie2017'
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-rules-x5-webview.pro'
+            signingConfig signingConfigs.release
+
+            resValue("string", "PORT_NUMBER", "8081")
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-rules-x5-webview.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        quiet false
+        showAll true
+        disable 'InvalidPackage'
+        disable "ResourceType"
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
+    implementation project(':framework')
+
+
+    // walle（多渠道使用）{@link https://github.com/Meituan-Dianping/walle}
+    implementation 'com.meituan.android.walle:library:1.1.6'
+
+    //Android-Debug-Database: 数据库调试工具库 {@link https://github.com/amitshekhariitbhu/Android-Debug-Database}
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
+
+    //leakcanary: 内存泄露监测工具库 {@link https://github.com/square/leakcanary}
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+
+    //AndroidPerformanceMonitor: UI卡顿监测工具库 {@link https://github.com/markzhai/AndroidPerformanceMonitor}
+    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+}

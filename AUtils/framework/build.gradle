@@ -1,0 +1,90 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        quiet false
+        showAll true
+        disable 'InvalidPackage'
+        disable "ResourceType"
+    }
+}
+
+task copyLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(path: ':api')
+//    api project(':Tongdun')
+
+    api 'com.android.support:appcompat-v7:28.0.0'
+    api 'com.android.support:design:28.0.0'
+    api 'com.android.support:recyclerview-v7:28.0.0'
+    //recycleview的适配器{@link https://github.com/CymChad/BaseRecyclerViewAdapterHelper}
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    api 'io.reactivex.rxjava2:rxjava:2.1.13'
+
+    //Retrofit2
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    // RxLifecycle基础库
+    api 'com.trello.rxlifecycle2:rxlifecycle-android:2.1.0'
+
+    //{@link https://github.com/bumptech/glide}
+    api 'com.github.bumptech.glide:glide:3.7.0'
+
+    // 动态授权 {@link https://github.com/tbruyelle/RxPermissions}
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+
+    //rxandroid
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // 数据库插件）{@link https://github.com/greenrobot/greenDAO}
+    api 'org.greenrobot:greendao:3.2.2' // add library
+//    compile 'org.greenrobot:greendao-generator:3.2.2'
+    api 'org.greenrobot:eventbus:3.0.0'
+
+    api 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    implementation "com.android.support:multidex:1.0.1" // 多dex配置
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    api 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+
+    api 'me.yokeyword:indexablerecyclerview:1.3.0'
+}
+
+greendao {
+    //数据库的schema版本，也可以理解为数据库版本号
+    schemaVersion 1
+    //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
+    daoPackage 'com.autils.framework.data.db.dao'
+    //设置DaoMaster、DaoSession、Dao目录
+    targetGenDir 'src/main/java'
+}
+
+repositories {
+    mavenCentral()
+}

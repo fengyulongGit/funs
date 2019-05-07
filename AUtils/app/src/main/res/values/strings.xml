@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">安卓工具</string>
+    <string name="exit_app_tips">再按一次返回退出安卓工具</string>
+</resources>

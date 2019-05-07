@@ -1,0 +1,5 @@
+homepage #官网
+#testchannel #测试更新用
+
+#./gradlew clean assembleDebugChannels
+#./gradlew clean assembleReleaseChannels
