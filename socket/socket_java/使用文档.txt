@@ -1,3 +1,3 @@
-#es ==> String / ei ==> int / ez ==> boolean
-启动 adb shell am start -n "android.socket/.MainActivity" --es test "1111"
+启动接收 java -jar socket_java.jar 1 Downloads/
+启动发送 java -jar socket_java.jar 2 /Users/jisuyun/11111 172.16.10.139 9999
 

@@ -1,3 +1,6 @@
+1. adb logcat -s socket
+
+2. 启动接收 adb shell am start -n "android.socket/.MainActivity" --es mode "1" --es path "0/"
+   启动发送 adb shell am start -n "android.socket/.MainActivity" --es mode "2" --es path "0/" --es ip "172.16.10.139" --ei port 9999
 #es ==> String / ei ==> int / ez ==> boolean
-启动 adb shell am start -n "android.socket/.MainActivity" --es test "1111"
 
