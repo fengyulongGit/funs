@@ -3,6 +3,7 @@ package com.autils.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -38,6 +39,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class FileTidyingFragment extends BaseFragment {
     private RecyclerView listview_title;
+
+    private SwipeRefreshLayout refresh_layout;
+    private boolean isLoading;
+
     private FileTidyingTitleAdapter titleAdapter;
 
     private RecyclerView listview;
@@ -50,6 +55,25 @@ public class FileTidyingFragment extends BaseFragment {
 
     @Override
     protected void initViewBindClick() {
+        refresh_layout = $(R.id.refresh_layout);
+        refresh_layout.setColorSchemeColors(getResources().getColor(R.color.red));
+        refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isLoading) {
+                    return;
+                }
+
+                isLoading = true;
+
+                adapter.setList(getFiles(titleAdapter.getItem(titleAdapter.getItemCount() - 1)));
+
+                isLoading = false;
+
+                refresh_layout.setRefreshing(false);
+            }
+        });
+
         listview_title = $(R.id.listview_title);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

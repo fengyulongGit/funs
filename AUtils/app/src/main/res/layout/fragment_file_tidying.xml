@@ -6,15 +6,22 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listview_title"
-        android:layout_marginLeft="20dp"
         style="@style/listview"
+        android:layout_height="40dp"
 
-        android:layout_height="40dp" />
+        android:layout_marginLeft="20dp" />
 
     <View style="@style/split_line" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listview"
-        style="@style/listview"
-        android:background="@color/F5F5F5" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listview"
+            style="@style/listview"
+            android:background="@color/F5F5F5" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
