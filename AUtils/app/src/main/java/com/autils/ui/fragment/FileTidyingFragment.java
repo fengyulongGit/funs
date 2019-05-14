@@ -1,5 +1,6 @@
 package com.autils.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -134,15 +135,44 @@ public class FileTidyingFragment extends BaseFragment {
         });
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void initViewData(Bundle savedInstanceState) {
         titleAdapter.add(new File(PathUtils.SdCard()));
 
-        adapter.setList(getFiles(titleAdapter.getItem(0)));
+        Observable.just(titleAdapter.getItem(0))
+                .throttleFirst(300, TimeUnit.MILLISECONDS)
+                .compose(FileTidyingFragment.this.<File>bindUntilEvent(FragmentEvent.DESTROY))
+                .subscribeOn(Schedulers.io())
+                .map(new Function<File, List<FileTidyingAdapter.ItemData>>() {
+                    @Override
+                    public List<FileTidyingAdapter.ItemData> apply(File file) {
+                        return getFiles(file);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading();
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .subscribe(new Consumer<List<FileTidyingAdapter.ItemData>>() {
+                    @Override
+                    public void accept(List<FileTidyingAdapter.ItemData> files) {
+                        adapter.setList(files);
+                    }
+                });
     }
 
-    private List<File> getFiles(File file) {
-        List<File> list = new ArrayList<>();
+    private List<FileTidyingAdapter.ItemData> getFiles(File file) {
+        List<FileTidyingAdapter.ItemData> list = new ArrayList<>();
 
         File[] files = file.listFiles();
         if (files == null) {
@@ -152,21 +182,30 @@ public class FileTidyingFragment extends BaseFragment {
             if (f.getName().startsWith(".")) {
                 continue;
             }
-            list.add(f);
+            FileTidyingAdapter.ItemData itemData = new FileTidyingAdapter.ItemData();
+            itemData.setFile(f);
+            if (f.isFile()) {
+                itemData.setSize(f.length());
+            }
+            itemData.setLastModified(f.lastModified());
+
+            list.add(itemData);
         }
 
-        Collections.sort(list, new Comparator<File>() {
+        Collections.sort(list, new Comparator<FileTidyingAdapter.ItemData>() {
             @Override
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory() && o2.isFile()) {
+            public int compare(FileTidyingAdapter.ItemData o1, FileTidyingAdapter.ItemData o2) {
+                if (o1.getFile().isDirectory() && o2.getFile().isFile()) {
                     return -1;
                 }
-                if (o1.isFile() && o2.isDirectory()) {
+                if (o1.getFile().isFile() && o2.getFile().isDirectory()) {
                     return 1;
                 }
-                return o1.getName().compareTo(o2.getName());
+                return o1.getFile().getName().compareTo(o2.getFile().getName());
             }
         });
+
+        //TODO 根据大小排序
 
         return list;
     }

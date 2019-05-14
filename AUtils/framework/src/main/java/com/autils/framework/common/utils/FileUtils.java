@@ -221,9 +221,9 @@ public class FileUtils {
     /***
      * 获取缓存大小
      */
-    public static String getCacahSize(String filepath) {
+    public static String getFileSize(String filepath) {
         File file = new File(filepath);
-        String size = formetFileSize(getFileSize(file));
+        String size = formatFileSize(getFileSize(file));
         return size;
     }
 
@@ -255,15 +255,17 @@ public class FileUtils {
     /***
      * 转换文件大小
      */
-    public static String formetFileSize(long files) {
+    public static String formatFileSize(long files) {
         DecimalFormat df = new DecimalFormat("##0.00");
         String fileSizeString = "";
         if (files == 0.00) {
             fileSizeString = "0M";
+        } else if (files < 1048576) {
+            fileSizeString = df.format((double) files / 1024) + "KB";
         } else if (files < 1073741824) {
-            fileSizeString = df.format((double) files / 1048576) + "M";
+            fileSizeString = df.format((double) files / 1048576) + "MB";
         } else {
-            fileSizeString = df.format((double) files / 1073741824) + "G";
+            fileSizeString = df.format((double) files / 1073741824) + "GB";
         }
         return fileSizeString;
     }

@@ -20,16 +20,21 @@ public class FileTidyingUtils {
         return new String[]{toPrefix, toSuffix};
     }
 
-    private static void deletFolder(File file) {
-        if (file != null) {
-            if (file.exists() && file.isDirectory()) {
+    private static void delete(String path) {
+        File file = new File(path);
+        if (file != null && file.exists()) {
+            if (file.isDirectory()) {
                 File[] files = file.listFiles();
                 if (files != null) {
                     for (File f : files) {
-                        deletFolder(f);
-                        f.delete();
+                        if (f.isDirectory()) {
+                            delete(f.getAbsolutePath());
+                        } else {
+                            f.delete();
+                        }
                     }
                 }
+                file.delete();
             } else {
                 file.delete();
             }
@@ -75,8 +80,7 @@ public class FileTidyingUtils {
         for (File f : file.listFiles()) {
             if (f.isDirectory()) {
                 moveFile(f.getAbsolutePath(), file.getAbsolutePath());
-                deletFolder(f);
-                f.delete();
+                delete(f.getAbsolutePath());
             }
         }
     }
