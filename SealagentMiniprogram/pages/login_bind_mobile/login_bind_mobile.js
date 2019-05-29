@@ -1,8 +1,14 @@
 const network = require("../../static/utils/network.js")
+const app = getApp()
 
 Page({
   data: {
-    decryptminiprogram:{}
+    decryptminiprogram: {},
+    mobile: '',
+    captcha: '',
+    countDown: 0,
+    timer: null, //定时器名字
+    countDownNum: '60', //倒计时初始值
   },
   onLoad: function(options) {
     this.setData({
@@ -64,6 +70,8 @@ Page({
   login: function (e) {
     const mobile = this.data.mobile
     const captcha = this.data.captcha
+    const decryptminiprogram = this.data.decryptminiprogram
+    const that = this
 
     network.userlogin({
       params: {
@@ -78,11 +86,11 @@ Page({
             "union_id": decryptminiprogram.union_id
           },
           success(res){
-            this.userdetail()
+            that.userdetail()
           },
           fail(res){
             if(res.code == -7){
-              this.userdetail()
+              that.userdetail()
             }
           }
         })
@@ -90,6 +98,7 @@ Page({
     })
   },
   userdetail:function(){
+    const decryptminiprogram = this.data.decryptminiprogram
     network.getuserdetail({
       success(res){
         let nickname = ''
