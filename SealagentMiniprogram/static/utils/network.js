@@ -131,6 +131,17 @@ var request = {
       }
     })
   },
+  getconfiglist: function (options) {
+    options = options || {}
+    options.url = "v1/app/getconfiglist"
+
+    let params = options.params || {}
+    params.name = 'sealagent'
+    params.os = 'miniprogram'
+    options.params = params
+
+    this.request(options)
+  },
   gettemplateinfolist: function(options) {
     options = options || {}
     options.url = "v1/template/gettemplateinfolist"
@@ -163,7 +174,8 @@ var request = {
     options.url = "v1/user/userlogin"
 
     let params = options.params || {}
-    params.device = 'wechat'
+    params.device = 'miniprogram'
+    params.source = 'miniprogram'
     params.partner = 'sealagent'
     params.channel = 'sealagent'
     params.spm = ''
@@ -171,9 +183,43 @@ var request = {
 
     this.request(options)
   },
+  decryptminiprogram: function (options) {
+    options = options || {}
+    options.url = "v1/user/decryptminiprogram"
+
+    let params = options.params || {}
+    options.params = params
+
+    this.request(options)
+  },
   getuserbusinesscard: function(options) {
     options = options || {}
     options.url = "v1/user/getuserbusinesscard"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  },
+  wechatlogin: function(options){
+    options = options || {}
+    options.url = "v1/user/wechatlogin"
+
+    let params = options.params || {}
+    params.device = 'miniprogram'
+    params.source = 'miniprogram'
+    params.partner = 'sealagent'
+    params.channel = 'sealagent'
+    params.spm = ''
+    options.params = params
+
+    this.request(options)
+  },
+  wechatbind: function (options) {
+    options = options || {}
+    options.url = "v1/user/wechatbind"
 
     let params = options.params || {}
     params.user_id = app.getUser_id()

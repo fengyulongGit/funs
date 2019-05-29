@@ -1,5 +1,5 @@
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     console.log('App Launch')
 
     //获取设备信息
@@ -29,7 +29,9 @@ App({
             success: res => {
               console.log(res)
               // 可以将 res 发送给后台解码出 unionId
-              this.globalData.wechatInfo = res
+              if (res && res.userInfo) {
+                this.globalData.wechatInfo = res
+              }
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -41,56 +43,55 @@ App({
         }
       }
     })
-    
+
     //初始化登录状态
     var token = wx.getStorageSync('token') || {
-      isLogined: false,
       mobileUser: {},
       wechatUser: {}
     }
 
     this.globalData.token = token
   },
-  onShow: function () {
+  onShow: function() {
     console.log('App Show')
   },
-  onHide: function () {
+  onHide: function() {
     console.log('App Hide')
   },
-  onError: function () {
+  onError: function() {
     console.log('App Error')
   },
-  onPageNotFound: function(){
+  onPageNotFound: function() {
     console.log('App PageNotFound')
   },
   globalData: {
-    systemInfo:{},
-    host: "http://api.sealagent.com:8080/",
-    host_static:"http://api.sealagent.com:8080/static/",
-    wechatInfo:null,
-    token:{
-      isLogined:false,
-      mobileUser:{},
-      wechatUser:{}
+    systemInfo: {},
+    host: "https://api.sealagent.com/",
+    // host: "http://172.16.10.139:8080/",
+    host_static: "https://api.sealagent.com/static/",
+    wechatInfo: null,
+    token: {
+      mobileUser: {},
+      wechatUser: {}
     }
   },
-  isLogined:function(){
-    return this.globalData.token.isLogined
+  isLogined: function() {
+    return !!this.getToken()
   },
-  getToken:function(){
+  getToken: function() {
     const token = this.globalData.token
 
-    if (token.mobileUser.token){
+    if (token.mobileUser.token) {
       return token.mobileUser.token
     }
 
-    if (token.wechatUser.token){
+    if (token.wechatUser.token) {
       return token.wechatUser.token
     }
 
     return ''
   },
-  getUser_id: function () {
+  getUser_id: function() {
     const token = this.globalData.token
 
     if (token.mobileUser.id) {
@@ -103,27 +104,30 @@ App({
 
     return ''
   },
-  setMobileUser:function(mobileUser){
+  setMobileUser: function(mobileUser) {
     const token = {
-      isLogined: true,
       mobileUser: mobileUser,
       wechatUser: {}
     }
     this.globalData.token = token
     wx.setStorageSync('token', token)
   },
-  setWechatUser: function (wechatUser) {
+  setWechatUser: function(wechatUser) {
     const token = {
-      isLogined: true,
       mobileUser: {},
       wechatUser: wechatUser
     }
     this.globalData.token = token
     wx.setStorageSync('token', token)
   },
-  logout:function(){
+  isLoginByMobile:function(){
+    return this.globalData.token.mobileUser.token
+  },
+  isLoginByWechat: function () {
+    return this.globalData.token.wechatUser.token
+  },
+  logout: function() {
     const token = {
-      isLogined: false,
       mobileUser: {},
       wechatUser: {}
     }

@@ -18,6 +18,7 @@ Page({
       scale: 0.2
     },
     schema: {},
+    isReplacePictureBtnShow: true,
     image: {
       type: '',
       index: 0,
@@ -39,15 +40,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
-
     this.setData({
       work_id: options.work_id || 0,
       template_id: options.template_id || 0,
       schema: JSON.parse(options.schema || "{}")
     })
-
-    this.initSchema()
   },
 
   /**
@@ -63,7 +60,7 @@ Page({
       content.height = rect.height
       that.setData({
         content: content,
-        isDisplay:true
+        isDisplay: true
       })
       that.initScale()
     }).exec()
@@ -138,8 +135,28 @@ Page({
       schema.card.address.text = address
     }
 
+    let isReplacePictureBtnShow = false
+    if (schema.background && schema.background.editable) {
+      isReplacePictureBtnShow = true
+    } else if (schema.title && schema.title.background && schema.title.background.editable) {
+      isReplacePictureBtnShow = true
+    } else if (schema.desc && schema.desc.background && schema.desc.background.editable) {
+      isReplacePictureBtnShow = true
+    } else {
+      for (let i in schema.childs) {
+        let child = schema.childs[i]
+        if (child.class == 'Image' && child.editable) {
+          isReplacePictureBtnShow = true
+          break
+        } else if (child.class == 'Text' && child.background && child.background.editable) {
+          isReplacePictureBtnShow = true
+          break
+        }
+      }
+    }
     this.setData({
-      schema: schema
+      schema: schema,
+      isReplacePictureBtnShow: isReplacePictureBtnShow
     })
   },
   replaceTemplate: function(e) {
@@ -148,8 +165,6 @@ Page({
     })
   },
   replacePicture: function(e) {
-    console.log(e)
-
     let image = this.data.image
     let type = e.currentTarget.dataset.type || image.type
     let index = e.currentTarget.dataset.index != undefined ? e.currentTarget.dataset.index : image.index
@@ -192,7 +207,6 @@ Page({
     })
   },
   replaceText: function(e) {
-    console.log(e)
     //显示底部文字
     let textlist = []
     let schema = this.data.schema
@@ -224,8 +238,6 @@ Page({
     this.setData({
       textlist: textlist
     })
-
-    console.log(textlist)
   },
   hideTemplateinfolist: function(e) {
     this.setData({
@@ -286,7 +298,6 @@ Page({
     })
   },
   onTextInput: function(e) {
-    console.log(e)
     const value = e.detail.value
     this.setText(value)
   },
@@ -410,8 +421,6 @@ Page({
         "count": 50
       },
       success(data) {
-        console.log(data)
-
         that.setData({
           templateinfolist: data
         })
@@ -422,9 +431,6 @@ Page({
   },
   loadPicture(success) {
     var that = this
-
-    console.log(that.data.image)
-
     network.gettemplatepicturelist({
       params: {
         "template_id": that.data.template_id,
@@ -436,8 +442,6 @@ Page({
         "count": 50
       },
       success(data) {
-        console.log(data)
-
         that.setData({
           picturelist: data
         })
@@ -450,16 +454,13 @@ Page({
     const template_id = this.data.template_id
     const schema = JSON.stringify(this.data.schema)
     const work_id = this.data.work_id
-    console.log(schema)
-
     network.savework({
       params: {
         "template_id": template_id,
         "schema": schema
       },
       success(e) {
-        console.log(e)
-        if (work_id){
+        if (work_id) {
           wx.navigateBack({
             delta: 2
           })

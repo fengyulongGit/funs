@@ -6,11 +6,11 @@ Page({
    */
   data: {
     urls: {
-      "registry":'http://www.sealagent.com/company/registry?show=app',
-      "about":'http://www.sealagent.com/company/about?show=app',
-      "service":'http://www.sealagent.com/company/service?show=app',
-      "privacy":'http://www.sealagent.com/company/privacy?show=app',
-      "contact":'http://www.sealagent.com/company/contact?show=app'
+      "registry":'https://www.sealagent.com/company/registry?show=app',
+      "about":'https://www.sealagent.com/company/about?show=app',
+      "service":'https://www.sealagent.com/company/service?show=app',
+      "privacy":'https://www.sealagent.com/company/privacy?show=app',
+      "contact":'https://www.sealagent.com/company/contact?show=app'
     },
     url:'',
   },

@@ -19,7 +19,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       work: JSON.parse(options.work),
       editable: options.editable || false
@@ -64,8 +63,6 @@ Page({
       success: function(res) {
         if (!res.cancel) {
           const tapIndex = res.tapIndex
-          console.log(tapIndex)
-
           if (tapIndex == 0) {
             that.downloadImage(host_static + work.thumbnail, res)
           } else if (tapIndex == 1) {
@@ -92,7 +89,6 @@ Page({
     //获取相册授权
     wx.getSetting({
       success(res) {
-        console.log(res)
         if (!res.authSetting['scope.writePhotosAlbum']) {
           wx.authorize({
             scope: 'scope.writePhotosAlbum',

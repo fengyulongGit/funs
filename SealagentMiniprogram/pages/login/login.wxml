@@ -28,7 +28,7 @@
   </view>
 
   <view class='flex_box' style='margin-top:12px;'>
-    <button wx:if="{{!hasWechatInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btn_wechat_login' style='background-image: url(../../static/images/ic_wechat.png);'/>
+    <button wx:if="{{!hasWechatInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btn_wechat_login'/>
     <image wx:else bindtap="wechatlogin" class="btn_wechat_login_avatar" src="{{wechatInfo.userInfo.avatarUrl}}" mode="cover"></image>
   </view>
 </view>

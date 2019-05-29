@@ -115,11 +115,11 @@
       <image src='../../static/images/ic_replace_template.png' />
       <view>更换模板</view>
     </view>
-    <view class='btn_item' style='margin-left:35px;margin-right:35px;' bindtap='replacePicture'>
+    <view wx:if="{{isReplacePictureBtnShow}}" class='btn_item' style='margin-left:35px;' bindtap='replacePicture'>
       <image src='../../static/images/ic_replace_picture.png' />
       <view>更换图片</view>
     </view>
-    <view class='btn_item' bindtap='replaceText'>
+    <view class='btn_item' style='margin-left:35px;' bindtap='replaceText'>
       <image src='../../static/images/ic_replace_text.png' />
       <view>更换文案</view>
     </view>

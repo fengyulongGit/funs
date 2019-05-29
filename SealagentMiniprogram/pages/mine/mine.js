@@ -82,7 +82,6 @@ Page({
     })
   },
   phosterresult:function(e){
-    console.log(e)
     const work = e.currentTarget.dataset.work
     wx.navigateTo({
       url: '../phosterresult/phosterresult?editable=true&work=' + JSON.stringify(work),

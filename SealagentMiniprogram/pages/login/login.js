@@ -1,5 +1,4 @@
 const network = require("../../static/utils/network.js")
-
 const app = getApp()
 Page({
 
@@ -49,10 +48,9 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
     const wechatInfo = e.detail
 
-    if (wechatInfo) {
+    if (wechatInfo && wechatInfo.userInfo) {
       app.globalData.wechatInfo = wechatInfo
       this.setData({
         wechatInfo: wechatInfo,
@@ -122,7 +120,7 @@ Page({
         "mobile": mobile,
         "code": captcha,
       },
-      success(res){
+      success(res) {
         app.setMobileUser(res)
         wx.navigateBack({
           delta: 1
@@ -137,14 +135,45 @@ Page({
   },
   wechatlogin: function(e) {
     const wechatInfo = this.data.wechatInfo
-    console.log(wechatInfo)
 
     if (!wechatInfo || wechatInfo.length) {
       return
     }
 
-    // const key = CryptoJS.enc.Utf8.parse("tiihtNczf5v6AKRyjwEUhQ==")//十六位十六进制数作为秘钥
-    // var iv = CryptoJS.enc.Utf8.parse('r7BXXKkLb8qrSNn05n0qiA==');//十六位十六进制数作为秘钥偏移量
-    // wechatInfo.encryptedData
+    wx.login({
+      success(login) {
+        wx.getUserInfo({
+          success(userinfo) {
+            network.decryptminiprogram({
+              params: {
+                "js_code": login.code,
+                "encrypted_data": userinfo.encryptedData,
+                "iv": userinfo.iv
+              },
+              success(decryptminiprogram) {
+                network.wechatlogin({
+                  params: {
+                    "open_id": decryptminiprogram.open_id,
+                    "token": ""
+                  },
+                  success(wechatuser) {
+                    if (!wechatuser) {
+                      wx.navigateTo({
+                        url: '../login_bind_mobile/login_bind_mobile?decryptminiprogram=' + JSON.stringify(decryptminiprogram),
+                      })
+                    } else {
+                      app.setWechatUser(wechatuser)
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    })
   }
 })

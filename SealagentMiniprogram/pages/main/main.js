@@ -102,7 +102,6 @@ Page({
         "count": 20
       },
       success(data) {
-        console.log(data)
         that.setData({
           enableMore: data.length >= 20
         })
