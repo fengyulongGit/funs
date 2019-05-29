@@ -163,7 +163,7 @@ Page({
   },
   start: function(e) {
     wx.switchTab({
-      url: '../main/main',
+      url: '../home/home',
     })
   },
   checked:function(e){

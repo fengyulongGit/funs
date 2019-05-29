@@ -31,7 +31,7 @@ Page({
 
           app.logout()
           wx.switchTab({
-            url: '../main/main',
+            url: '../home/home',
           })
         }
       }
