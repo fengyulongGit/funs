@@ -2,7 +2,8 @@
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "海豹特工",
   "navigationBarBackgroundColor": "#FFFFFF",
-  "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50,
-  "disableScroll": false
+  "disableScroll": true,
+  "usingComponents":{
+    "home_list":"../home_list/home_list"
+  }
 }

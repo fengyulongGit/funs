@@ -1,11 +1,18 @@
 <view style='page'>
-  <text class='title'>推荐</text>
-  <view class='content'>
-    <view class="item">
-      <image wx:for="{{col1}}" wx:key="id" class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='phoster' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+  <view class="swiper-tab">
+  <block wx:for="{{classifies}}" wx:key="category" >
+    <view wx:if="{{item.icon.select}}" class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
+      <image src='{{currentTab==index ? item.icon.select : item.icon.normal}}' style='width:{{item.icon.width / 2}}px;height:{{item.icon.height / 2}}px;margin-top: {{(45 - item.icon.height / 2) / 2}}px;' data-current="{{index}}" bindtap="clickTab"></image>
     </view>
-    <view class="item">
-      <image wx:for="{{col2}}" wx:key="id" class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='phoster' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+    <view wx:else class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
+      {{item.title}}
     </view>
+    </block>
   </view>
+  <view class='splite_line'></view>
+  <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
+    <swiper-item wx:for="{{classifies}}" wx:key="category">
+      <home_list category="{{item.category}}" />
+    </swiper-item>
+  </swiper>
 </view>

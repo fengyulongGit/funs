@@ -1,0 +1,34 @@
+scroll-view {
+  width: 100vw;
+  height: 100%;
+}
+scroll-view::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0px;
+}
+
+loading {
+  position: fixed;
+  z-index: 9000;
+  width: 40px;
+  height: 40px;
+  left: calc(50vw - 20px);
+  top: 0px;
+}
+
+.content {
+  width: 100%;
+  padding-left: 8px;
+}
+
+.item {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(50vw - 8px);
+}
+
+.item_image {
+  margin: 4px 8px;
+  box-shadow: 0 0 4px rgba(181, 181, 181, 0.5);
+}

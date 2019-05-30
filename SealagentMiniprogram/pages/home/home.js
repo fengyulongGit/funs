@@ -1,140 +1,52 @@
 const network = require("../../static/utils/network.js")
-
-var col1H = 0;
-var col2H = 0;
-
-const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    host_static: app.globalData.host_static,
-    templateinfolist: [],
-    enableMore:true,
-    imgWidth: 0,
-    col1: [],
-    col2: []
+    classifies:[],
+    currentTab: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const systemInfo = app.globalData.systemInfo
-
-    var ww = systemInfo.windowWidth;
-    var wh = systemInfo.windowHeight;
-    var imgWidth = ww * 0.5 - 24;
-
-    this.setData({
-      imgWidth: imgWidth
-    });
-
-    col1H = 0
-    col2H = 0
-
-    this.getlist(0)
-  },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-    col1H = 0
-    col2H = 0
-    this.getlist(0)
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-    if (!this.data.enableMore) {
-      return
-    }
-    this.getlist(this.data.templateinfolist.length)
-  },
-  waterFall(list) {
-    for (var i = 0; i < list.length; i++) {
-      var templateinfo = list[i]
-      var oImgW = templateinfo.width; //图片原始宽度
-      var oImgH = templateinfo.height; //图片原始高度
-      var imgWidth = this.data.imgWidth; //图片设置的宽度
-      var scale = imgWidth / oImgW; //比例计算
-      var imgHeight = oImgH * scale; //自适应高度
-
-      templateinfo.imgWidth = imgWidth;
-      templateinfo.imgHeight = imgHeight;
-
-      if (col1H <= col2H) {
-        col1H += imgHeight;
-
-        var length = this.data.col1.length
-        if (!length) {
-          length = 0
-        }
-        var itemlist = 'col1[' + length + ']'
-        this.setData({
-          [itemlist]: templateinfo
-        })
-      } else {
-        col2H += imgHeight;
-
-        var length = this.data.col2.length
-        if (!length) {
-          length = 0
-        }
-        var itemlist = 'col2[' + length + ']'
-        this.setData({
-          [itemlist]: templateinfo
-        })
-      }
-    }
-  },
-  getlist(offset) {
-    var that = this
-    network.gettemplateinfolist({
-      params: {
-        "version": 1,
-        "type": 1,
-        "offset": offset,
-        "count": 20
-      },
-      success(data) {
-        that.setData({
-          enableMore: data.length >= 20
-        })
-        if (offset == 0) {
-          that.setData({
-            col1: [],
-            col2: []
-          })
-          that.setData({
-            templateinfolist: data
-          })
-        } else {
-          for (var i = 0; i < data.length; i++) {
-            var itemlist = 'templateinfolist[' + (offset + i) + ']'
+    const that = this
+    network.getconfiglist({
+      success(res){
+        for (var i = 0; i < res.length; i++) {
+          if (res[i].key == 'classify'){
+            let classifies = JSON.parse(res[i].value)
+            for(let j in classifies){
+              classifies[j].icon = JSON.parse(classifies[j].icon)
+            }
             that.setData({
-              [itemlist]: data[i]
+              classifies: classifies
             })
+            break
           }
-          var itemlist = 'templateinfolist[' + offset + ']'
-          that.setData({
-            [itemlist]: data
-          })
         }
-        that.waterFall(data)
       }
     })
   },
-  phoster: function(e) {
-    const id = e.currentTarget.id
-    const schema = e.currentTarget.dataset.schema
-
-    wx.navigateTo({
-      url: '../phoster/phoster?template_id=' + id + '&schema=' + schema,
-    })
+  //滑动切换
+  swiperTab: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
   }
 })

@@ -1,0 +1,11 @@
+<scroll-view scroll-y id="scroll-wrap" bindscrolltolower="onReachBottom">
+  <view class='content' bindtouchstart="start_fn" bindtouchmove='move_fn' bindtouchend="end_fn">
+    <view class="item">
+      <image wx:for="{{col1}}" wx:key="id" class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='phoster' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+    </view>
+    <view class="item">
+      <image wx:for="{{col2}}" wx:key="id" class='item_image' src="{{host_static}}{{item.thumbnail}}" style="width:{{item.imgWidth}}px;height:{{item.imgHeight}}px;" bindtap='phoster' id='{{item.id}}' data-schema='{{item.schema}}'></image>
+    </view>
+  </view>
+</scroll-view>
+<loading style="top:{{loadingTop}}px;"/>
