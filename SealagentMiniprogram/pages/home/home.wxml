@@ -2,7 +2,7 @@
   <view class="swiper-tab">
   <block wx:for="{{classifies}}" wx:key="category" >
     <view wx:if="{{item.icon.select}}" class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
-      <image src='{{currentTab==index ? item.icon.select : item.icon.normal}}' style='width:{{item.icon.width / 2}}px;height:{{item.icon.height / 2}}px;margin-top: {{(45 - item.icon.height / 2) / 2}}px;' data-current="{{index}}" bindtap="clickTab"></image>
+      <image src='{{currentTab==index ? item.icon.select : item.icon.normal}}' style='width:{{item.icon.width / 2}}px;height:{{item.icon.height / 2}}px;margin-top: {{(45 - item.icon.height / 2 + 4) / 2}}px;' data-current="{{index}}" bindtap="clickTab"></image>
     </view>
     <view wx:else class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
       {{item.title}}
