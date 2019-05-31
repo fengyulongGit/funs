@@ -3,7 +3,6 @@ var StringUtils = {
     if (!text) {
       return ''
     }
-    console.log(text)
 
     let res = ''
     for (let i in text) {
@@ -13,7 +12,6 @@ var StringUtils = {
         res += text.charAt(i)
       }
     }
-    console.log(res)
     return res
   },
   dateFtt: function(fmt, date) { //author: meizz   

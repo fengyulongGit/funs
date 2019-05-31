@@ -13,6 +13,9 @@ Page({
     nickname: '',
     mobile: ''
   },
+  onLoad: function(options) {
+   
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -21,20 +24,26 @@ Page({
 
     network.getuserdetail({
       success(data) {
+        let avatar = data.avatar
+        if (avatar.indexOf("http") < 0) {
+          avatar = this.data.host_static + avatar
+        }
         that.setData({
           userDetail: data,
-          avatar: data.avatar,
+          avatar: avatar,
           nickname: data.nickname,
           mobile: StringUtils.securityMobile(data.mobile)
         })
       }
     })
   },
-  avatar: function(e) {
-    
+  avatar: function() {
+    wx.navigateTo({
+      url: '../imagecropper/imagecropper?width=' + 400 + '&height=' + 400,
+    })
   },
   nickname: function(e) {
-    const nickname = this.data.nickname
+    const nickname = this.data.nicknam
     wx.navigateTo({
       url: '../userdetail_nickname/userdetail_nickname?nickname=' + nickname,
     })

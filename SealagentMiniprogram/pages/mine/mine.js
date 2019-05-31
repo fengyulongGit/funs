@@ -31,9 +31,13 @@ Page({
     if (app.isLogined()) {
       network.getuserdetail({
         success(data) {
+          let avatar = data.avatar
+          if (avatar.indexOf("http") < 0) {
+            avatar = this.data.host_static + avatar
+          }
           that.setData({
             userDetail: data,
-            avatar: data.avatar,
+            avatar: avatar,
             nickname: data.nickname,
             mobile: StringUtils.securityMobile(data.mobile)
           })

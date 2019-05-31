@@ -1,0 +1,5 @@
+<image-cropper wx:if="{{crop_width > 0}}" id="image-cropper" bindload="cropperload" bindimageload="loadimage" bindtapcut="clickcut" limit_move="{{true}}" disable_rotate="{{true}}" width="{{crop_width}}" height="{{crop_height}}" imgSrc="{{crop_origin}}" export_scale="{{export_scale}}"
+/>
+<text class="hint">长按中间裁剪框可查看裁剪后的图片</text>
+<text class='crop_cancel' bindtap='cropcancel'>取消</text>
+<text class='crop_ok' bindtap='cropok'>使用</text>

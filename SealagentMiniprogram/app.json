@@ -14,7 +14,8 @@
     "pages/businesscard_tel/businesscard_tel",
     "pages/businesscard_address/businesscard_address",
     "pages/work/work",
-    "pages/login_bind_mobile/login_bind_mobile"
+    "pages/login_bind_mobile/login_bind_mobile",
+    "pages/imagecropper/imagecropper"
   ],
   "window": {
     "navigationStyle": "default",

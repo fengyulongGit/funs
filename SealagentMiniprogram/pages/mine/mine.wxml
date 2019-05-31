@@ -4,7 +4,7 @@
     <view class='top_bg_empty'></view>
 
     <view class='userdetail flex_box' bindtap='userdetail'>
-      <image wx:if='{{avatar}}' class='userdetail_avatar' src='{{host_static}}{{avatar}}' mode='cover'></image>
+      <image wx:if='{{avatar}}' class='userdetail_avatar' src='{{avatar}}' mode='cover'></image>
       <image wx:else class='userdetail_avatar' src='../../static/images/ic_avatar_default.png' mode='cover'></image>
       <view class='userdetail_nickname flex_item_auto'>
         <block wx:if='{{nickname}}'>

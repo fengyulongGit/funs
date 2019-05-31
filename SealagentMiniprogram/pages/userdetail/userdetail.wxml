@@ -1,7 +1,7 @@
 <view class='page'>
   <view class='deault_item flex_box' style='height:70px;' bindtap="avatar">
     <view class='deault_item_title flex_item_auto'>头像</view>
-    <image class="avatar" src="{{host_static}}{{avatar}}" mode="cover"></image>
+    <image class="avatar" src="{{avatar}}" mode="cover"></image>
     <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
   </view>
   <view class='splite_line_l20'></view>
@@ -16,13 +16,7 @@
   <view class='deault_item flex_box'>
     <view class='deault_item_title'>手机号</view>
     <view class='deault_item_value flex_item_auto'>
-    <block wx:if='{{mobile}}'>
-    {{mobile}}
-    </block>
-    <block wx:else>
-      未绑定
-    </block>
+      {{mobile ? mobile : "未绑定"}}
     </view>
   </view>
-
 </view>
