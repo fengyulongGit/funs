@@ -5,8 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classifies:[],
-    currentTab: 0
+    classifies: [],
+    currentTab: 0, //预设当前项的值
+    scrollLeft: 0, //tab标题的滚动条位置
   },
 
   /**
@@ -14,12 +15,13 @@ Page({
    */
   onLoad: function(options) {
     const that = this
+
     network.getconfiglist({
-      success(res){
+      success(res) {
         for (var i = 0; i < res.length; i++) {
-          if (res[i].key == 'classify'){
+          if (res[i].key == 'classify') {
             let classifies = JSON.parse(res[i].value)
-            for(let j in classifies){
+            for (let j in classifies) {
               classifies[j].icon = JSON.parse(classifies[j].icon)
             }
             that.setData({
@@ -32,21 +34,56 @@ Page({
     })
   },
   //滑动切换
-  swiperTab: function (e) {
-    var that = this;
-    that.setData({
+  swiperTab: function(e) {
+    this.setData({
       currentTab: e.detail.current
     });
+    this.checkCor()
   },
   //点击切换
-  clickTab: function (e) {
-    var that = this;
-    if (this.data.currentTab === e.target.dataset.current) {
+  clickTab: function(e) {
+    let cur = e.target.dataset.current
+    if (this.data.currentTab === cur) {
       return false;
     } else {
-      that.setData({
-        currentTab: e.target.dataset.current
+      this.setData({
+        currentTab: cur
       })
     }
-  }
+    // this.checkCor()
+  },
+  //判断当前滚动超过一屏时，设置tab标题滚动条。
+  checkCor: function() {
+    const that = this
+    const currentTab = this.data.currentTab
+
+    wx.createSelectorQuery().select('#tab_' + currentTab).boundingClientRect(function(rect) {
+      var itemleft = rect.left,
+        itemwidth = rect.width;
+
+      wx.createSelectorQuery().select('.swiper-tab').fields({
+        scrollOffset: true,
+        size: true
+      }, function(rect) {
+
+        var scrollwidth = rect.width,
+          scrollLeft = rect.scrollLeft;
+        
+        //左边
+        if (itemleft < 0) {
+          if (currentTab == 0) {
+            scrollLeft = 0
+          } else {
+            scrollLeft = -itemleft
+          }
+        } else if (itemleft + itemwidth > scrollLeft + scrollwidth) {
+          scrollLeft = itemleft + itemwidth - scrollwidth
+        }
+
+        that.setData({
+          scrollLeft: scrollLeft
+        })
+      }).exec();
+    }).exec()
+  },
 })

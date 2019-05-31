@@ -1,15 +1,17 @@
 <view style='page'>
-  <view class="swiper-tab">
-  <block wx:for="{{classifies}}" wx:key="category" >
-    <view wx:if="{{item.icon.select}}" class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
-      <image src='{{currentTab==index ? item.icon.select : item.icon.normal}}' style='width:{{item.icon.width / 2}}px;height:{{item.icon.height / 2}}px;margin-top: {{(45 - item.icon.height / 2 + 4) / 2}}px;' data-current="{{index}}" bindtap="clickTab"></image>
-    </view>
-    <view wx:else class="swiper-tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
-      {{item.title}}
-    </view>
+  <scroll-view scroll-x="true" class="swiper-tab" scroll-left="{{scrollLeft}}">
+    <block wx:for="{{classifies}}" wx:key="category">
+      <view wx:if="{{item.icon.select}}" id='tab_{{index}}' class="tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
+        <image src='{{currentTab==index ? item.icon.select : item.icon.normal}}' style='width:{{item.icon.width / 2}}px;height:{{item.icon.height / 2}}px;position: relative;top:{{(25 - item.icon.height / 2) / 2 + 1}}px;' data-current="{{index}}" bindtap="clickTab"></image>
+      </view>
+      <view wx:else id='tab_{{index}}' class="tab-item {{currentTab==index ? 'active':''}}" data-current="{{index}}" bindtap="clickTab">
+        {{item.title}}
+      </view>
     </block>
-  </view>
+  </scroll-view>
+
   <view class='splite_line'></view>
+
   <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
     <swiper-item wx:for="{{classifies}}" wx:key="category">
       <home_list category="{{item.category}}" />
