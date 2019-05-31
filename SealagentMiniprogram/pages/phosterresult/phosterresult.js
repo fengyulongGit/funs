@@ -52,6 +52,7 @@ Page({
     const work_id = this.data.work.id
     wx.navigateTo({
       url: '../phoster/phoster?work_id=' + work_id + '&template_id=' + template_id + '&schema=' + schema,
+      //  + '&category=' + this.data.work.category
     })
   },
   download: function(e) {

@@ -216,7 +216,7 @@ Component({
       const schema = e.currentTarget.dataset.schema
 
       wx.navigateTo({
-        url: '../phoster/phoster?template_id=' + id + '&schema=' + schema,
+        url: '../phoster/phoster?template_id=' + id + '&schema=' + schema + '&category=' + this.properties.category,
       })
     }
   }

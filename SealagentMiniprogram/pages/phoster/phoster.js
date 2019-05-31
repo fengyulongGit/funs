@@ -43,7 +43,8 @@ Page({
     this.setData({
       work_id: options.work_id || 0,
       template_id: options.template_id || 0,
-      schema: JSON.parse(options.schema || "{}")
+      schema: JSON.parse(options.schema || "{}"),
+      category: options.category || "0"
     })
   },
 
@@ -417,6 +418,7 @@ Page({
       params: {
         "version": 1,
         "type": 1,
+        "category": this.data.category,
         "offset": 0,
         "count": 50
       },
