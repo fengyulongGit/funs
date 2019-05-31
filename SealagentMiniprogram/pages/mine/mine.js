@@ -33,7 +33,7 @@ Page({
         success(data) {
           let avatar = data.avatar
           if (avatar.indexOf("http") < 0) {
-            avatar = this.data.host_static + avatar
+            avatar = that.data.host_static + avatar
           }
           that.setData({
             userDetail: data,
