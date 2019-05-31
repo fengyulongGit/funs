@@ -14,19 +14,43 @@ Page({
     mobile: ''
   },
   onLoad: function(options) {
-   
+
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getuserdetail()
+
+    const that = this
+    if (app.globalData.imagecropper_result) {
+      network.uploadFile({
+        category: "avatar",
+        filePath: app.globalData.imagecropper_result,
+        success(data) {
+          network.updateuserdetail({
+            params: {
+              "avatar": data,
+            },
+            success(res) {
+              that.getuserdetail()
+            }
+          })
+        },
+        complete(res) {
+          app.globalData.imagecropper_result = ''
+        },
+      })
+    }
+  },
+  getuserdetail:function(){
     const that = this
 
     network.getuserdetail({
       success(data) {
         let avatar = data.avatar
         if (avatar.indexOf("http") < 0) {
-          avatar = this.data.host_static + avatar
+          avatar = that.data.host_static + avatar
         }
         that.setData({
           userDetail: data,
@@ -38,8 +62,15 @@ Page({
     })
   },
   avatar: function() {
-    wx.navigateTo({
-      url: '../imagecropper/imagecropper?width=' + 400 + '&height=' + 400,
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success(res) {
+        wx.navigateTo({
+          url: '../imagecropper/imagecropper?width=' + 400 + '&height=' + 400 + "&crop_origin=" + res.tempFilePaths[0],
+        })
+      }
     })
   },
   nickname: function(e) {

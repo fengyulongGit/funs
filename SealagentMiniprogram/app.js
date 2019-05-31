@@ -69,6 +69,8 @@ App({
     host: "https://api.sealagent.com/",
     // host: "http://172.16.10.139:8080/",
     host_static: "https://api.sealagent.com/static/",
+    delimiter: "@@@",
+    key: "325622db5b5158ce8267038eb8b22372",
     wechatInfo: null,
     token: {
       mobileUser: {},
@@ -120,10 +122,10 @@ App({
     this.globalData.token = token
     wx.setStorageSync('token', token)
   },
-  isLoginByMobile:function(){
+  isLoginByMobile: function() {
     return this.globalData.token.mobileUser.token
   },
-  isLoginByWechat: function () {
+  isLoginByWechat: function() {
     return this.globalData.token.wechatUser.token
   },
   logout: function() {

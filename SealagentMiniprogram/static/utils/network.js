@@ -3,19 +3,12 @@ var md5 = require("/md5.js")
 const app = getApp()
 
 var request = {
-  request: function(options) {
-    const url = options.url || ''
-    const params = options.params || {}
-    const message = options.message || ''
-    const success = options.success || function(res) {}
-    const fail = options.fail || function(res) {
-      console.log(res)
-    }
-
+  _genSignParams: function(params) {
+    params = params || {}
     params.ts = Date.parse(new Date()) / 1000
 
     var arr = "";
-    var singRaws = ""
+    var signRaws = ""
     for (var key in params) {
       if (arr.length > 0) {
         arr += ","
@@ -27,15 +20,26 @@ var request = {
     arr = arr.split(",").sort()
 
     for (var i in arr) {
-      singRaws += arr[i] + "=" + params[arr[i]] + "@@@"
+      signRaws += arr[i] + "=" + params[arr[i]] + app.globalData.delimiter
     }
 
-    singRaws += "key=325622db5b5158ce8267038eb8b22372"
-    console.log(singRaws)
+    signRaws += "key=" + app.globalData.key
+    console.log(signRaws)
 
-    params.sign = md5.md5(singRaws)
+    params.sign = md5.md5(signRaws)
 
     console.log(params)
+    return params
+  },
+  request: function(options) {
+    const url = options.url || ''
+    const params = options.params || {}
+    const message = options.message || ''
+    const success = options.success || function(res) {}
+    const fail = options.fail || function(res) {
+      console.log(res)
+    }
+    const complete = options.complete || function(res) {}
 
     // wx.showNavigationBarLoading()
     wx.showLoading({
@@ -43,18 +47,19 @@ var request = {
     })
     wx.request({
       url: getApp().globalData.host + url,
-      data: params,
+      data: this._genSignParams(params),
       header: {
         //'Content-Type': 'application/json'
         'content-type': 'application/x-www-form-urlencoded'
       },
       method: 'post',
       success: function(res) {
+        res.data = typeof (res.data) == "string" ? JSON.parse(res.data) : res.data
         console.log(res.data)
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
-          } else if (-2 == res.data.code||-1000 == res.data.code) {
+          } else if (-2 == res.data.code || -1000 == res.data.code) {
             wx.navigateTo({
               url: '../../pages/login/login',
             })
@@ -87,6 +92,8 @@ var request = {
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
         wx.hideLoading()
+
+        complete(res)
       },
     })
   },
@@ -131,7 +138,74 @@ var request = {
       }
     })
   },
-  getconfiglist: function (options) {
+  uploadFile: function(options) {
+    const category = options.category || ''
+    const filePath = options.filePath || ''
+    const params = options.params || {}
+    const message = options.message || ''
+    const success = options.success || function(res) {}
+    const fail = options.fail || function(res) {
+      console.log(res)
+    }
+    const complete = options.complete || function(res) {}
+
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+
+    wx.showLoading({
+      title: message,
+    })
+
+    wx.uploadFile({
+      url: getApp().globalData.host + "v1/file/" + category + "/upload",
+      filePath: filePath,
+      name: 'file',
+      formData: this._genSignParams(params),
+      success: function(res) {
+        res.data = typeof(res.data) == "string" ? JSON.parse(res.data) : res.data
+        console.log(res.data)
+        if (res.statusCode == 200) {
+          if (res.data.code == 0) {
+            success(res.data.data)
+          } else if (-2 == res.data.code || -1000 == res.data.code) {
+            wx.navigateTo({
+              url: '../../pages/login/login',
+            })
+          } else {
+            wx.showToast({
+              title: res.data.desc,
+              icon: 'none'
+            })
+            fail(res.data)
+          }
+        } else {
+          wx.showToast({
+            title: res.data,
+            icon: 'none'
+          })
+          fail(res.data)
+        }
+
+      },
+      fail: function(res) {
+        console.log(res)
+        wx.showToast({
+          title: res,
+          icon: 'none'
+        })
+        fail(res)
+      },
+      complete: function(res) {
+        console.log(res)
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh()
+        wx.hideLoading()
+
+        complete(res)
+      },
+    })
+  },
+  getconfiglist: function(options) {
     options = options || {}
     options.url = "v1/app/getconfiglist"
 
@@ -183,7 +257,7 @@ var request = {
 
     this.request(options)
   },
-  decryptminiprogram: function (options) {
+  decryptminiprogram: function(options) {
     options = options || {}
     options.url = "v1/user/decryptminiprogram"
 
@@ -203,7 +277,7 @@ var request = {
 
     this.request(options)
   },
-  wechatlogin: function(options){
+  wechatlogin: function(options) {
     options = options || {}
     options.url = "v1/user/wechatlogin"
 
@@ -217,7 +291,7 @@ var request = {
 
     this.request(options)
   },
-  wechatbind: function (options) {
+  wechatbind: function(options) {
     options = options || {}
     options.url = "v1/user/wechatbind"
 
@@ -250,7 +324,7 @@ var request = {
 
     this.request(options)
   },
-  deletework: function (options) {
+  deletework: function(options) {
     options = options || {}
     options.url = "v1/work/deletework"
 

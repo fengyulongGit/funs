@@ -16,8 +16,18 @@ Page({
 
     const {
       width,
-      height
+      height,
+      crop_origin
     } = options
+
+    if (!width || !height || !crop_origin){
+      wx.showToast({
+        title: '参数错误',
+        icon: 'none'
+      })
+      return
+    }
+
     let windowWidth = systemInfo.windowWidth * 0.8
     let windowHeight = systemInfo.windowHeight * 0.8
 
@@ -35,15 +45,16 @@ Page({
     }
 
     this.setData({
+      crop_origin: crop_origin,
       crop_width: crop_width,
       crop_height: crop_height,
-      export_scale: export_scale
+      export_scale: export_scale,
     })
   },
   cropperload(e) {
     console.log("cropper初始化完成");
     this.cropper = this.selectComponent("#image-cropper");
-    this.cropper.upload();//上传图片
+    // this.cropper.upload();//上传图片
   },
   loadimage(e) {
     console.log("图片加载完成", e.detail);
