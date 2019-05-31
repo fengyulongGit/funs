@@ -158,7 +158,9 @@
     <view class='dialog_bottom_title_left'>更换图片</view>
     <view class='dialog_bottom_title_right_btn' bindtap='hidePicturelist'>完成</view>
   </view>
-  <scroll-view scroll-x class='dialog_bottom_scroll'>
+  <view>
+  <image class="ic_gallery" src='../../static/images/ic_gallery.png' bindtap='chooseImage'></image>
+  <scroll-view scroll-x class='dialog_bottom_scroll picture'>
     <block wx:for="{{picturelist}}" wx:key="id">
       <view class='dialog_bottom_scroll_item' bindtap='selectPicture' data-src='{{item.src}}' style='margin-left:{{index == 0 ? "0" : "4"}}px;'>
 
@@ -169,6 +171,7 @@
       </view>
     </block>
   </scroll-view>
+  </view>
 </view>
 
 <!-- 输入文字框 -->

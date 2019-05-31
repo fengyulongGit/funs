@@ -88,6 +88,19 @@ Page({
       })
       that.initSchema()
     }
+
+    if (app.globalData.imagecropper_result) {
+      network.uploadFile({
+        category: "image",
+        filePath: app.globalData.imagecropper_result,
+        success(data) {
+          that.setSrc(data)
+        },
+        complete(res) {
+          app.globalData.imagecropper_result = ''
+        },
+      })
+    }
   },
   initSchema() {
     const userBusinessCard = this.data.userBusinessCard
@@ -205,6 +218,22 @@ Page({
 
     this.loadPicture(function() {
 
+    })
+  },
+  chooseImage: function() {
+    let {
+      width,
+      height
+    } = this.data.image.schema.size
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success(res) {
+        wx.navigateTo({
+          url: '../imagecropper/imagecropper?width=' + width + '&height=' + height + "&crop_origin=" + res.tempFilePaths[0],
+        })
+      }
     })
   },
   replaceText: function(e) {
