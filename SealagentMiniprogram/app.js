@@ -1,3 +1,4 @@
+const UUID = require("/static/utils/UUID.js")
 App({
   onLaunch: function() {
     console.log('App Launch')
@@ -6,6 +7,7 @@ App({
     const that = this
     wx.getSystemInfo({
       success: function(res) {
+        delete res['errMsg']
         console.log(res)
         that.globalData.systemInfo = res;
       },
@@ -51,6 +53,13 @@ App({
     }
 
     this.globalData.token = token
+
+    let uuid = wx.getStorageSync("uuid")
+    if (!uuid) {
+      uuid = UUID.uuid()
+      wx.setStorageSync('uuid', uuid)
+    }
+    this.globalData.uuid = uuid
   },
   onShow: function() {
     console.log('App Show')

@@ -1,4 +1,5 @@
 const network = require("../../static/utils/network.js")
+const app = getApp()
 Page({
 
   /**
@@ -30,6 +31,13 @@ Page({
             break
           }
         }
+      }
+    })
+
+    network.adddeviceinfo({
+      params: {
+        "device_id": app.globalData.uuid,
+        "context": JSON.stringify(app.globalData.systemInfo),
       }
     })
   },
@@ -68,7 +76,7 @@ Page({
 
         var scrollwidth = rect.width,
           scrollLeft = rect.scrollLeft;
-        
+
         //左边
         if (itemleft < 0) {
           if (currentTab == 0) {

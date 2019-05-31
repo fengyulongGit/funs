@@ -54,7 +54,7 @@ var request = {
       },
       method: 'post',
       success: function(res) {
-        res.data = typeof (res.data) == "string" ? JSON.parse(res.data) : res.data
+        res.data = typeof(res.data) == "string" ? JSON.parse(res.data) : res.data
         console.log(res.data)
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
@@ -367,8 +367,29 @@ var request = {
     options.params = params
 
     this.request(options)
-  }
+  },
+  adddeviceinfo: function(options) {
+    options = options || {}
+    options.url = "v1/device/adddeviceinfo"
 
+    let params = options.params || {}
+    params.os = 'miniprogram'
+    options.params = params
+
+    this.request(options)
+  },
+  adduserdevice: function (options) {
+    options = options || {}
+    options.url = "v1/user/adduserdevice"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    params.os = 'miniprogram'
+    options.params = params
+
+    this.request(options)
+  },
 }
 
 module.exports = request

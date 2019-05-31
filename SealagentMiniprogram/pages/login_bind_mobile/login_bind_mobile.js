@@ -15,17 +15,17 @@ Page({
       decryptminiprogram: JSON.parse(options.decryptminiprogram || "{}")
     })
   },
-  inputMobile: function (e) {
+  inputMobile: function(e) {
     this.setData({
       mobile: e.detail.value
     })
   },
-  inputCaptcha: function (e) {
+  inputCaptcha: function(e) {
     this.setData({
       captcha: e.detail.value
     })
   },
-  sendCaptcha: function (e) {
+  sendCaptcha: function(e) {
     const mobile = this.data.mobile
     const that = this
     if (!mobile) {
@@ -50,7 +50,7 @@ Page({
     let countDown = that.data.countDownNum //获取倒计时初始值
     //如果将定时器设置在外面，那么用户就看不到countDown的数值动态变化，所以要把定时器存进data里面
     that.setData({
-      timer: setInterval(function () { //这里把setInterval赋值给变量名为timer的变量
+      timer: setInterval(function() { //这里把setInterval赋值给变量名为timer的变量
         //每隔一秒countDown就减一，实现同步
         countDown--;
         //然后把countDown存进data，好让用户知道时间在倒计着
@@ -67,7 +67,7 @@ Page({
       }, 1000)
     })
   },
-  login: function (e) {
+  login: function(e) {
     const mobile = this.data.mobile
     const captcha = this.data.captcha
     const decryptminiprogram = this.data.decryptminiprogram
@@ -81,15 +81,15 @@ Page({
       success(res) {
         app.setMobileUser(res)
         network.wechatbind({
-          params:{
+          params: {
             "open_id": decryptminiprogram.open_id,
             "union_id": decryptminiprogram.union_id
           },
-          success(res){
+          success(res) {
             that.userdetail()
           },
-          fail(res){
-            if(res.code == -7){
+          fail(res) {
+            if (res.code == -7) {
               that.userdetail()
             }
           }
@@ -97,26 +97,26 @@ Page({
       }
     })
   },
-  userdetail:function(){
+  userdetail: function() {
     const decryptminiprogram = this.data.decryptminiprogram
     network.getuserdetail({
-      success(res){
+      success(res) {
         let nickname = ''
         let avatar = ''
         let gender = ''
         let country = ''
         let province = ''
         let city = ''
-        if(!res){
-          if (!res.nickname){
+        if (!res) {
+          if (!res.nickname) {
             nickname = decryptminiprogram.nick_name
           }
-          if (!res.avatar){
+          if (!res.avatar) {
             avatar = decryptminiprogram.avatar_url
           }
-          if(decryptminiprogram.gender === "2" || decryptminiprogram.gender === "0"){
+          if (decryptminiprogram.gender === "2" || decryptminiprogram.gender === "0") {
             gender = "0"
-          }else if(decryptminiprogram.gender === "1"){
+          } else if (decryptminiprogram.gender === "1") {
             gender = "1"
           }
           if (!res.country) {
@@ -128,7 +128,7 @@ Page({
           if (!res.city) {
             city = decryptminiprogram.city
           }
-        }else{
+        } else {
           nickname = decryptminiprogram.nick_name
           avatar = decryptminiprogram.avatar_url
           if (decryptminiprogram.gender === "2" || decryptminiprogram.gender === "0") {
@@ -143,16 +143,23 @@ Page({
 
         network.updateuserdetail({
           params: {
-            "nickname":nickname,
-            "avatar":avatar,
-            "gender":gender,
-            "country":country,
-            "province":province,
-            "city":city
+            "nickname": nickname,
+            "avatar": avatar,
+            "gender": gender,
+            "country": country,
+            "province": province,
+            "city": city
           },
           success(res) {
-            wx.navigateBack({
-              delta: 2
+            network.adduserdevice({
+              params: {
+                "device_id": app.globalData.uuid,
+              },
+              success(res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
             })
           }
         })

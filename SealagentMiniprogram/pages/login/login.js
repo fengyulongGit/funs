@@ -122,8 +122,15 @@ Page({
       },
       success(res) {
         app.setMobileUser(res)
-        wx.navigateBack({
-          delta: 1
+        network.adduserdevice({
+          params: {
+            "device_id": app.globalData.uuid,
+          },
+          success(res) {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       }
     })
@@ -163,8 +170,15 @@ Page({
                       })
                     } else {
                       app.setWechatUser(wechatuser)
-                      wx.navigateBack({
-                        delta: 1
+                      network.adduserdevice({
+                        params: {
+                          "device_id": app.globalData.uuid,
+                        },
+                        success(res) {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                        }
                       })
                     }
                   }
