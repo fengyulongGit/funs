@@ -15,12 +15,12 @@ Page({
   },
   service: function(e) {
     wx.navigateTo({
-      url: '../protocol/protocol?type=service',
+      url: '../borwser/borwser?type=service',
     })
   },
   privacy: function(e) {
     wx.navigateTo({
-      url: '../protocol/protocol?type=privacy',
+      url: '../borwser/borwser?type=privacy',
     })
   },
   logout: function(e) {

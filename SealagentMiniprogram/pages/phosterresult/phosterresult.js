@@ -12,7 +12,7 @@ Page({
     editable: false,
     protocol: true,
     writePhotosAlbum: false,
-    shareImageUrl:'',
+    workshare: {},
   },
 
   /**
@@ -23,8 +23,20 @@ Page({
       work: JSON.parse(options.work),
       editable: options.editable || false
     })
+
+    let that = this
+    network.sharework({
+      params: {
+        "work_id": this.data.work.id,
+      },
+      success(data) {
+        that.setData({
+          workshare: data,
+        })
+      },
+    })
   },
-  onShow:function(){
+  onShow: function() {
     this.authorizePhotosAlbum()
   },
   changeProtocol: function(e) {
@@ -35,7 +47,7 @@ Page({
   },
   protocol: function(e) {
     wx.navigateTo({
-      url: '../protocol/protocol?type=service',
+      url: '../borwser/borwser?type=service',
     })
   },
   preview: function(e) {
@@ -60,7 +72,7 @@ Page({
     const host_static = this.data.host_static
     const that = this
     wx.showActionSheet({
-      itemList: ['下载图片', '下载原图', '分享图片', '复制图片链接'],
+      itemList: ['下载作品', '下载原图', '复制作品链接'],
       success: function(res) {
         if (!res.cancel) {
           const tapIndex = res.tapIndex
@@ -69,8 +81,6 @@ Page({
           } else if (tapIndex == 1) {
             that.downloadImage(host_static + work.src, res)
           } else if (tapIndex == 2) {
-            that.shareImage(host_static + work.src)
-          } else if (tapIndex == 3) {
             wx.setClipboardData({
               data: host_static + work.src,
               success(res) {
@@ -177,19 +187,15 @@ Page({
       }
     })
   },
-  shareImage(url) {
-    const that = this
-    network.getImageInfo({
-      src: url,
-      success(res) {
-        // res.path
-        that.setData({
-          shareImageUrl:res.path
-        })
-        wx.showShareMenu({
-
-        })
-      }
-    })
-  }
+  // onShareAppMessage: function(options) {
+  //   const host_static = this.data.host_static
+  //   const workshare = this.data.workshare
+  //   let share = {
+  //     title: workshare.title,
+  //     imageUrl: host_static + workshare.thumbnail,
+  //     path: "/pages/borwser/borwser?url=" + encodeURIComponent(workshare.url.replace("http://", "https://") + "&scenario=1"),
+  //   }
+  //   console.log(share)
+  //   return share
+  // },
 })

@@ -1,4 +1,3 @@
-// pages/protocol/protocol.js
 Page({
 
   /**
@@ -7,7 +6,6 @@ Page({
   data: {
     urls: {
       "registry":'https://www.sealagent.com/company/registry?show=app',
-      "about":'https://www.sealagent.com/company/about?show=app',
       "service":'https://www.sealagent.com/company/service?show=app',
       "privacy":'https://www.sealagent.com/company/privacy?show=app',
       "contact":'https://www.sealagent.com/company/contact?show=app'
@@ -19,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const url = options.url
+    const url = decodeURIComponent(options.url || '')
     if(url){
       this.setData({
         url:url
@@ -28,7 +26,7 @@ Page({
     }
     const type = options.type
     if (type){
-      const url = this.data.urls[type]
+      const url = decodeURIComponent(this.data.urls[type] || '')
       if(url){
         this.setData({
           url: url

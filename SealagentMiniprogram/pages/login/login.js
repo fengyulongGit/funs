@@ -137,7 +137,7 @@ Page({
   },
   protocol: function(e) {
     wx.navigateTo({
-      url: '../protocol/protocol?type=registry',
+      url: '../borwser/borwser?type=registry',
     })
   },
   wechatlogin: function(e) {
