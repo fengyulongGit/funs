@@ -59,7 +59,7 @@ var request = {
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
-          } else if (-2 == res.data.code || -1000 == res.data.code) {
+          } else if (-1000 == res.data.code) {
             wx.navigateTo({
               url: '../../pages/login/login',
             })
@@ -167,7 +167,7 @@ var request = {
         if (res.statusCode == 200) {
           if (res.data.code == 0) {
             success(res.data.data)
-          } else if (-2 == res.data.code || -1000 == res.data.code) {
+          } else if (-1000 == res.data.code) {
             wx.navigateTo({
               url: '../../pages/login/login',
             })

@@ -161,7 +161,8 @@ Page({
                 network.wechatlogin({
                   params: {
                     "open_id": decryptminiprogram.open_id,
-                    "token": ""
+                    "token": "",
+                    "union_id": decryptminiprogram.union_id,
                   },
                   success(wechatuser) {
                     if (!wechatuser) {
