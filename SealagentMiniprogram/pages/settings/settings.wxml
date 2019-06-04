@@ -1,4 +1,4 @@
-<view class='page'>
+<view>
   <view class='deault_item flex_box'>
     <view class='deault_item_title flex_item_auto'>版本信息</view>
     <view class='banbenhao'>1.0.0</view>

@@ -107,12 +107,12 @@ Page({
     // })
     const that = this
     wx.showModal({
-      content: '稍后开通，是否使用电话联系我们？',
-      success(res) {
-        if (res.confirm) {
-          that.callus()
-        }
-      }
+      content: '可以在小程序关于页面（「右上角」 - 「关于」 - 「反馈与投诉」）中反馈您的问题.',
+      // success(res) {
+        // if (res.confirm) {
+        //   that.callus()
+        // }
+      // }
     })
   },
   callus: function(e) {

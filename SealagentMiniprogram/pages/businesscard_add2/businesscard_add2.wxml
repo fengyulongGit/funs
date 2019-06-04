@@ -1,0 +1,20 @@
+<view>
+  <view class='content'>
+    <view style='height:1px;'></view>
+    <view class='title'>店名：</view>
+    <input type='text' class='input' placeholder='请输入店名' placeholder-class='input_placeholder' bindinput='inputName' />
+    <view class='splite_line splite_line_width'></view>
+
+    <view class='title'>电话：</view>
+    <input type='text' class='input' placeholder='请输入电话' placeholder-class='input_placeholder' bindinput='inputTel' />
+    <view class='splite_line splite_line_width'></view>
+
+    <view class='title'>地址：</view>
+    <input type='text' class='input' placeholder='请输入地址' placeholder-class='input_placeholder' bindinput='inputAddress' />
+    <view class='splite_line splite_line_width'></view>
+    <view style='height:30px;'></view>
+  </view>
+
+  <view class='tips'>快去编辑自己的海报吧~</view>
+  <view class='btn top-100' bindtap='done'>创建名片</view>
+</view>

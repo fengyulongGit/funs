@@ -1,4 +1,4 @@
-<view class="page">
+<view>
   <view>
     <view class='title_text'>手机号码登录/注册</view>
     <image class='title_icon' src='../../static/images/img_login_welcome.png' />

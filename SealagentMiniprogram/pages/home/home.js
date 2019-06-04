@@ -41,6 +41,11 @@ Page({
       }
     })
   },
+  onShow: function () {
+    if (app.isLogined()) {
+      this.getuserbusinesscard()      
+    }
+  },
   //滑动切换
   swiperTab: function(e) {
     this.setData({
@@ -93,5 +98,16 @@ Page({
         })
       }).exec();
     }).exec()
+  },
+  getuserbusinesscard() {
+    network.getuserbusinesscard({
+      success(data) {
+        if (!data || !data.name || !data.tel || !data.address) {
+          wx.navigateTo({
+            url: '../businesscard_add1/businesscard_add1',
+          })
+        }
+      }
+    })
   },
 })

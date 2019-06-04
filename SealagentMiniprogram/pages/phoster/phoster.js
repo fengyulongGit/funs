@@ -114,7 +114,8 @@ Page({
     }
 
     const display = userBusinessCard.display || 0
-    let logo = userBusinessCard.logo || ''
+    // let logo = userBusinessCard.logo || ''
+    let logo = ''
     let name = userBusinessCard.name || ''
     let tel = userBusinessCard.tel || ''
     let address = userBusinessCard.address || ''

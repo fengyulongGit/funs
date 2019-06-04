@@ -98,6 +98,7 @@ Page({
     })
   },
   userdetail: function() {
+    const that = this
     const decryptminiprogram = this.data.decryptminiprogram
     network.getuserdetail({
       success(res) {
@@ -156,14 +157,28 @@ Page({
                 "device_id": app.globalData.uuid,
               },
               success(res) {
-                wx.navigateBack({
-                  delta: 2
-                })
+                that.getuserbusinesscard()
               }
             })
           }
         })
       }
     })
-  }
+  },
+  getuserbusinesscard() {
+    network.getuserbusinesscard({
+      success(data) {
+        wx.navigateBack({
+          delta: 2,
+          success() {
+            if (!data || !data.name || !data.tel || !data.address) {
+              wx.navigateTo({
+                url: '../businesscard_add1/businesscard_add1',
+              })
+            }
+          },
+        })
+      }
+    })
+  },
 })

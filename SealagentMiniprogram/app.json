@@ -15,7 +15,9 @@
     "pages/businesscard_address/businesscard_address",
     "pages/work/work",
     "pages/login_bind_mobile/login_bind_mobile",
-    "pages/imagecropper/imagecropper"
+    "pages/imagecropper/imagecropper",
+    "pages/businesscard_add1/businesscard_add1",
+    "pages/businesscard_add2/businesscard_add2"
   ],
   "window": {
     "navigationStyle": "default",

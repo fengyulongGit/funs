@@ -1,4 +1,4 @@
-<view class="page">
+<view>
   <view class='tips flex_box'>
     <image src='../../static/images/ic_tips.png'></image>
     <view>仔细检查文字信息、图片是否有错误或遗漏？</view>

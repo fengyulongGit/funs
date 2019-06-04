@@ -1,4 +1,4 @@
-<view class='page'>
+<view>
   <view class='kaiguan_layout flex_box'>
     <view class='kaiguan_title flex_item_auto'>允许使用名片</view>
     <image class='kaiguan' src='../../static/images/{{userBusinessCard.display == 1 ? "btn_switch_on" : "btn_switch_off"}}.png' bindtap='changeDisplay' />
@@ -11,20 +11,24 @@
       <view class='deault_item_value flex_item_auto'>{{userBusinessCard.name}}</view>
       <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
     </view>
+
     <view class='splite_line_l20'></view>
-    <view class='deault_item flex_box'>
+
+    <view wx:if="{{false}}" class='deault_item flex_box'>
       <view class='deault_item_title flex_item_auto'>品牌</view>
       <image class="logo" src="{{host_static}}{{userBusinessCard.logo}}" mode="aspectFit" bindtap='logo'></image>
       <image wx:if='{{userBusinessCard.logo}}' class='ic_delete_image' src='../../static/images/ic_delete_image.png' bindtap='dellogo'></image>
       <image wx:else class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
     </view>
-    <view class='splite_line_l20'></view>
+
+    <view  wx:if="{{false}}" class='splite_line_l20'></view>
 
     <view class='deault_item flex_box' bindtap='tel'>
       <view class='deault_item_title'>电话</view>
       <view class='deault_item_value flex_item_auto'>{{userBusinessCard.tel}}</view>
       <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
     </view>
+
     <view class='splite_line_l20'></view>
 
     <view class='deault_item flex_box' bindtap='address'>
@@ -32,5 +36,6 @@
       <view class='deault_item_value flex_item_auto'>{{userBusinessCard.address}}</view>
       <image class='forward_arrow' src='../../static/images/forward_arrow.png'></image>
     </view>
+
   </block>
 </view>

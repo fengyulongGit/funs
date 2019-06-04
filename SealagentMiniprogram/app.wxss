@@ -3,7 +3,7 @@
 @import "./style/PingFang-Regular.wxss";
 @import "./style/PingFangSC-Medium.wxss"; */
 
-.page {
+page {
   width: 100vw;
   height: 100vh;
   background-color: #fff;

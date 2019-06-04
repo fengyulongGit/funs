@@ -1,0 +1,7 @@
+<view>
+  <view class='title'>1步创建您的餐厅名片</view>
+  <view class='desc top-14'>名片生成之后，您的店名、电话和地址将会</view>
+  <view class='desc'>显示在海报上，有助于餐厅的推广与传播。</view>
+  <image class='img_tips' src='../../static/images/img_business_card_add_tips.png'></image>
+  <view class='btn top-100' bindtap='start'>创建名片</view>
+</view>

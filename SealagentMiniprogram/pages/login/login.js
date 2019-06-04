@@ -114,6 +114,7 @@ Page({
   login: function(e) {
     const mobile = this.data.mobile
     const captcha = this.data.captcha
+    const that = this
 
     network.userlogin({
       params: {
@@ -127,9 +128,7 @@ Page({
             "device_id": app.globalData.uuid,
           },
           success(res) {
-            wx.navigateBack({
-              delta: 1
-            })
+            that.getuserbusinesscard()
           }
         })
       }
@@ -147,6 +146,7 @@ Page({
       return
     }
 
+    const that = this
     wx.login({
       success(login) {
         wx.getUserInfo({
@@ -176,9 +176,7 @@ Page({
                           "device_id": app.globalData.uuid,
                         },
                         success(res) {
-                          wx.navigateBack({
-                            delta: 1
-                          })
+                          that.getuserbusinesscard()
                         }
                       })
                     }
@@ -190,5 +188,21 @@ Page({
         })
       }
     })
-  }
+  },
+  getuserbusinesscard() {
+    network.getuserbusinesscard({
+      success(data) {
+        wx.navigateBack({
+          delta: 1,
+          success() {
+            if (!data || !data.name || !data.tel || !data.address) {
+              wx.navigateTo({
+                url: '../businesscard_add1/businesscard_add1',
+              })
+            }
+          },
+        })
+      }
+    })
+  },
 })

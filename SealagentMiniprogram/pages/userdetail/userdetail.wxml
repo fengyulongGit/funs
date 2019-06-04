@@ -1,4 +1,4 @@
-<view class='page'>
+<view>
   <view class='deault_item flex_box' style='height:70px;' bindtap="chooseImage">
     <view class='deault_item_title flex_item_auto'>头像</view>
     <image class="avatar" src="{{avatar}}" mode="cover"></image>

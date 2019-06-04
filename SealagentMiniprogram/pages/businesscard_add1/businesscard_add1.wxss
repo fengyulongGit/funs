@@ -1,0 +1,29 @@
+.title{
+  letter-spacing: 0.08px;
+  color: #333;
+  font-size: 24px;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.desc{
+  letter-spacing: 0.08px;
+  color: #333;
+  font-size: 15px;
+  margin-left: 30px;
+}
+
+.top-14{
+  margin-top: 14px;
+}
+
+.img_tips{
+  width: 242px;
+  height: 190px;
+  margin-left: 30px;
+  margin-top: 48px;
+}
+
+.top-100{
+  margin-top: 100px;
+}

@@ -1,0 +1,53 @@
+page {
+  background-color: #f5f5f5;
+}
+
+.content {
+  width: calc(100vw - 48px);
+  height: auto;
+  margin: 65px 0 0 24px;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(181, 181, 181, 0.5);
+}
+
+.title {
+  letter-spacing: 0.07px;
+  font-size: 20px;
+  color: #333;
+  margin: 30px 0 0 20px;
+}
+
+.input {
+  width: calc(100vw - 48x - 44px);
+  height: 22px;
+  margin: 10px 22px 0 22px;
+  line-height: 22px;
+  font-size: 16px;
+  padding: 0px;
+  color: #666;
+  letter-spacing: 0.06px;
+}
+
+.input_placeholder {
+  font-size: 16px;
+  color: #ccc;
+  padding: 0px;
+  letter-spacing: 0.06px;
+}
+
+.splite_line_width {
+  width: calc(100vw - 48px - 32px);
+  margin-left: 16px;
+}
+
+.top-100{
+  margin-top: 100px;
+}
+
+.tips{
+  color: #ff9a08;
+  font-size: 14px;
+  margin-top: 19px;
+  text-align: center;
+  width: 100%;
+}

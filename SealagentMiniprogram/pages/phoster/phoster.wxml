@@ -1,7 +1,7 @@
 <wxs module="color_filter" src="../../static/utils/ColorUtils.wxs" />
 <wxs module="schema_filter" src="../../static/utils/SchemaUtils.wxs" />
 
-<view class="page">
+<view>
   <view style='height:20px;'></view>
   <!-- schema布局 -->
   <view class='content'>
