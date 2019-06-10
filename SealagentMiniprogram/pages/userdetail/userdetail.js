@@ -74,7 +74,7 @@ Page({
     })
   },
   nickname: function(e) {
-    const nickname = this.data.nicknam
+    const nickname = this.data.nickname
     wx.navigateTo({
       url: '../userdetail_nickname/userdetail_nickname?nickname=' + nickname,
     })

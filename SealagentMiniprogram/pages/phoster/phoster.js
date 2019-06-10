@@ -103,6 +103,16 @@ Page({
     }
   },
   initSchema() {
+    if (app.isLogined()) {
+      //获取名片信息
+      network.adduserhistory({
+        params: {
+          "template_id": this.data.template_id,
+          "type":'1',
+        },
+      })
+    }
+
     const userBusinessCard = this.data.userBusinessCard
     if (!userBusinessCard) {
       return
