@@ -120,6 +120,9 @@ page {
   letter-spacing: 0.06px;
 }
 
+button{
+  background-color: transparent;
+}
 button::after{
   border: none;
   background-color: transparent;

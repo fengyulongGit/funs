@@ -4,3 +4,22 @@
   border-radius: 50%;
   background-color: #f5f5f5;
 }
+
+
+.btn_wechat_login {
+  width: 44px;
+  height: 44px;
+  background-size: 44px 44px;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 0;
+  border-radius: 0px;
+  background-color: transparent;
+  outline: none;
+}
+
+.btn_wechat_login_avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}

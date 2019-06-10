@@ -7,21 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     host_static: app.globalData.host_static,
     userDetail: null,
     avatar: '',
     nickname: '',
-    mobile: ''
+    mobile: '',
+    isShowWechat: false,
+    wechats: [],
   },
   onLoad: function(options) {
-
+    
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
     this.getuserdetail()
-
+    this.getuserwechatlist()
     const that = this
     if (app.globalData.imagecropper_result) {
       network.uploadFile({
@@ -43,7 +46,18 @@ Page({
       })
     }
   },
-  getuserdetail:function(){
+  getuserwechatlist:function(){
+    const that = this
+    network.getuserwechatlist({
+      success(data) {
+        that.setData({
+          isShowWechat: app.isLoginByMobile(),
+          wechats: data,
+        })
+      },
+    })
+  },
+  getuserdetail: function() {
     const that = this
 
     network.getuserdetail({
@@ -78,5 +92,45 @@ Page({
     wx.navigateTo({
       url: '../userdetail_nickname/userdetail_nickname?nickname=' + nickname,
     })
-  }
+  },
+  getUserInfo: function (e) {
+    const wechatInfo = e.detail
+
+    if (!wechatInfo || wechatInfo.length) {
+      return
+    }
+
+    const that = this
+    wx.login({
+      success(login) {
+        wx.getUserInfo({
+          success(userinfo) {
+            network.decryptminiprogram({
+              params: {
+                "js_code": login.code,
+                "encrypted_data": userinfo.encryptedData,
+                "iv": userinfo.iv
+              },
+              success(decryptminiprogram) {
+                network.wechatbind({
+                  params: {
+                    "open_id": decryptminiprogram.open_id,
+                    "union_id": decryptminiprogram.union_id
+                  },
+                  success(res) {
+                    that.getuserwechatlist()
+                  },
+                  fail(res) {
+                    if (res.code == -7) {
+                      that.getuserwechatlist()
+                    }
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    })
+  },
 })

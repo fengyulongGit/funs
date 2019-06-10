@@ -132,10 +132,10 @@ App({
     wx.setStorageSync('token', token)
   },
   isLoginByMobile: function() {
-    return this.globalData.token.mobileUser.token
+    return !!this.globalData.token.mobileUser.token
   },
   isLoginByWechat: function() {
-    return this.globalData.token.wechatUser.token
+    return !!this.globalData.token.wechatUser.token
   },
   logout: function() {
     const token = {

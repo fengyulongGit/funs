@@ -291,6 +291,17 @@ var request = {
 
     this.request(options)
   },
+  getuserwechatlist: function (options) {
+    options = options || {}
+    options.url = "v1/user/getuserwechatlist"
+
+    let params = options.params || {}
+    params.user_id = app.getUser_id()
+    params.token = app.getToken()
+    options.params = params
+
+    this.request(options)
+  },
   wechatbind: function(options) {
     options = options || {}
     options.url = "v1/user/wechatbind"

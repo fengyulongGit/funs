@@ -19,4 +19,19 @@
       {{mobile ? mobile : "未绑定"}}
     </view>
   </view>
+  <view class='splite_line_l20'></view>
+
+  <view wx:if='{{isShowWechat}}' class='deault_item flex_box'>
+    <view class='deault_item_title'>微信号</view>
+    <view class='flex_item_auto'>
+    </view>
+    <block wx:if='{{wechats && wechats.length}}'>
+      <view class='deault_item_value'>
+        已绑定
+      </view>
+    </block>
+    <block wx:else>
+      <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='deault_item_value' style='padding:0px;'>未绑定</button>
+    </block>
+  </view>
 </view>
