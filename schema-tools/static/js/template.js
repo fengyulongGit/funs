@@ -590,7 +590,7 @@ function genText(mode, value, index) {
 
 function genText4Color(mode, value, index) {
     if (mode.indexOf('rgb') >= 0) {
-        value = value.toString(16).toUpperCase()
+        value = color_filter.rgbToHex(value)
     } else if (mode.indexOf('alpha') >= 0) {
         value = (value / 255).toFixed(2)
     }

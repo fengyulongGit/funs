@@ -129,6 +129,10 @@ let color_filter = {
         if (rgb == 0) {
             return "000000"
         }
-        return rgb.toString(16)
+        var color = rgb.toString(16).toUpperCase() + ''
+        while (color.length < 6) {
+            color = '0' + color
+        }
+        return color
     }
 }
