@@ -58,6 +58,13 @@ public class MainFragment extends BaseFragment {
                 start(PhoneFragment.newInstance());
             }
         }));
+
+        adapter.add(new MainAdapter.Item("GIF( ", "optimize", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(GifOptimizeFragment.newInstance());
+            }
+        }));
     }
 
     @Override

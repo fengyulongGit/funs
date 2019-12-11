@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.os.Build;
@@ -494,4 +495,16 @@ public class BitmapUtils {
         return bitmap.getRowBytes() * bitmap.getHeight();//earlier version
     }
 
+    public static Bitmap zoom(Bitmap bitmap, int maxWidth, int maxHeight) {
+        if (bitmap == null) {
+            return bitmap;
+        }
+
+        float scaleWidth = 1.0f * maxWidth / bitmap.getWidth();
+        float scaleHeight = 1.0f * maxHeight / bitmap.getHeight();
+        float scale = scaleWidth > scaleHeight ? scaleHeight : scaleWidth;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
 }
