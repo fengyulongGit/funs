@@ -1,0 +1,10 @@
+.scale_origin_left_top {
+    background-color: #D8D8D8;
+    transform-origin: left top;
+}
+
+.schema_item_absolute {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
