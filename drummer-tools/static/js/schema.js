@@ -2,7 +2,9 @@ function initSchemaView() {
     const default_dir = $("#default_dir").val()
     let htmlstr = ''
 
-    htmlstr += '<div class="scale_origin_left_top" style="width: ' + template.size.width + 'px;height: ' + template.size.height + 'px;transform: scale(0.2,0.2);">'
+    const scale = 1701 * 0.3 / template.size.width
+
+    htmlstr += '<div class="scale_origin_left_top" style="width: ' + template.size.width + 'px;height: ' + template.size.height + 'px;transform: scale(' + scale + ',' + scale + ');">'
 
     // childs
     const has_childs = template.childs && template.childs.length > 0
@@ -23,7 +25,7 @@ function initSchemaView() {
 
     // console.log(htmlstr)
 
-    $("#div_schema").width(template.size.width * 0.2).height(template.size.height * 0.2)
+    $("#div_schema").width(template.size.width * scale).height(template.size.height * scale)
     $("#div_schema").html(htmlstr)
 }
 
