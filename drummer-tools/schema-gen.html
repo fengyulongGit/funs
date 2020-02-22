@@ -62,6 +62,7 @@
 
     $(document).ready(function () {
         // alert(template.class)
+        $("#default_dir").val(localStorage.getItem("default_dir") || "/Users/island/dev/drummer/template/")
         initTemplate()
     })
 </script>

@@ -1,6 +1,6 @@
-const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1701,"height":2550},"background":{"class":"Audio","src":""},"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1701,"height":2550},"src":""},{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""},{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}]}'
+const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"background":{"class":"Audio","src":""},"age":0,"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":""},{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""},{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}]}'
 
-const image_str = '{"class":"Image","position":{"x":0,"y":0},"size":{"width":1701,"height":2550},"src":""}'
+const image_str = '{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":""}'
 
 const video_str = '{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}'
 
@@ -32,6 +32,12 @@ function initTemplate() {
 
     //操作按钮
     htmlstr += '</td><td class="td_width">' + genButton('template.background', has_background) + '</td></tr>'
+
+    //Age
+    htmlstr += '<tr><td class="td_width">age</td><td>'
+    htmlstr += genAge('template.age', template.age)
+    //操作按钮
+    htmlstr += '</td><td class="td_width"></td></tr>'
 
     //childs
     htmlstr += '<tr><td class="td_width">childs</td><td>'
@@ -89,6 +95,11 @@ function genButton(mode, checked, index) {
 
 function genButton4ChildsAdd(flag) {
     return '<input type="button" value="添加' + flag + '" mode="template.childs.child" style="width:100%;" flag="' + flag + '" onclick="addSchema(this)"/>'
+}
+
+function genAge(mode, value, index) {
+    index = index || 0
+    return '<select onchange="changeAge(this)" mode="' + mode + '" index="' + index + '" value="' + value + '"><option value="0" ' + (value == 0 ? 'selected="selected"' : '') + '>--未选择--</option><option value="1" ' + (value == 1 ? 'selected="selected"' : '') + '>4-6岁</option><option value="2" ' + (value == 2 ? 'selected="selected"' : '') + '>6-8岁</option><option value="3" ' + (value == 3 ? 'selected="selected"' : '') + '>8岁以上</option></select>'
 }
 
 function delSchema(e) {
@@ -167,6 +178,18 @@ function changeText(e) {
     gen()
 }
 
+function changeAge(e) {
+    const dom = $(e)
+    const mode = dom.attr("mode")
+    const index = dom.attr("index")
+    const age = dom.val()
+    if (mode == 'template.age') {
+        template.age = age
+    }
+
+    gen()
+}
+
 function gen() {
     let template_str = JSON.stringify(template)
     template_str = template_str.replace(/{}/g, 'null')
@@ -185,6 +208,9 @@ function playBackgroundAudio() {
     const has_background = template.background && Object.keys(template.background).length > 0
 
     if (!has_background) {
+        if (audioPlayer) {
+            audioPlayer.pause()
+        }
         return
     }
     let src = (template.background.src || '').trim()

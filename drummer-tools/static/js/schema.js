@@ -1,5 +1,6 @@
 function initSchemaView() {
     const default_dir = $("#default_dir").val()
+    localStorage.setItem("default_dir", default_dir)
     let htmlstr = ''
 
     const scale = 1701 * 0.3 / template.size.width
