@@ -1,10 +1,10 @@
-const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"background":{"class":"Audio","src":""},"age":0,"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":""},{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""},{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}]}'
+const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"background":null,"age":[1,2,3],"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":"resources/"},{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"},{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"}]}'
 
-const image_str = '{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":""}'
+const image_str = '{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":"resources/"}'
 
-const video_str = '{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}'
+const video_str = '{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"}'
 
-const audio_str = '{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":""}'
+const audio_str = '{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"}'
 
 const childs_str = '[' + image_str + ',' + video_str + ',' + audio_str + ']'
 
@@ -35,6 +35,10 @@ function initTemplate() {
 
     //Age
     htmlstr += '<tr><td class="td_width">age</td><td>'
+    template.age = template.age || [1, 2, 3]
+    if (Object.keys(template.age).length === 0) {
+        template.age = [1, 2, 3]
+    }
     htmlstr += genAge('template.age', template.age)
     //操作按钮
     htmlstr += '</td><td class="td_width"></td></tr>'
@@ -77,7 +81,6 @@ function initTemplate() {
     //操作按钮
     htmlstr += '</td><td class="td_width"><p>' + genButton('template.childs', has_childs) + '</p><p>' + genButton4ChildsAdd('Image') + '</p><p>' + genButton4ChildsAdd('Video') + '</p><p>' + genButton4ChildsAdd('Audio') + '</p></td></tr>'
 
-    // console.log(htmlstr)
     $("#table_scheam").html(htmlstr)
 
     gen()
@@ -99,7 +102,9 @@ function genButton4ChildsAdd(flag) {
 
 function genAge(mode, value, index) {
     index = index || 0
-    return '<select onchange="changeAge(this)" mode="' + mode + '" index="' + index + '" value="' + value + '"><option value="0" ' + (value == 0 ? 'selected="selected"' : '') + '>--未选择--</option><option value="1" ' + (value == 1 ? 'selected="selected"' : '') + '>4-6岁</option><option value="2" ' + (value == 2 ? 'selected="selected"' : '') + '>6-8岁</option><option value="3" ' + (value == 3 ? 'selected="selected"' : '') + '>8岁以上</option></select>'
+    return '4-6岁：<input id="template.age_1" type="checkbox" onchange="changeAge(this)" mode="' + mode + '" index="' + index + '" value="1" ' + (value && value.includes(1) ? 'checked' : '') + ' />'
+        + '&emsp;&emsp;6-8岁：<input id="template.age_2" type="checkbox" onchange="changeAge(this)" mode="' + mode + '" index="' + index + '" value="2" ' + (value && value.includes(2) ? 'checked' : '') + ' />'
+        + '&emsp;&emsp;8岁以上：<input id="template.age_3" type="checkbox" onchange="changeAge(this)" mode="' + mode + '" index="' + index + '" value="3" ' + (value && value.includes(3) ? 'checked' : '') + ' />'
 }
 
 function delSchema(e) {
@@ -147,7 +152,6 @@ function changeText(e) {
 
     } else if (mode.indexOf('src') >= 0) {
         const default_dir = $("#default_dir").val()
-        console.log(value)
         value = value.replace(default_dir, '')
     } else {
         value = Number(value)
@@ -183,8 +187,22 @@ function changeAge(e) {
     const mode = dom.attr("mode")
     const index = dom.attr("index")
     const age = dom.val()
+    const checked = dom.prop("checked")
+    console.log(checked)
     if (mode == 'template.age') {
-        template.age = age
+        template.age = template.age || []
+        if (checked) {
+            template.age.push(Number(age))
+        } else {
+            template.age.remove(Number(age))
+        }
+
+        template.age = template.age || []
+        if (Object.keys(template.age).length === 0) {
+            template.age = [1, 2, 3]
+
+            $("input:checkbox[id^='template.age_']").prop("checked", true)
+        }
     }
 
     gen()
@@ -227,3 +245,10 @@ function playBackgroundAudio() {
         }
     }
 }
+
+Array.prototype.remove = function (val) {
+    const index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};

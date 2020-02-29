@@ -24,8 +24,6 @@ function initSchemaView() {
 
     htmlstr += '</div>'
 
-    // console.log(htmlstr)
-
     $("#div_schema").width(template.size.width * scale).height(template.size.height * scale)
     $("#div_schema").html(htmlstr)
 }
