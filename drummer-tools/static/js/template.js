@@ -188,13 +188,12 @@ function changeAge(e) {
     const index = dom.attr("index")
     const age = dom.val()
     const checked = dom.prop("checked")
-    console.log(checked)
     if (mode == 'template.age') {
         template.age = template.age || []
         if (checked) {
             template.age.push(Number(age))
         } else {
-            template.age.remove(Number(age))
+            remove(template.age, Number(age))
         }
 
         template.age = template.age || []
@@ -246,9 +245,9 @@ function playBackgroundAudio() {
     }
 }
 
-Array.prototype.remove = function (val) {
-    const index = this.indexOf(val);
+function remove(array, val) {
+    const index = array.indexOf(val);
     if (index > -1) {
-        this.splice(index, 1);
+        array.splice(index, 1);
     }
 };
