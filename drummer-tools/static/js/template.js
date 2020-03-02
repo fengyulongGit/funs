@@ -1,4 +1,4 @@
-const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"background":null,"age":[1,2,3],"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":"resources/"},{"class":"Video","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"},{"class":"Audio","position":{"x":0,"y":0},"size":{"width":0,"height":0},"src":"resources/"}]}'
+const template_str = '{"class":"Template","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"background":null,"age":[1,2,3],"childs":[{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":"resources/"}]}'
 
 const image_str = '{"class":"Image","position":{"x":0,"y":0},"size":{"width":1920,"height":1080},"src":"resources/"}'
 
