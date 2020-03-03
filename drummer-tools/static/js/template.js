@@ -93,7 +93,7 @@ function genText(mode, value, index) {
 
 function genButton(mode, checked, index) {
     index = index || 0
-    return '<input type="button" value="' + (checked ? '删除' : '添加') + '" mode="' + mode + '" index="' + index + '" onclick="' + (checked ? 'delSchema(this)' : 'addSchema(this)') + '"/>'
+    return '<input type="button" style="width:100%;' + (checked ? 'background-color: #999999;' : '') + '" value="' + (checked ? '删除' : '添加') + '" mode="' + mode + '" index="' + index + '" onclick="' + (checked ? 'delSchema(this)' : 'addSchema(this)') + '"/>'
 }
 
 function genButton4ChildsAdd(flag) {

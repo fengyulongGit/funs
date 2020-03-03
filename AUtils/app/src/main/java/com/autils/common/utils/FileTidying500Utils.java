@@ -62,6 +62,6 @@ public class FileTidying500Utils {
     }
 
     public static void main(String[] args) {
-        tidying(new File("/Users/island/长大"));
+        tidying(new File("/Users/island/picture/长大"));
     }
 }

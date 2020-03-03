@@ -1,12 +1,17 @@
-const template_str = '[{"title":"","subtitle":"","image":null,"video":null,"audio":null}]'
+const template_str = '[{"title":"破冰","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"知识","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"示范","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"讲解","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"曲目","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"下课","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}]'
 
-const item_str = '{"title":"","subtitle":"","image":null,"video":null,"audio":null}'
+const item_str = '{"title":"","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}'
 
-const image_str = '{"width":1920,"height":1080,"src":"resources/"}'
+const data_item_str = '{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}'
 
-const video_str = '{"thumb":{"width":1920,"height":1080,"src":"resources/"},"src":"resources/","duration":0}'
+const video_str = '{"type":0,"src":"resources/"}'
 
-const audio_str = '{"src":"resources/","duration":0}'
+const audio_str = '{"type":1,"src":"resources/","duration":0}'
 
 let template = JSON.parse(template_str)
 
@@ -16,79 +21,101 @@ function initTemplate() {
 
     for (let i in template) {
         const item = template[i]
-        htmlstr += '<tr><td class="td_width">' + (Number(i) + 1) + '</td><td>'
-        htmlstr += '<p>title:&emsp;' + genText('template.title', item.title, i) + '</p>'
-        htmlstr += '<p>subtitle:&emsp;' + genText('template.subtitle', item.subtitle, i) + '</p>'
+        htmlstr += '<tr><td class="td_width">' + genText('template.title', item.title, i) + '</td><td>'
+        for (let j in item.data) {
+            const data = item.data[j]
 
-        let buttons = ''
-        const has_image = item.image && Object.keys(item.image).length > 0
-        if (has_image) {
-            htmlstr += '<p><table><tr><td class="td_width">Image:</td><td>'
-            htmlstr += '<p>width:&emsp;' + genText('template.image.width', item.image.width, i)
-            htmlstr += '&emsp;&emsp;height:&emsp;' + genText('template.image.height', item.image.height, i) + '</p>'
-            htmlstr += '<p>src:&emsp;' + genText('template.image.src', item.image.src, i) + '</p>'
-            htmlstr += '</td><td>' + genButton('Image', 'template.image', has_image, i) + '</td></tr></table></p>'
-        } else {
-            buttons += '<p>' + genButton('Image', 'template.image', has_image, i) + '</p>'
-        }
+            htmlstr += '<p><table><tr><td class="td_width">' + (Number(j) + 1) + '</td><td>'
+            htmlstr += '<p>二级标题:&emsp;' + genText('template.data.subtitle', data.subtitle, i + '_' + j, true) + '</p>'
+            htmlstr += '<p>环节流程:&emsp;' + genText('template.data.linkFlow', data.linkFlow, i + '_' + j, true) + '</p>'
 
-        const has_video = item.video && Object.keys(item.video).length > 0
-        if (has_video) {
-            htmlstr += '<p><table><tr><td class="td_width">Video:</td><td>'
-            htmlstr += '<p><table><tr></tr><td>Thumb:</td><td>'
-            htmlstr += '<p>width:&emsp;' + genText('template.video.thumb.width', item.video.thumb.width, i)
-            htmlstr += '&emsp;&emsp;height:&emsp;' + genText('template.video.thumb.height', item.video.thumb.height, i) + '</p>'
-            htmlstr += '<p>src:&emsp;' + genText('template.video.thumb.src', item.video.thumb.src, i) + '</p>'
+            // 伴奏音频
+            const has_accompany = data.accompany && Object.keys(data.accompany).length > 0
+            htmlstr += '<p><table><tr><td class="td_width">伴奏音频</td><td>'
+            if (has_accompany) {
+
+                htmlstr += '<p>src:&emsp;' + genText('template.data.accompany.src', data.accompany.src, i + '_' + j, true) + '</p>'
+                htmlstr += '<p>duration:&emsp;' + genText('template.data.accompany.duration', data.accompany.duration, i + '_' + j) + '&emsp;秒</p>'
+            }
+            htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.accompany', has_accompany, i + '_' + j) + '</td></tr></table></p>'
+
+            // 环节话术音频
+            htmlstr += '<p><table><tr><td class="td_width">环节话术音频</td><td>'
+            data.linkTalk = data.linkTalk || []
+            for (let k in data.linkTalk) {
+                const talk = data.linkTalk[k]
+                htmlstr += '<p><table><tr><td class="td_width">' + (talk.type == 0 ? '视频' : '音频') + (Number(k) + 1) + '</td><td>'
+                htmlstr += '<p>src:&emsp;' + genText('template.data.linkTalk.src', talk.src, i + '_' + j + '_' + k, true) + '</p>'
+                if (talk.type == 1) {
+                    htmlstr += '<p>时长:&emsp;' + genText('template.data.linkTalk.duration', talk.duration, i + '_' + j + '_' + k) + '&emsp;秒</p>'
+                }
+                htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.linkTalk', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
+            }
+            htmlstr += '<p>' + genButton('视频', 'template.data.linkTalk.video', false, i + '_' + j) + '&emsp;&emsp;' + genButton('音频', 'template.data.linkTalk.audio', false, i + '_' + j) + '<p>'
             htmlstr += '</td></tr></table></p>'
-            htmlstr += '<p>src:&emsp;' + genText('template.video.src', item.video.src, i) + '</p>'
-            htmlstr += '<p>duration:&emsp;' + genText('template.video.duration', item.video.duration, i) + '&emsp;秒</p>'
-            htmlstr += '</td><td>' + genButton('Video', 'template.video', has_video, i) + '</td></tr></table></p>'
-        } else {
-            buttons += '<p>' + genButton('Video', 'template.video', has_video, i) + '</p>'
+
+            // 环节话术音频
+            htmlstr += '<p><table><tr><td class="td_width">教学法话术音频</td><td>'
+            data.teachingTalk = data.teachingTalk || []
+            for (let k in data.teachingTalk) {
+                const talk = data.teachingTalk[k]
+                htmlstr += '<p><table><tr><td class="td_width">' + (talk.type == 0 ? '视频' : '音频') + (Number(k) + 1) + '</td><td>'
+                htmlstr += '<p>src:&emsp;' + genText('template.data.teachingTalk.src', talk.src, i + '_' + j + '_' + k, true) + '</p>'
+                if (talk.type == 1) {
+                    htmlstr += '<p>时长:&emsp;' + genText('template.data.teachingTalk.duration', talk.duration, i + '_' + j + '_' + k) + '&emsp;秒</p>'
+                }
+                htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.teachingTalk', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
+            }
+            htmlstr += '<p>' + genButton('视频', 'template.data.teachingTalk.video', false, i + '_' + j) + '&emsp;&emsp;' + genButton('音频', 'template.data.teachingTalk.audio', false, i + '_' + j) + '<p>'
+            htmlstr += '</td></tr></table></p>'
+
+            htmlstr += '<p>教学提示:&emsp;' + genText('template.data.desc', data.desc, i + '_' + j, true) + '</p>'
+
+            htmlstr += '</td><td class="td_width"><p>' + genButton('', 'template.data', true, i + '_' + j) + '</p></td></tr>'
+            htmlstr += '</table></p>'
         }
 
-        const has_audio = item.audio && Object.keys(item.audio).length > 0
-        if (has_audio) {
-            htmlstr += '<p><table><tr><td class="td_width">Audio:</td><td>'
-            htmlstr += '<p>src:&emsp;' + genText('template.audio.src', item.audio.src, i) + '</p>'
-            htmlstr += '<p>duration:&emsp;' + genText('template.audio.duration', item.audio.duration, i) + '&emsp;秒</p>'
-            htmlstr += '</td><td>' + genButton('Audio', 'template.audio', has_audio, i) + '</td></tr></table></p>'
-        } else {
-            buttons += '<p>' + genButton('Audio', 'template.audio', has_audio, i) + '</p>'
-        }
+        htmlstr += '<p class="td_width">' + genButton('', 'template.data', false, i) + '</p>'
         //操作按钮
-        htmlstr += '</td><td class="td_width"><p>' + genButton('', 'template.item', true, i) + '</p>' + buttons + '</td></tr>'
+        htmlstr += '</td><td class="td_width"><p>' + genButton('', 'template', true, i) + '</p></td></tr>'
     }
 
-    htmlstr += '<tr><td class="td_width">' + genButton('', 'template.item', false, 0) + '</td><td></td><td class="td_width"></td></tr>'
+    htmlstr += '<tr><td class="td_width">' + genButton('', 'template', false, 0) + '</td><td></td><td class="td_width"></td></tr>'
 
     $("#table_scheam").html(htmlstr)
 
     gen()
 }
 
-function genText(mode, value, index) {
+function genText(mode, value, index, big) {
     index = index || 0
-    return '<input type="text" style="' + (mode.indexOf('title') >= 0 || mode.indexOf('subtitle') >= 0 || mode.indexOf('src') >= 0 ? 'width:300px;' : '') + '" mode="' + mode + '" index="' + index + '" value="' + value + '" onchange="changeText(this)" />'
+    big = big || false
+    return '<input type="text" style="' + (big ? 'width:80%;' : '') + '" mode="' + mode + '" index="' + index + '" value="' + value + '" onchange="changeText(this)" />'
 }
 
 function genButton(flag, mode, checked, index) {
     index = index || 0
-    return '<input type="button" style="width:100%;" value="' + (checked ? '删除' : '添加') + flag + '" mode="' + mode + '" index="' + index + '" onclick="' + (checked ? 'delSchema(this)' : 'addSchema(this)') + '"/>'
+    return '<input type="button" style="width:60px;' + (checked ? 'background-color: #999999;' : '') + '" value="' + (checked ? '删除' : '添加') + flag + '" mode="' + mode + '" index="' + index + '" onclick="' + (checked ? 'delSchema(this)' : 'addSchema(this)') + '"/>'
 }
 
 function delSchema(e) {
     const dom = $(e)
     const mode = dom.attr("mode")
     const index = dom.attr("index")
-    if (mode == 'template.image') {
-        template[index].image = null
-    } else if (mode == 'template.video') {
-        template[index].video = null
-    } else if (mode == 'template.audio') {
-        template[index].audio = null
-    } else if (mode == 'template.item') {
+    if (mode == 'template') {
         template.splice(index, 1)
+    } else if (mode == 'template.data') {
+        const positions = index.split("_")
+        template[positions[0]].data.splice(positions[1], 1)
+    } else if (mode == 'template.data.accompany') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].accompany = null
+    } else if (mode == 'template.data.linkTalk') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkTalk.splice(positions[2], 1)
+    } else if (mode == 'template.data.teachingTalk') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].teachingTalk.splice(positions[2], 1)
     }
     initTemplate()
 }
@@ -97,14 +124,26 @@ function addSchema(e) {
     const dom = $(e)
     const mode = dom.attr("mode")
     const index = dom.attr("index")
-    if (mode == 'template.image') {
-        template[index].image = JSON.parse(image_str)
-    } else if (mode == 'template.video') {
-        template[index].video = JSON.parse(video_str)
-    } else if (mode == 'template.audio') {
-        template[index].audio = JSON.parse(audio_str)
-    } else if (mode == 'template.item') {
+    if (mode == 'template') {
         template.push(JSON.parse(item_str))
+    } else if (mode == 'template.data') {
+        const positions = index.split("_")
+        template[positions[0]].data.push(JSON.parse(data_item_str))
+    } else if (mode == 'template.data.accompany') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].accompany = JSON.parse(audio_str)
+    } else if (mode == 'template.data.linkTalk.audio') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkTalk.push(JSON.parse(audio_str))
+    } else if (mode == 'template.data.linkTalk.video') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkTalk.push(JSON.parse(video_str))
+    } else if (mode == 'template.data.teachingTalk.audio') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].teachingTalk.push(JSON.parse(audio_str))
+    } else if (mode == 'template.data.teachingTalk.video') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].teachingTalk.push(JSON.parse(video_str))
     }
     initTemplate()
 }
@@ -119,31 +158,35 @@ function changeText(e) {
         const default_dir = $("#default_dir").val()
         value = value.replace(default_dir, '')
     }
-
     if ('template.title' == mode) {
         template[index].title = value
-    } else if ('template.subtitle' == mode) {
-        template[index].subtitle = value
-    } else if ('template.image.width' == mode) {
-        template[index].image.width = Number(value)
-    } else if ('template.image.height' == mode) {
-        template[index].image.height = Number(value)
-    } else if ('template.image.src' == mode) {
-        template[index].image.src = value
-    } else if ('template.video.thumb.width' == mode) {
-        template[index].video.thumb.width = Number(value)
-    } else if ('template.video.thumb.height' == mode) {
-        template[index].video.thumb.height = Number(value)
-    } else if ('template.video.thumb.src' == mode) {
-        template[index].video.thumb.src = value
-    } else if ('template.video.src' == mode) {
-        template[index].video.src = value
-    } else if ('template.video.duration' == mode) {
-        template[index].video.duration = Number(value)
-    } else if ('template.audio.src' == mode) {
-        template[index].audio.src = value
-    } else if ('template.audio.duration' == mode) {
-        template[index].audio.duration = Number(value)
+    } else if ('template.data.subtitle' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].subtitle = value
+    } else if ('template.data.linkFlow' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkFlow = value
+    } else if ('template.data.accompany.src' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].accompany.src = value
+    } else if ('template.data.accompany.duration' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].accompany.duration = Number(value)
+    } else if ('template.data.linkTalk.src' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkTalk[positions[2]].src = value
+    } else if ('template.data.linkTalk.duration' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkTalk[positions[2]].duration = Number(value)
+    } else if ('template.data.teachingTalk.src' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].teachingTalk[positions[2]].src = value
+    } else if ('template.data.teachingTalk.duration' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].teachingTalk[positions[2]].duration = Number(value)
+    } else if ('template.data.desc' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].desc = value
     }
 
     gen()
