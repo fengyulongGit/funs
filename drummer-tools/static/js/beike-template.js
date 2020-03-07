@@ -96,7 +96,7 @@ function genText(mode, value, index, width) {
 
 function genTextarea(mode, value, index) {
     index = index || 0
-    return '<textarea style="width: 100%;height: 100px;" mode="' + mode + '" index="' + index + '" value="' + value + '" onchange="changeText(this)" ></textarea>'
+    return '<textarea style="width: 100%;height: 100px;" mode="' + mode + '" index="' + index + '" onchange="changeText(this)" >' + value + '</textarea>'
 }
 
 function genButton(flag, mode, checked, index) {
