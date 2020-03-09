@@ -1,13 +1,13 @@
-const template_str = '[{"title":"破冰","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
-    '{"title":"知识","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
-    '{"title":"示范","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
-    '{"title":"讲解","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
-    '{"title":"曲目","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
-    '{"title":"下课","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}]'
+const template_str = '[{"title":"破冰","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"知识","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"示范","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"讲解","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"曲目","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]},' +
+    '{"title":"下课","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}]'
 
-const item_str = '{"title":"","data":[{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}'
+const item_str = '{"title":"","data":[{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}]}'
 
-const data_item_str = '{"subtitle":"","linkFlow":"","accompany":null,"linkTalk":null,"teachingTalk":null,"desc":""}'
+const data_item_str = '{"subtitle":"","linkFlow":"","accompany":null,"demoVideos":null,"linkTalk":null,"teachingTalk":null,"desc":""}'
 
 const video_str = '{"type":0,"src":"resources/"}'
 
@@ -31,14 +31,34 @@ function initTemplate() {
                 genButton4AddSplit('template.data.linkFlow', i + '_' + j) + '</p>'
 
             // 伴奏音频
-            const has_accompany = data.accompany && Object.keys(data.accompany).length > 0
             htmlstr += '<p><table><tr><td class="td_width">伴奏音频</td><td>'
-            if (has_accompany) {
-
-                htmlstr += '<p>src:&emsp;' + genText('template.data.accompany.src', data.accompany.src, i + '_' + j, 80) + '</p>'
-                htmlstr += '<p>duration:&emsp;' + genText('template.data.accompany.duration', data.accompany.duration, i + '_' + j) + '&emsp;秒</p>'
+            data.accompany = data.accompany || []
+            for (let k in data.accompany) {
+                const talk = data.accompany[k]
+                htmlstr += '<p><table><tr><td class="td_width">' + (talk.type == 0 ? '视频' : '音频') + (Number(k) + 1) + '</td><td>'
+                htmlstr += '<p>src:&emsp;' + genText('template.data.accompany.src', talk.src, i + '_' + j + '_' + k, 80) + '</p>'
+                if (talk.type == 1) {
+                    htmlstr += '<p>时长:&emsp;' + genText('template.data.accompany.duration', talk.duration, i + '_' + j + '_' + k) + '&emsp;秒</p>'
+                }
+                htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.accompany', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
             }
-            htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.accompany', has_accompany, i + '_' + j) + '</td></tr></table></p>'
+            htmlstr += '<p>' + genButton('音频', 'template.data.accompany.audio', false, i + '_' + j) + '<p>'
+            htmlstr += '</td></tr></table></p>'
+
+            // 示范视频
+            htmlstr += '<p><table><tr><td class="td_width">示范视频</td><td>'
+            data.demoVideos = data.demoVideos || []
+            for (let k in data.demoVideos) {
+                const talk = data.demoVideos[k]
+                htmlstr += '<p><table><tr><td class="td_width">' + (talk.type == 0 ? '视频' : '音频') + (Number(k) + 1) + '</td><td>'
+                htmlstr += '<p>src:&emsp;' + genText('template.data.demoVideos.src', talk.src, i + '_' + j + '_' + k, 80) + '</p>'
+                if (talk.type == 1) {
+                    htmlstr += '<p>时长:&emsp;' + genText('template.data.demoVideos.duration', talk.duration, i + '_' + j + '_' + k) + '&emsp;秒</p>'
+                }
+                htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.demoVideos', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
+            }
+            htmlstr += '<p>' + genButton('视频', 'template.data.demoVideos.video', false, i + '_' + j) + '<p>'
+            htmlstr += '</td></tr></table></p>'
 
             // 环节话术音频
             htmlstr += '<p><table><tr><td class="td_width">环节话术音频</td><td>'
@@ -52,7 +72,7 @@ function initTemplate() {
                 }
                 htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.linkTalk', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
             }
-            htmlstr += '<p>' + genButton('视频', 'template.data.linkTalk.video', false, i + '_' + j) + '&emsp;&emsp;' + genButton('音频', 'template.data.linkTalk.audio', false, i + '_' + j) + '<p>'
+            htmlstr += '<p>' + genButton('音频', 'template.data.linkTalk.audio', false, i + '_' + j) + '<p>'
             htmlstr += '</td></tr></table></p>'
 
             // 环节话术音频
@@ -67,7 +87,7 @@ function initTemplate() {
                 }
                 htmlstr += '</td><td class="td_width">' + genButton('', 'template.data.teachingTalk', true, i + '_' + j + '_' + k) + '</td></tr></table></p>'
             }
-            htmlstr += '<p>' + genButton('视频', 'template.data.teachingTalk.video', false, i + '_' + j) + '&emsp;&emsp;' + genButton('音频', 'template.data.teachingTalk.audio', false, i + '_' + j) + '<p>'
+            htmlstr += '<p>' + genButton('音频', 'template.data.teachingTalk.audio', false, i + '_' + j) + '<p>'
             htmlstr += '</td></tr></table></p>'
 
             htmlstr += '<p>教学提示:&emsp;<span style="color: #D12F19;">(支持回车换行)</span>' + genTextarea('template.data.desc', data.desc, i + '_' + j) + '</p>'
@@ -120,7 +140,10 @@ function delSchema(e) {
         template[positions[0]].data.splice(positions[1], 1)
     } else if (mode == 'template.data.accompany') {
         const positions = index.split("_")
-        template[positions[0]].data[positions[1]].accompany = null
+        template[positions[0]].data[positions[1]].accompany.splice(positions[2], 1)
+    } else if (mode == 'template.data.demoVideos') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].demoVideos.splice(positions[2], 1)
     } else if (mode == 'template.data.linkTalk') {
         const positions = index.split("_")
         template[positions[0]].data[positions[1]].linkTalk.splice(positions[2], 1)
@@ -140,9 +163,18 @@ function addSchema(e) {
     } else if (mode == 'template.data') {
         const positions = index.split("_")
         template[positions[0]].data.push(JSON.parse(data_item_str))
-    } else if (mode == 'template.data.accompany') {
+    } else if (mode == 'template.data.accompany.audio') {
         const positions = index.split("_")
-        template[positions[0]].data[positions[1]].accompany = JSON.parse(audio_str)
+        template[positions[0]].data[positions[1]].accompany.push(JSON.parse(audio_str))
+    } else if (mode == 'template.data.accompany.video') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].accompany.push(JSON.parse(video_str))
+    } else if (mode == 'template.data.demoVideos.audio') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].demoVideos.push(JSON.parse(audio_str))
+    } else if (mode == 'template.data.demoVideos.video') {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].demoVideos.push(JSON.parse(video_str))
     } else if (mode == 'template.data.linkTalk.audio') {
         const positions = index.split("_")
         template[positions[0]].data[positions[1]].linkTalk.push(JSON.parse(audio_str))
@@ -179,10 +211,16 @@ function changeText(e) {
         template[positions[0]].data[positions[1]].linkFlow = value
     } else if ('template.data.accompany.src' == mode) {
         const positions = index.split("_")
-        template[positions[0]].data[positions[1]].accompany.src = value
+        template[positions[0]].data[positions[1]].accompany[positions[2]].src = value
     } else if ('template.data.accompany.duration' == mode) {
         const positions = index.split("_")
-        template[positions[0]].data[positions[1]].accompany.duration = Number(value)
+        template[positions[0]].data[positions[1]].accompany[positions[2]].duration = Number(value)
+    } else if ('template.data.demoVideos.src' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].demoVideos[positions[2]].src = value
+    } else if ('template.data.demoVideos.duration' == mode) {
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].demoVideos[positions[2]].duration = Number(value)
     } else if ('template.data.linkTalk.src' == mode) {
         const positions = index.split("_")
         template[positions[0]].data[positions[1]].linkTalk[positions[2]].src = value
@@ -209,15 +247,11 @@ function addSplit(e) {
     const index = dom.attr("index")
     const split = '@drummer@'
     if ('template.data.linkFlow' == mode) {
-        // const positions = index.split("_")
-        // template[positions[0]].data[positions[1]].linkFlow += split
-
-        const textDom = $(('#text_' + mode + '_' + index).replace(/\./g, '_'))
-        textDom.val(textDom.val() + split).trigger('change')
-        // textDom.change()
+        const positions = index.split("_")
+        template[positions[0]].data[positions[1]].linkFlow += split
     }
 
-    // gen()
+    initTemplate()
 }
 
 function gen() {
